@@ -1,0 +1,10 @@
+{
+  "from": "441134960000",
+  "to": "441134960001",
+  "messageId": "a28dd97c-1ffb-4fcf-99f1-0b557ed381da",
+  "content": {
+    "mediaUrl": "http://example.com/document"
+  },
+  "callbackData": "Callback data",
+  "notifyUrl": "https://www.example.com/whatsapp"
+}

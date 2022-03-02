@@ -10,9 +10,9 @@ namespace Infobip.Api.SDK
     {
         public InfobipApiClient(HttpClient client)
         {
-            WhatsApp = new WhatsApp.WhatsAppClient(client);
-            Rcs = new RCS.RcsClient(client);
-            WebRtc = new WebRtc.WebRtcClient(client);
+            WhatsApp = new WhatsAppClient(client);
+            Rcs = new Rcs(client);
+            WebRtc = new WebRtcClient(client);
         }
 
         /// <inheritdoc />

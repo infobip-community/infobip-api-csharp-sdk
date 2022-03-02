@@ -8,15 +8,17 @@ using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.RCS
 {
-    internal class RcsClient : IRcs
+    /// <inheritdoc />
+    internal class Rcs : IRcs
     {
         private readonly HttpClient _client;
 
-        public RcsClient(HttpClient client)
+        public Rcs(HttpClient client)
         {
             _client = client;
         }
 
+        /// <inheritdoc />
         public async Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload, CancellationToken cancellationToken)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
@@ -37,6 +39,7 @@ namespace Infobip.Api.SDK.RCS
             }
         }
 
+        /// <inheritdoc />
         public async Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload, CancellationToken cancellationToken)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.WebRtc
 {
+    /// <inheritdoc />
     internal class WebRtcClient : IWebRtc
     {
         private readonly HttpClient _client;
@@ -18,7 +19,8 @@ namespace Infobip.Api.SDK.WebRtc
             _client = client;
         }
 
-        public async Task<WebRtcTokenResponse> GenerateWebRtcToken(WebRtcTokenRequest requestPayload, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task<WebRtcTokenResponse> GenerateWebRtcToken(WebRtcTokenRequest requestPayload, CancellationToken cancellationToken = default)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
@@ -38,7 +40,8 @@ namespace Infobip.Api.SDK.WebRtc
             }
         }
 
-        public async Task<List<WebRtcApplicationResponse>> GetWebRtcApplications(CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task<List<WebRtcApplicationResponse>> GetWebRtcApplications(CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, "webrtc/1/applications"))
             {
@@ -54,7 +57,8 @@ namespace Infobip.Api.SDK.WebRtc
             }
         }
 
-        public async Task<WebRtcApplicationResponse> SaveWebRtcApplication(WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task<WebRtcApplicationResponse> SaveWebRtcApplication(WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken = default)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
@@ -74,7 +78,8 @@ namespace Infobip.Api.SDK.WebRtc
             }
         }
 
-        public async Task<WebRtcApplicationResponse> GetWebRtcApplication(string id, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task<WebRtcApplicationResponse> GetWebRtcApplication(string id, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"webrtc/1/applications/{id}"))
             {
@@ -90,7 +95,8 @@ namespace Infobip.Api.SDK.WebRtc
             }
         }
 
-        public async Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken = default)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
@@ -110,7 +116,8 @@ namespace Infobip.Api.SDK.WebRtc
             }
         }
 
-        public async Task DeleteWebRtcApplication(string id, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public async Task DeleteWebRtcApplication(string id, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Delete, $"webrtc/1/applications/{id}"))
             {

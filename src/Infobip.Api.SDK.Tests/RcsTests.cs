@@ -21,7 +21,6 @@ namespace Infobip.Api.SDK.Tests
         public async Task SendRcsMessage_Call_ExpectsSuccess()
         {
             // Arrange
-            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
             var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
@@ -30,7 +29,7 @@ namespace Infobip.Api.SDK.Tests
             var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
 
             // Act
-            var response = await apiClient.Rcs.SendRcsMessage(request, cts.Token);
+            var response = await apiClient.Rcs.SendRcsMessage(request);
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);
@@ -40,7 +39,6 @@ namespace Infobip.Api.SDK.Tests
         public async Task SendBulkRcsMessages_Call_ExpectsSuccess()
         {
             // Arrange
-            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/Rcs/SendBulkRcsMessagesSuccess.json";
             var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
@@ -53,7 +51,7 @@ namespace Infobip.Api.SDK.Tests
             var request = new SendRscBulkMessagesRequest(messages);
 
             // Act
-            var response = await apiClient.Rcs.SendBulkRcsMessages(request, cts.Token);
+            var response = await apiClient.Rcs.SendBulkRcsMessages(request);
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);

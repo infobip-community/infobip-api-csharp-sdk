@@ -43,11 +43,11 @@ namespace Infobip.Api.SDK.Example
         private static async Task MakeApiCallExample(IInfobipApiClient infobipClient)
         {
             // WebRtc.GetWebRtcApplications
-            var getWebRtcApplicationsResponse = await infobipClient.WebRtc.GetWebRtcApplications(CancellationToken.None);
+            var getWebRtcApplicationsResponse = await infobipClient.WebRtc.GetWebRtcApplications();
             getWebRtcApplicationsResponse.DumpToConsole("getWebRtcApplicationsResponse");
 
             // WebRtc.GenerateWebRtcToken
-            var generateWebRtcTokenResponse = await infobipClient.WebRtc.GenerateWebRtcToken(new WebRtcTokenRequest("MyIdentity", getWebRtcApplicationsResponse.FirstOrDefault()?.Id ?? Guid.NewGuid().ToString()), CancellationToken.None);
+            var generateWebRtcTokenResponse = await infobipClient.WebRtc.GenerateWebRtcToken(new WebRtcTokenRequest("MyIdentity", getWebRtcApplicationsResponse.FirstOrDefault()?.Id ?? Guid.NewGuid().ToString()));
             generateWebRtcTokenResponse.DumpToConsole("generateWebRtcTokenResponse");
 
             // WhatsApp.SendWhatsAppTextMessage

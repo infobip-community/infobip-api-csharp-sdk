@@ -18,7 +18,7 @@ namespace Infobip.Api.SDK.RCS
         /// <param name="requestPayload">Request payload</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.See <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="RcsMessageResponse"/>.</returns>
-        Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload, CancellationToken cancellationToken);
+        Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Send bulk RCS message
@@ -29,6 +29,6 @@ namespace Infobip.Api.SDK.RCS
         /// <param name="requestPayload">Request payload</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.See <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="RcsMessageResponse"/>.</returns>
-        Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload, CancellationToken cancellationToken);
+        Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload, CancellationToken cancellationToken = default);
     }
 }

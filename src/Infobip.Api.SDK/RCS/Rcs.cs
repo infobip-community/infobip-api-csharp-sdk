@@ -19,7 +19,7 @@ namespace Infobip.Api.SDK.RCS
         }
 
         /// <inheritdoc />
-        public async Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload, CancellationToken cancellationToken)
+        public async Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload, CancellationToken cancellationToken = default)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
@@ -40,7 +40,7 @@ namespace Infobip.Api.SDK.RCS
         }
 
         /// <inheritdoc />
-        public async Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload, CancellationToken cancellationToken)
+        public async Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload, CancellationToken cancellationToken = default)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 

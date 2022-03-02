@@ -7,7 +7,7 @@ This is a C# SDK for Infobip API and you can use it as a dependency to add [Info
 - [General Info](#general-info)
 - [License](#license)
 - [Installation](#installation)
-- [Basic usage](#basic-usage)
+- [Usage Example](#usage-example)
 - [Documentation](#documentation)
 - [Development](#development)
 
@@ -34,9 +34,43 @@ Or via the .NET Core command line interface:
 
 Either commands, from Package Manager Console or .NET Core CLI, will download and install Infobip API C# SDK and all required dependencies.
 
-## Basic Usage
+## Usage Example
 
-TODO
+If you are using ASP.NET Core, .NET Core (or .NET in general) _Infobip API C# SDK_ provides extension method `IServiceCollection.AddInfobipClient(Configuration)` which is used to register all needed services needed for a client to work
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+  services.AddInfobipClient(Configuration);
+}
+```
+
+After this, you just simply _inject_ `IInfobipApiClient` into your _service_ class and use it to invoke API endpoints.
+
+```csharp
+public class MyWhatsAppService
+{
+    private readonly IInfobipApiClient _infobipApiClient;
+
+    public MyWhatsAppService(IInfobipApiClient infobipApiClient)
+    {
+        _infobipApiClient = infobipApiClient;
+    }
+
+    public async Task<WhatsAppSingleMessageInfoResponse> SendTextMessage(string from,
+        string to,
+        string message,
+        CancellationToken cancellationToken)
+    {
+        var request = new WhatsAppTextMessageRequest(from, to,
+            Guid.NewGuid().ToString(),
+            new WhatsAppTextContent(message));
+
+        return await _infobipApiClient.WhatsApp.SendWhatsAppTextMessage(request,
+            cancellationToken);
+    }
+}
+```
 
 ## Documentation
 

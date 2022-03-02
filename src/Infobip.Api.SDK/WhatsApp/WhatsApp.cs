@@ -281,7 +281,7 @@ namespace Infobip.Api.SDK.WhatsApp
 
 
         // Receive WhatsApp Message
-        public async Task<Stream> DownloadWhatsAppInboundMedia(string sender, string mediaId, CancellationToken cancellationToken)
+        public async Task<Stream> DownloadWhatsAppInboundMedia(string sender, string mediaId, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/media/{mediaId}"))
             {
@@ -296,7 +296,7 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
-        public async Task<string> GetWhatsAppMediaMetadata(string sender, string mediaId, CancellationToken cancellationToken)
+        public async Task<string> GetWhatsAppMediaMetadata(string sender, string mediaId, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Head, $"whatsapp/1/senders/{sender}/media/{mediaId}"))
             {
@@ -311,7 +311,7 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
-        public async Task MarkWhatsAppMessageAsRead(string sender, string messageId, CancellationToken cancellationToken)
+        public async Task MarkWhatsAppMessageAsRead(string sender, string messageId, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Post, $"whatsapp/1/senders/{sender}/message/{messageId}/read"))
             {
@@ -325,7 +325,7 @@ namespace Infobip.Api.SDK.WhatsApp
         }
 
         // Manage WhatsApp
-        public async Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsAppTemplates(string sender, CancellationToken cancellationToken)
+        public async Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsAppTemplates(string sender, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/templates"))
             {
@@ -341,7 +341,7 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
-        public async Task<WhatsAppTemplateManagementTemplateResponse> CreateWhatsAppTemplate(string sender, WhatsAppTemplateManagementTemplateRequest requestPayload, CancellationToken cancellationToken)
+        public async Task<WhatsAppTemplateManagementTemplateResponse> CreateWhatsAppTemplate(string sender, WhatsAppTemplateManagementTemplateRequest requestPayload, CancellationToken cancellationToken = default)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
@@ -361,7 +361,7 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
-        public async Task<string> DeleteWhatsAppMedia(string sender, DeleteWhatsAppMediaRequest requestPayload, CancellationToken cancellationToken)
+        public async Task<string> DeleteWhatsAppMedia(string sender, DeleteWhatsAppMediaRequest requestPayload, CancellationToken cancellationToken = default)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 

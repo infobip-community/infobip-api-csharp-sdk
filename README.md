@@ -4,41 +4,43 @@ This is a C# SDK for Infobip API and you can use it as a dependency to add [Info
 
 #### Table of contents:
 
-- [Documentation](#documentation)
 - [General Info](#general-info)
 - [License](#license)
-- [Compatibility](#compatibility)
 - [Installation](#installation)
+- [Basic usage](#basic-usage)
+- [Documentation](#documentation)
 - [Development](#development)
-
-## Documentation
-
-Infobip API Documentation can be found [here][apidocs].
-
-The documentation for using the Infobip API C# SDK package can be found [here](DOCUMENTATION.md).
 
 ## General Info
 
 For _Infobip API C# SDK_ versioning we use [Semantic Versioning][semver] scheme.
 
+This library is targeting **.NET Standard 2.0**. When a library is built against a certain version of .NET Standard, it can run on any .NET implementation that implements that version of .NET Standard (or higher)
+
 ## License
 
-Published under [MIT License](LICENSE).
-
-## Compatibility
+Published under [MIT License](license).
 
 ## Installation
 
 To start using the _Infobip API C# SDK_ library add it as dependency to your project.
-You should install [Infobip API C# SDK](https://www.nuget.org/packages/InfobipApiClient):
+You should install [Infobip API C# SDK](https://www.nuget.org/packages/Infobip.Api.SDK):
 
-    Install-Package InfobipApiClient
+    Install-Package Infobip.Api.SDK
 
 Or via the .NET Core command line interface:
 
-    dotnet add package InfobipApiClient
+    dotnet add package Infobip.Api.SDK
 
 Either commands, from Package Manager Console or .NET Core CLI, will download and install Infobip API C# SDK and all required dependencies.
+
+## Basic Usage
+
+TODO
+
+## Documentation
+
+Infobip API Documentation can be found [here][apidocs].
 
 ## Development
 

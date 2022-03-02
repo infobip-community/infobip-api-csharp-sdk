@@ -1,105 +1,125 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
+using Infobip.Api.Client.Extensions;
 using Infobip.Api.Client.WebRtc.Models;
-using RestSharp;
+using Newtonsoft.Json;
 
 namespace Infobip.Api.Client.WebRtc
 {
-    internal class WebRtc : IWebRtc
+    internal class WebRtcClient : IWebRtc
     {
-        private readonly IRestClient _client;
+        private readonly HttpClient _client;
 
-        public WebRtc(IRestClient client)
+        public WebRtcClient(HttpClient client)
         {
             _client = client;
         }
 
-        public async Task<WebRtcTokenResponse> GenerateWebRtcToken(WebRtcTokenRequest requestPayload)
+        public async Task<WebRtcTokenResponse> GenerateWebRtcToken(WebRtcTokenRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("webrtc/1/token", Method.POST);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WebRtcTokenResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "webrtc/1/token"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WebRtcTokenResponse>();
+                }
+            }
         }
 
-        public async Task<List<WebRtcApplicationResponse>> GetWebRtcApplications()
+        public async Task<List<WebRtcApplicationResponse>> GetWebRtcApplications(CancellationToken cancellationToken)
         {
-            var request = new RestRequest("webrtc/1/applications", Method.GET);
-
-            var result = await _client.ExecuteAsync<List<WebRtcApplicationResponse>>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Get, "webrtc/1/applications"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<List<WebRtcApplicationResponse>>();
+                }
+            }
         }
 
-        public async Task<WebRtcApplicationResponse> SaveWebRtcApplication(WebRtcApplicationRequest requestPayload)
+        public async Task<WebRtcApplicationResponse> SaveWebRtcApplication(WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("webrtc/1/applications", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WebRtcApplicationResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "webrtc/1/applications"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WebRtcApplicationResponse>();
+                }
+            }
         }
 
-        public async Task<WebRtcApplicationResponse> GetWebRtcApplication(string id)
+        public async Task<WebRtcApplicationResponse> GetWebRtcApplication(string id, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("webrtc/1/applications/{id}", Method.GET);
-            request.AddOrUpdateParameter("id", id);
-
-            var result = await _client.ExecuteAsync<WebRtcApplicationResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"webrtc/1/applications/{id}"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WebRtcApplicationResponse>();
+                }
+            }
         }
 
-        public async Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload)
+        public async Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("webrtc/1/applications/{id}", Method.PUT);
-            request.AddOrUpdateParameter("id", id);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WebRtcApplicationResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Put, $"webrtc/1/applications/{id}"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WebRtcApplicationResponse>();
+                }
+            }
         }
 
-        public async Task DeleteWebRtcApplication(string id)
+        public async Task DeleteWebRtcApplication(string id, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("webrtc/1/applications/{id}", Method.DELETE);
-            request.AddOrUpdateParameter("id", id);
-
-            var result = await _client.ExecuteAsync(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Delete, $"webrtc/1/applications/{id}"))
             {
-                throw new Exception(result.Content);
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+                }
             }
         }
     }

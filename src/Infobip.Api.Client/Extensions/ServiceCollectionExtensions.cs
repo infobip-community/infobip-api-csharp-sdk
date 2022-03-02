@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Net.Http.Headers;
+using System.Threading;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestSharp;
-using System;
-using RestSharp.Serializers.NewtonsoftJson;
 
 namespace Infobip.Api.Client.Extensions
 {
@@ -18,37 +18,32 @@ namespace Infobip.Api.Client.Extensions
 
             if (string.IsNullOrWhiteSpace(apiKey))
             {
-                throw new ArgumentNullException(nameof(apiBaseUrl),
+                throw new ArgumentNullException("ApiKey",
                     "Specify API Key in configuration section 'Infobip:ApiKey'.");
             }
 
             if (string.IsNullOrWhiteSpace(apiBaseUrl))
             {
-                throw new ArgumentNullException(nameof(apiBaseUrl),
+                throw new ArgumentNullException("ApiBaseUrl",
                     "Specify API Base Url in configuration section 'Infobip:ApiBaseUrl'.");
             }
 
             if (!timeoutParsed)
             {
-                throw new ArgumentNullException(nameof(apiBaseUrl),
+                throw new ArgumentNullException("Timeout",
                     "Specify Timeout valid value in configuration section 'Infobip:Timeout'.");
             }
 
             return
                 services
-                    .AddSingleton<IRestClient, RestClient>(provider =>
+                    .AddHttpClient<IInfobipApiClient, InfobipApiClient>(client =>
                     {
-                        var client = new RestClient(new Uri(apiBaseUrl))
-                        {
-                            Authenticator = new InfobipAppKeyAuthenticator(apiKey),
-                            Timeout = timeout
-                        };
-
-                        client.UseNewtonsoftJson();
-
-                        return client;
+                        client.BaseAddress = new Uri(apiBaseUrl);
+                        client.Timeout = timeout == 0 ? Timeout.InfiniteTimeSpan : TimeSpan.FromSeconds(timeout);
+                        client.DefaultRequestHeaders.Authorization =
+                            new AuthenticationHeaderValue("App", apiKey);
                     })
-                    .AddScoped<IInfobipApiClient, InfobipApiClient>();
+                    .Services;
         }
     }
 }

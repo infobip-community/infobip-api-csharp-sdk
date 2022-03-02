@@ -1,40 +1,49 @@
-using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Infobip.Api.Client.RCS.Models;
 using Xunit;
 
 namespace Infobip.Api.Client.Tests
 {
-    public class RcsTests : IClassFixture<MockedRestClientFixture>
-    {
-        private readonly MockedRestClientFixture _fixture;
+    public class RcsTests : IClassFixture<MockedHttpClientFixture>
 
-        public RcsTests(MockedRestClientFixture fixture)
+    {
+        private readonly MockedHttpClientFixture _clientFixture;
+
+        public RcsTests(MockedHttpClientFixture clientFixture)
         {
-            _fixture = fixture;
+            _clientFixture = clientFixture;
         }
 
         [Fact]
-        public void SendRcsMessage_Call_ExpectsSuccess()
+        public async Task SendRcsMessage_Call_ExpectsSuccess()
         {
+            // Arrange
+            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_fixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
-            var mockedResponse = _fixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
+            var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
             var content = new MessageTypeContent(MessageTypeContent.TypeEnum.TEXT);
             var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
-            var response = apiClient.Rcs.SendRcsMessage(request).Result;
 
+            // Act
+            var response = await apiClient.Rcs.SendRcsMessage(request, cts.Token);
+
+            // Assert
             mockedResponse.Should().BeEquivalentTo(response);
         }
 
         [Fact]
-        public void SendBulkRcsMessages_Call_ExpectsSuccess()
+        public async Task SendBulkRcsMessages_Call_ExpectsSuccess()
         {
+            // Arrange
+            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/Rcs/SendBulkRcsMessagesSuccess.json";
-            var apiClient = new InfobipApiClient(_fixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
-            var mockedResponse = _fixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
+            var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
             var content = new MessageTypeContent(MessageTypeContent.TypeEnum.TEXT);
             var messages = new List<SendRcsMessageRequest>
@@ -42,8 +51,11 @@ namespace Infobip.Api.Client.Tests
                 new("447860099299", "447860099300", content: content)
             };
             var request = new SendRscBulkMessagesRequest(messages);
-            var response = apiClient.Rcs.SendBulkRcsMessages(request).Result;
 
+            // Act
+            var response = await apiClient.Rcs.SendBulkRcsMessages(request, cts.Token);
+
+            // Assert
             mockedResponse.Should().BeEquivalentTo(response);
         }
     }

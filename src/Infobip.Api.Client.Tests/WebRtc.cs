@@ -1,79 +1,104 @@
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Infobip.Api.Client.WebRtc.Models;
 using Xunit;
 
 namespace Infobip.Api.Client.Tests
 {
-    public class WebRtc : IClassFixture<MockedRestClientFixture>
+    public class WebRtc : IClassFixture<MockedHttpClientFixture>
     {
-        private readonly MockedRestClientFixture _fixture;
+        private readonly MockedHttpClientFixture _clientFixture;
 
-        public WebRtc(MockedRestClientFixture fixture)
+        public WebRtc(MockedHttpClientFixture clientFixture)
         {
-            _fixture = fixture;
+            _clientFixture = clientFixture;
         }
 
         [Fact]
-        public void GenerateWebRtcToken_Call_ExpectsSuccess()
+        public async Task GenerateWebRtcToken_Call_ExpectsSuccess()
         {
+            // Arrange
+            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WebRtc/GenerateWebRtcTokenSuccess.json";
-            var apiClient = new InfobipApiClient(_fixture.GetClient<WebRtcTokenResponse>(responsePayloadFileName));
-            var mockedResponse = _fixture.GetMockedResponse<WebRtcTokenResponse>(responsePayloadFileName);
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcTokenResponse>(responsePayloadFileName));
+            var mockedResponse = _clientFixture.GetMockedResponse<WebRtcTokenResponse>(responsePayloadFileName);
 
             var request = new WebRtcTokenRequest("identity");
-            var response = apiClient.WebRtc.GenerateWebRtcToken(request).Result;
 
+            // Act
+            var response = await apiClient.WebRtc.GenerateWebRtcToken(request, cts.Token);
+
+            // Assert
             mockedResponse.Should().BeEquivalentTo(response);
         }
 
         [Fact]
-        public void GetWebRtcApplications_Call_ExpectsSuccess()
+        public async Task GetWebRtcApplications_Call_ExpectsSuccess()
         {
+            // Arrange
+            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WebRtc/GetWebRtcApplicationsSuccess.json";
-            var apiClient = new InfobipApiClient(_fixture.GetClient< List<WebRtcApplicationResponse>>(responsePayloadFileName));
-            var mockedResponse = _fixture.GetMockedResponse< List<WebRtcApplicationResponse>>(responsePayloadFileName);
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<List<WebRtcApplicationResponse>>(responsePayloadFileName));
+            var mockedResponse = _clientFixture.GetMockedResponse<List<WebRtcApplicationResponse>>(responsePayloadFileName);
 
-            var response = apiClient.WebRtc.GetWebRtcApplications().Result;
+            // Act
+            var response = await apiClient.WebRtc.GetWebRtcApplications(cts.Token);
 
+            // Assert
             mockedResponse.Should().BeEquivalentTo(response);
         }
 
         [Fact]
-        public void SaveWebRtcApplication_Call_ExpectsSuccess()
+        public async Task SaveWebRtcApplication_Call_ExpectsSuccess()
         {
+            // Arrange
+            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WebRtc/SaveWebRtcApplicationSuccess.json";
-            var apiClient = new InfobipApiClient(_fixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
-            var mockedResponse = _fixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
+            var mockedResponse = _clientFixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
 
             var request = new WebRtcApplicationRequest("app");
-            var response = apiClient.WebRtc.SaveWebRtcApplication(request).Result;
 
+            // Act
+            var response = await apiClient.WebRtc.SaveWebRtcApplication(request, cts.Token);
+
+            // Assert
             mockedResponse.Should().BeEquivalentTo(response);
         }
 
         [Fact]
-        public void GetWebRtcApplication_Call_ExpectsSuccess()
+        public async Task GetWebRtcApplication_Call_ExpectsSuccess()
         {
+            // Arrange
+            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WebRtc/GetWebRtcApplicationSuccess.json";
-            var apiClient = new InfobipApiClient(_fixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
-            var mockedResponse = _fixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
+            var mockedResponse = _clientFixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
 
-            var response = apiClient.WebRtc.GetWebRtcApplication("app_id").Result;
+            // Act
+            var response = await apiClient.WebRtc.GetWebRtcApplication("app_id", cts.Token);
 
+            // Assert
             mockedResponse.Should().BeEquivalentTo(response);
         }
 
         [Fact]
-        public void UpdateWebRtcApplication_Call_ExpectsSuccess()
+        public async Task UpdateWebRtcApplication_Call_ExpectsSuccess()
         {
+            // Arrange
+            var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WebRtc/UpdateWebRtcApplicationSuccess.json";
-            var apiClient = new InfobipApiClient(_fixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
-            var mockedResponse = _fixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
-            
-            var request = new WebRtcApplicationRequest("app");
-            var response = apiClient.WebRtc.UpdateWebRtcApplication("app_id", request).Result;
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
+            var mockedResponse = _clientFixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
 
+            var request = new WebRtcApplicationRequest("app");
+
+            // Act
+            var response = await apiClient.WebRtc.UpdateWebRtcApplication("app_id", request, cts.Token);
+
+            // Assert
             mockedResponse.Should().BeEquivalentTo(response);
         }
     }

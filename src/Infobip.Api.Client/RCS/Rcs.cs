@@ -1,48 +1,60 @@
-﻿using System;
-using System.Net;
+﻿using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
+using Infobip.Api.Client.Extensions;
 using Infobip.Api.Client.RCS.Models;
-using RestSharp;
+using Newtonsoft.Json;
 
 namespace Infobip.Api.Client.RCS
 {
-    internal class Rcs : IRcs
+    internal class RcsClient : IRcs
     {
-        private readonly IRestClient _client;
+        private readonly HttpClient _client;
 
-        public Rcs(IRestClient client)
+        public RcsClient(HttpClient client)
         {
             _client = client;
         }
 
-        public async Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload)
+        public async Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("ott/rcs/1/message", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<RcsMessageResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "ott/rcs/1/message"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<RcsMessageResponse>();
+                }
+            }
         }
 
-        public async Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload)
+        public async Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("ott/rcs/1/message/bulk", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<RcsMessageResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "ott/rcs/1/message/bulk"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<RcsMessageResponse>();
+                }
+            }
         }
     }
 }

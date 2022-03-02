@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Infobip.Api.Client.WebRtc.Models;
 
@@ -7,13 +8,13 @@ namespace Infobip.Api.Client.WebRtc
     public interface IWebRtc
     {
         // WebRTC Token
-        Task<WebRtcTokenResponse> GenerateWebRtcToken(WebRtcTokenRequest requestPayload);
+        Task<WebRtcTokenResponse> GenerateWebRtcToken(WebRtcTokenRequest requestPayload, CancellationToken cancellationToken);
 
         // WebRTC Applications
-        Task<List<WebRtcApplicationResponse>> GetWebRtcApplications();
-        Task<WebRtcApplicationResponse> SaveWebRtcApplication(WebRtcApplicationRequest requestPayload);
-        Task<WebRtcApplicationResponse> GetWebRtcApplication(string id);
-        Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload);
-        Task DeleteWebRtcApplication(string id);
+        Task<List<WebRtcApplicationResponse>> GetWebRtcApplications(CancellationToken cancellationToken);
+        Task<WebRtcApplicationResponse> SaveWebRtcApplication(WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken);
+        Task<WebRtcApplicationResponse> GetWebRtcApplication(string id, CancellationToken cancellationToken);
+        Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken);
+        Task DeleteWebRtcApplication(string id, CancellationToken cancellationToken);
     }
 }

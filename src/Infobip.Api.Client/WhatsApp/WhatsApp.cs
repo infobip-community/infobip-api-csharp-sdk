@@ -1,311 +1,383 @@
-﻿using System;
-using System.IO;
-using System.Net;
+﻿using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
+using Infobip.Api.Client.Extensions;
 using Infobip.Api.Client.WhatsApp.Models;
-using RestSharp;
+using Newtonsoft.Json;
 
 namespace Infobip.Api.Client.WhatsApp
 {
-    internal class WhatsApp : IWhatsApp
+    internal class WhatsAppClient : IWhatsApp
     {
-        private readonly IRestClient _client;
+        private readonly HttpClient _client;
 
-        public WhatsApp(IRestClient client)
+        public WhatsAppClient(HttpClient client)
         {
             _client = client;
         }
 
         // Send WhatsApp Message
-        public async Task<WhatsAppBulkMessageInfoResponse> SendWhatsappTemplateMessage(WhatsAppBulkMessageRequest requestPayload)
+        public async Task<WhatsAppBulkMessageInfoResponse> SendWhatsappTemplateMessage(WhatsAppBulkMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/template", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppBulkMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/template"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppBulkMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage(WhatsAppTextMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage(WhatsAppTextMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/text", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/text"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppDocumentMessage(WhatsAppDocumentMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppDocumentMessage(WhatsAppDocumentMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/document", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/document"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppImageMessage(WhatsAppImageMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppImageMessage(WhatsAppImageMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/image", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/image"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppAudioMessage(WhatsAppAudioMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppAudioMessage(WhatsAppAudioMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/audio", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/audio"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppVideoMessage(WhatsAppVideoMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppVideoMessage(WhatsAppVideoMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/video", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/video"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppStickerMessage(WhatsAppStickerMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppStickerMessage(WhatsAppStickerMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/sticker", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/sticker"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppLocationMessage(WhatsAppLocationMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppLocationMessage(WhatsAppLocationMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/location", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/location"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppContactMessage(WhatsAppContactsMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppContactMessage(WhatsAppContactsMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/contact", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/contact"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveButtonsMessage(WhatsAppInteractiveButtonsMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveButtonsMessage(WhatsAppInteractiveButtonsMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/interactive/buttons", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/buttons"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveListMessage(WhatsAppInteractiveListMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveListMessage(WhatsAppInteractiveListMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/interactive/list", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/list"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveProductMessage(WhatsAppInteractiveProductMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveProductMessage(WhatsAppInteractiveProductMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/interactive/product", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/product"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveMultiProductMessage(WhatsAppInteractiveMultiProductMessageRequest requestPayload)
+        public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveMultiProductMessage(WhatsAppInteractiveMultiProductMessageRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/message/interactive/multi-product", Method.POST);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppSingleMessageInfoResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/multi-product"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppSingleMessageInfoResponse>();
+                }
+            }
         }
 
 
         // Receive WhatsApp Message
-        public async Task<Stream> DownloadWhatsAppInboundMedia(string sender, string mediaId)
+        public async Task<Stream> DownloadWhatsAppInboundMedia(string sender, string mediaId, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/senders/{sender}/media/{mediaId}", Method.GET);
-            request.AddOrUpdateParameter("sender", sender);
-            request.AddOrUpdateParameter("mediaId", mediaId);
-
-            var result = await _client.ExecuteAsync<Stream>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/media/{mediaId}"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    return await response.Content.ReadAsStreamAsync();
+                }
+            }
         }
 
-        public async Task<string> GetWhatsAppMediaMetadata(string sender, string mediaId)
+        public async Task<string> GetWhatsAppMediaMetadata(string sender, string mediaId, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/senders/{sender}/media/{mediaId}", Method.HEAD);
-            request.AddOrUpdateParameter("sender", sender);
-            request.AddOrUpdateParameter("mediaId", mediaId);
-
-            var result = await _client.ExecuteAsync<string>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Head, $"whatsapp/1/senders/{sender}/media/{mediaId}"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return result.Content;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
         }
 
-        public async Task MarkWhatsAppMessageAsRead(string sender, string messageId)
+        public async Task MarkWhatsAppMessageAsRead(string sender, string messageId, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/senders/{sender}/message/{messageId}/read", Method.POST);
-            request.AddOrUpdateParameter("sender", sender);
-            request.AddOrUpdateParameter("messageId", messageId);
-
-            var result = await _client.ExecuteAsync<string>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"whatsapp/1/senders/{sender}/message/{messageId}/read"))
             {
-                throw new Exception(result.Content);
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+                }
             }
         }
 
         // Manage WhatsApp
-        public async Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsappTemplates(string sender)
+        public async Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsappTemplates(string sender, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/senders/{sender}/templates", Method.GET);
-            request.AddOrUpdateParameter("sender", sender);
-
-            var result = await _client.ExecuteAsync<WhatsAppTemplateManagementTemplatesResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/templates"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppTemplateManagementTemplatesResponse>();
+                }
+            }
         }
 
-        public async Task<WhatsAppTemplateManagementTemplateResponse> CreateWhatsAppTemplate(string sender, WhatsAppTemplateManagementTemplateRequest requestPayload)
+        public async Task<WhatsAppTemplateManagementTemplateResponse> CreateWhatsAppTemplate(string sender, WhatsAppTemplateManagementTemplateRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/senders/{sender}/templates", Method.POST);
-            request.AddOrUpdateParameter("sender", sender);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<WhatsAppTemplateManagementTemplateResponse>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/senders/{sender}/templates"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return stream.ReadAndDeserializeFromJson<WhatsAppTemplateManagementTemplateResponse>();
+                }
+            }
         }
 
-        public async Task<string> DeleteWhatsAppMedia(string sender, DeleteWhatsAppMediaRequest requestPayload)
+        public async Task<string> DeleteWhatsAppMedia(string sender, DeleteWhatsAppMediaRequest requestPayload, CancellationToken cancellationToken)
         {
-            var request = new RestRequest("whatsapp/1/senders/{sender}/media", Method.DELETE);
-            request.AddOrUpdateParameter("sender", sender);
-            request.AddJsonBody(requestPayload);
+            var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            var result = await _client.ExecuteAsync<string>(request);
-
-            if (result.StatusCode != HttpStatusCode.OK)
+            using (var request = new HttpRequestMessage(HttpMethod.Delete, $"whatsapp/1/senders/{sender}/media"))
             {
-                throw new Exception(result.Content);
-            }
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                request.Content = new StringContent(serializedPayload);
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return result.Data;
+                using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    await response.ThrowIfRequestWasUnsuccessful();
+
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
         }
     }
 }

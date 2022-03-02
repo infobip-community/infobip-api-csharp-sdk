@@ -55,7 +55,7 @@ namespace Infobip.Api.SDK.Example
             sendWhatsAppTextMessageResponse.DumpToConsole("sendWhatsAppTextMessageResponse");
 
             // WhatsApp.GetWhatsappTemplates
-            var getWhatsAppTemplatesResponse = await infobipClient.WhatsApp.GetWhatsappTemplates("sender", CancellationToken.None);
+            var getWhatsAppTemplatesResponse = await infobipClient.WhatsApp.GetWhatsAppTemplates("sender", CancellationToken.None);
             getWhatsAppTemplatesResponse.DumpToConsole("getWhatsAppTemplatesResponse");
 
             // Just use infobipClient instance to call desired api endpoint.

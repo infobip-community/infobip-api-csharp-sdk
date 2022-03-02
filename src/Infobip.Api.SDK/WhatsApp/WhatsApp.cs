@@ -19,7 +19,7 @@ namespace Infobip.Api.SDK.WhatsApp
         }
 
         // Send WhatsApp Message
-        public async Task<WhatsAppBulkMessageInfoResponse> SendWhatsappTemplateMessage(WhatsAppBulkMessageRequest requestPayload, CancellationToken cancellationToken)
+        public async Task<WhatsAppBulkMessageInfoResponse> SendWhatsAppTemplateMessage(WhatsAppBulkMessageRequest requestPayload, CancellationToken cancellationToken)
         {
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
@@ -325,7 +325,7 @@ namespace Infobip.Api.SDK.WhatsApp
         }
 
         // Manage WhatsApp
-        public async Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsappTemplates(string sender, CancellationToken cancellationToken)
+        public async Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsAppTemplates(string sender, CancellationToken cancellationToken)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/templates"))
             {

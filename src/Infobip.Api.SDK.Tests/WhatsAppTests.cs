@@ -34,7 +34,7 @@ namespace Infobip.Api.SDK.Tests
             var request = new WhatsAppBulkMessageRequest(messages, Guid.NewGuid().ToString());
             
             // Act
-            var response = await apiClient.WhatsApp.SendWhatsappTemplateMessage(request, cts.Token);
+            var response = await apiClient.WhatsApp.SendWhatsAppTemplateMessage(request, cts.Token);
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);

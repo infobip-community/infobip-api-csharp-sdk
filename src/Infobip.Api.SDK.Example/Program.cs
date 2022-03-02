@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Infobip.Api.SDK.Extensions;
 using Infobip.Api.SDK.WebRtc.Models;
+using Infobip.Api.SDK.WhatsApp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,12 +43,20 @@ namespace Infobip.Api.SDK.Example
         private static async Task MakeApiCallExample(IInfobipApiClient infobipClient)
         {
             // WebRtc.GetWebRtcApplications
-            var webRtcApplications = await infobipClient.WebRtc.GetWebRtcApplications(CancellationToken.None);
-            webRtcApplications.DumpToConsole("WebRtcApplications");
+            var getWebRtcApplicationsResponse = await infobipClient.WebRtc.GetWebRtcApplications(CancellationToken.None);
+            getWebRtcApplicationsResponse.DumpToConsole("getWebRtcApplicationsResponse");
 
+            // WebRtc.GenerateWebRtcToken
+            var generateWebRtcTokenResponse = await infobipClient.WebRtc.GenerateWebRtcToken(new WebRtcTokenRequest("MyIdentity", getWebRtcApplicationsResponse.FirstOrDefault()?.Id ?? Guid.NewGuid().ToString()), CancellationToken.None);
+            generateWebRtcTokenResponse.DumpToConsole("generateWebRtcTokenResponse");
 
-            var webRtcToken = await infobipClient.WebRtc.GenerateWebRtcToken(new WebRtcTokenRequest("MyIdentity", webRtcApplications.FirstOrDefault()?.Id ?? Guid.NewGuid().ToString()), CancellationToken.None);
-            webRtcToken.DumpToConsole("webRtcToken");
+            // WhatsApp.SendWhatsAppTextMessage
+            var sendWhatsAppTextMessageResponse = await infobipClient.WhatsApp.SendWhatsAppTextMessage(new WhatsAppTextMessageRequest("from", "to_number",Guid.NewGuid().ToString(), new WhatsAppTextContent("Message text...")), CancellationToken.None);
+            sendWhatsAppTextMessageResponse.DumpToConsole("sendWhatsAppTextMessageResponse");
+
+            // WhatsApp.GetWhatsappTemplates
+            var getWhatsAppTemplatesResponse = await infobipClient.WhatsApp.GetWhatsappTemplates("sender", CancellationToken.None);
+            getWhatsAppTemplatesResponse.DumpToConsole("getWhatsAppTemplatesResponse");
 
             // Just use infobipClient instance to call desired api endpoint.
         }

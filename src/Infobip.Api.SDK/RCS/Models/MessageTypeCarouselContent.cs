@@ -9,14 +9,14 @@ using Newtonsoft.Json.Converters;
 namespace Infobip.Api.SDK.RCS.Models
 {
     /// <summary>
-    /// SendRcsMessageMessageTypeCarouselContent
+    /// MessageTypeCarouselContent
     /// </summary>
     [JsonConverter(typeof(JsonSubtypes), "Type")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeCardContent), "CARD")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeCarouselContent), "CAROUSEL")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeFileContent), "FILE")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeTextContent), "TEXT")]
-    public class MessageTypeCarouselContent : MessageTypeContent, IValidatableObject
+    public class MessageTypeCarouselContent : MessageTypeContent
     {
         /// <summary>
         /// Width of cards contained within the carousel
@@ -45,20 +45,22 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Width of cards contained within the carousel</value>
         [JsonProperty("cardWidth")]
+        [Required(ErrorMessage = "CardWidth is required")]
         public CardWidthEnum CardWidth { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageTypeCarouselContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected MessageTypeCarouselContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageTypeCarouselContent" /> class.
         /// </summary>
         /// <param name="cardWidth">Width of cards contained within the carousel (required).</param>
         /// <param name="contents">An array of cards contained within the carousel (required).</param>
         /// <param name="suggestions">List of suggestions.</param>
-        /// <param name="type">Message type, describing type of message which is going to be sent over RCS.</param>
-        public MessageTypeCarouselContent(CardWidthEnum cardWidth = default, List<CardContent> contents = default, List<Suggestion> suggestions = default, TypeEnum? type = default)
+        public MessageTypeCarouselContent(CardWidthEnum cardWidth = default, List<CardContent> contents = default, List<Suggestion> suggestions = default) : base(TypeEnum.CAROUSEL)
         {
             CardWidth = cardWidth;
             Contents = contents ?? throw new ArgumentNullException(nameof(contents));
@@ -70,6 +72,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>An array of cards contained within the carousel</value>
         [JsonProperty("contents")]
+        [Required(ErrorMessage = "Contents is required")]
         public List<CardContent> Contents { get; set; }
 
         /// <summary>
@@ -78,28 +81,5 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <value>List of suggestions</value>
         [JsonProperty("suggestions")]
         public List<Suggestion> Suggestions { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            foreach (var x in BaseValidate(validationContext))
-            {
-                yield return x;
-            }
-        }
     }
 }

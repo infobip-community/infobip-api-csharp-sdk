@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.RCS.Models;
+using Infobip.Api.SDK.Validation;
+using Infobip.Api.SDK.Validation.DataAnnotations;
 using Xunit;
 
 namespace Infobip.Api.SDK.Tests
@@ -18,14 +21,87 @@ namespace Infobip.Api.SDK.Tests
         }
 
         [Fact]
-        public async Task SendRcsMessage_Call_ExpectsSuccess()
+        public async Task SendRcsMessage_TextContent_Call_ExpectsSuccess()
         {
             // Arrange
             var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
-            var content = new MessageTypeContent(MessageTypeContent.TypeEnum.TEXT);
+            var content = new MessageTypeTextContent("Text");
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+
+            // Act
+            var response = await apiClient.Rcs.SendRcsMessage(request);
+
+            // Assert
+            mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        [Fact]
+        public async Task SendRcsMessage_TextContentInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
+
+            var content = new MessageTypeTextContent("");
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+
+            // Act
+            Func<Task> act = () => apiClient.Rcs.SendRcsMessage(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        [Fact]
+        public async Task SendRcsMessage_FileContent_Call_ExpectsSuccess()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
+
+            var content = new MessageTypeFileContent(new MessageResource("url"), new MessageResource("url"));
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+
+            // Act
+            var response = await apiClient.Rcs.SendRcsMessage(request);
+
+            // Assert
+            mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        [Fact]
+        public async Task SendRcsMessage_CardContent_Call_ExpectsSuccess()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
+
+            var content = new MessageTypeCardContent(MessageTypeCardContent.OrientationEnum.HORIZONTAL, content:new CardContent("Title"));
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+
+            // Act
+            var response = await apiClient.Rcs.SendRcsMessage(request);
+
+            // Assert
+            mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        [Fact]
+        public async Task SendRcsMessage_CarouselContent_Call_ExpectsSuccess()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
+
+            var contents = new List<CardContent>();
+            var content = new MessageTypeCarouselContent(MessageTypeCarouselContent.CardWidthEnum.SMALL, contents: contents);
             var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
 
             // Act
@@ -40,7 +116,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Rcs/SendBulkRcsMessagesSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
             var content = new MessageTypeContent(MessageTypeContent.TypeEnum.TEXT);

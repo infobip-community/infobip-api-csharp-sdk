@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using System.Threading;
+using Infobip.Api.SDK.Validation;
+using Infobip.Api.SDK.Validation.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,6 +38,8 @@ namespace Infobip.Api.SDK.Extensions
 
             return
                 services
+                    .AddSingleton<IRequestValidator, RequestValidator>()
+                    .AddSingleton<IDataAnnotationsValidator, DataAnnotationsValidator>()
                     .AddHttpClient<IInfobipApiClient, InfobipApiClient>(client =>
                     {
                         client.BaseAddress = new Uri(apiBaseUrl);

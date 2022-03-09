@@ -9,14 +9,14 @@ using Newtonsoft.Json.Converters;
 namespace Infobip.Api.SDK.RCS.Models
 {
     /// <summary>
-    /// SendRcsMessageMessageTypeCardContent
+    /// MessageTypeCardContent
     /// </summary>
     [JsonConverter(typeof(JsonSubtypes), "Type")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeCardContent), "CARD")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeCarouselContent), "CAROUSEL")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeFileContent), "FILE")]
     [JsonSubtypes.KnownSubType(typeof(MessageTypeTextContent), "TEXT")]
-    public class MessageTypeCardContent : MessageTypeContent, IValidatableObject
+    public class MessageTypeCardContent : MessageTypeContent
     {
         /// <summary>
         /// Orientation type defines orientation in Card message
@@ -45,7 +45,9 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Orientation type defines orientation in Card message</value>
         [JsonProperty("orientation")]
+        [Required(ErrorMessage = "Orientation is required")]
         public OrientationEnum Orientation { get; set; }
+
         /// <summary>
         /// Alignment type defines alignment in Card message
         /// </summary>
@@ -73,12 +75,15 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Alignment type defines alignment in Card message</value>
         [JsonProperty("alignment")]
+        [Required(ErrorMessage = "Alignment is required")]
         public AlignmentEnum Alignment { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageTypeCardContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected MessageTypeCardContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageTypeCardContent" /> class.
         /// </summary>
@@ -86,8 +91,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="alignment">Alignment type defines alignment in Card message (required).</param>
         /// <param name="content">content (required).</param>
         /// <param name="suggestions">List of suggestions.</param>
-        /// <param name="type">Message type, describing type of message which is going to be sent over RCS.</param>
-        public MessageTypeCardContent(OrientationEnum orientation = default, AlignmentEnum alignment = default, CardContent content = default, List<Suggestion> suggestions = default, TypeEnum? type = default)
+        public MessageTypeCardContent(OrientationEnum orientation = default, AlignmentEnum alignment = default, CardContent content = default, List<Suggestion> suggestions = default) : base(TypeEnum.CARD)
         {
             Orientation = orientation;
             Alignment = alignment;
@@ -99,6 +103,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// Gets or Sets Content
         /// </summary>
         [JsonProperty("content")]
+        [Required(ErrorMessage = "Content is required")]
         public CardContent Content { get; set; }
 
         /// <summary>
@@ -107,28 +112,5 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <value>List of suggestions</value>
         [JsonProperty("suggestions")]
         public List<Suggestion> Suggestions { get; set; }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            foreach (var x in BaseValidate(validationContext))
-            {
-                yield return x;
-            }
-        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using JsonSubTypes;
@@ -17,7 +16,7 @@ namespace Infobip.Api.SDK.RCS.Models
     [JsonSubtypes.KnownSubTypeAttribute(typeof(ReplySuggestion), "REPLY")]
     [JsonSubtypes.KnownSubTypeAttribute(typeof(RequestLocationSuggestion), "REQUEST_LOCATION")]
     [JsonSubtypes.KnownSubTypeAttribute(typeof(ShowLocationSuggestion), "SHOW_LOCATION")]
-    public class Suggestion : IValidatableObject
+    public class Suggestion
     {
         /// <summary>
         /// Defines Type
@@ -57,17 +56,18 @@ namespace Infobip.Api.SDK.RCS.Models
 
         }
 
-
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
         [JsonProperty("type")]
         public TypeEnum? Type { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Suggestion" /> class.
         /// </summary>
         [JsonConstructor]
         protected Suggestion() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Suggestion" /> class.
         /// </summary>
@@ -86,6 +86,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Suggestion text</value>
         [JsonProperty("text")]
+        [StringLength(25, MinimumLength = 1)]
         public string Text { get; set; }
 
         /// <summary>
@@ -93,48 +94,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Value which is going to be sent as a reply to a suggestion</value>
         [JsonProperty("postbackData")]
+        [StringLength(2048, MinimumLength = 1)]
         public string PostbackData { get; set; }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            // Text (string) maxLength
-            if (Text != null && Text.Length > 25)
-            {
-                yield return new ValidationResult("Invalid value for Text, length must be less than 25.", new[] { "Text" });
-            }
-
-            // Text (string) minLength
-            if (Text != null && Text.Length < 1)
-            {
-                yield return new ValidationResult("Invalid value for Text, length must be greater than 1.", new[] { "Text" });
-            }
-
-            // PostbackData (string) maxLength
-            if (PostbackData != null && PostbackData.Length > 2048)
-            {
-                yield return new ValidationResult("Invalid value for PostbackData, length must be less than 2048.", new[] { "PostbackData" });
-            }
-
-            // PostbackData (string) minLength
-            if (PostbackData != null && PostbackData.Length < 1)
-            {
-                yield return new ValidationResult("Invalid value for PostbackData, length must be greater than 1.", new[] { "PostbackData" });
-            }
-        }
     }
 }

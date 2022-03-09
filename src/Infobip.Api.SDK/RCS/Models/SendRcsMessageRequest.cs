@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
@@ -7,7 +6,10 @@ using Newtonsoft.Json.Converters;
 
 namespace Infobip.Api.SDK.RCS.Models
 {
-    public class SendRcsMessageRequest : IValidatableObject
+    /// <summary>
+    /// SendRcsMessageRequest
+    /// </summary>
+    public class SendRcsMessageRequest
     {
         /// <summary>
         /// Message validity period time unit
@@ -42,13 +44,13 @@ namespace Infobip.Api.SDK.RCS.Models
 
         }
 
-
         /// <summary>
         /// Message validity period time unit
         /// </summary>
         /// <value>Message validity period time unit</value>
         [JsonProperty("validityPeriodTimeUnit")]
         public ValidityPeriodTimeUnitEnum? ValidityPeriodTimeUnit { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SendRcsMessageRequest" /> class.
         /// </summary>
@@ -92,6 +94,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Message destination</value>
         [JsonProperty("to")]
+        [Required(ErrorMessage = "To is required")]
         public string To { get; set; }
 
         /// <summary>
@@ -105,6 +108,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// Gets or Sets Content
         /// </summary>
         [JsonProperty("content", Required = Required.Always)]
+        [Required(ErrorMessage = "Content is required")]
         public MessageTypeContent Content { get; set; }
 
         /// <summary>
@@ -133,16 +137,5 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <value>MessageId data that will be included in Delivery Report.</value>
         [JsonProperty("messageId")]
         public string MessageId { get; set; }
-
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

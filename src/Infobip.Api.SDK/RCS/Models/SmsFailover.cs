@@ -51,6 +51,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Message failover validity period time unit</value>
         [JsonProperty("validityPeriodTimeUnit")]
+        [Required(ErrorMessage = "ValidityPeriodTimeUnit is required")]
         public ValidityPeriodTimeUnitEnum? ValidityPeriodTimeUnit { get; set; }
 
         /// <summary>
@@ -79,6 +80,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Message failover sender</value>
         [JsonProperty("from")]
+        [Required(ErrorMessage = "From is required")]
         public string From { get; set; }
 
         /// <summary>
@@ -86,6 +88,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Message failover text</value>
         [JsonProperty("text")]
+        [Required(ErrorMessage = "Text is required")]
         public string Text { get; set; }
 
         /// <summary>

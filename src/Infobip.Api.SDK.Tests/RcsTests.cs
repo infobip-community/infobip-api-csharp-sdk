@@ -11,7 +11,6 @@ using Xunit;
 namespace Infobip.Api.SDK.Tests
 {
     public class RcsTests : IClassFixture<MockedHttpClientFixture>
-
     {
         private readonly MockedHttpClientFixture _clientFixture;
 
@@ -44,7 +43,6 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var responsePayloadFileName = "Data/Rcs/SendRcsMessageSuccess.json";
             var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
-            var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
             var content = new MessageTypeTextContent("");
             var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
@@ -53,7 +51,7 @@ namespace Infobip.Api.SDK.Tests
             Func<Task> act = () => apiClient.Rcs.SendRcsMessage(request);
 
             // Assert
-            var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
 
         [Fact]

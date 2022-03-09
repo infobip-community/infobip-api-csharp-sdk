@@ -41,8 +41,8 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Latitude of the location</value>
         [JsonProperty("latitude")]
-        [MaxLength(90)]
-        [MinLength(-90)]
+        [Required(ErrorMessage = "Latitude is required")]
+        [Range(-90D, 90D)]
         public double Latitude { get; set; }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Longitude of the location</value>
         [JsonProperty("longitude")]
-        [MaxLength(180)]
-        [MinLength(-180)]
+        [Required(ErrorMessage = "Longitude is required")]
+        [Range(-180D, 180D)]
         public double Longitude { get; set; }
 
         /// <summary>

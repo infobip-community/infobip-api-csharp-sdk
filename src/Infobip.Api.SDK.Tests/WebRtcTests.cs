@@ -1,16 +1,20 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Infobip.Api.SDK.Exceptions;
+using Infobip.Api.SDK.Validation;
+using Infobip.Api.SDK.Validation.DataAnnotations;
 using Infobip.Api.SDK.WebRtc.Models;
 using Xunit;
 
 namespace Infobip.Api.SDK.Tests
 {
-    public class WebRtc : IClassFixture<MockedHttpClientFixture>
+    public class WebRtcTests : IClassFixture<MockedHttpClientFixture>
     {
         private readonly MockedHttpClientFixture _clientFixture;
 
-        public WebRtc(MockedHttpClientFixture clientFixture)
+        public WebRtcTests(MockedHttpClientFixture clientFixture)
         {
             _clientFixture = clientFixture;
         }
@@ -20,7 +24,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/WebRtc/GenerateWebRtcTokenSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcTokenResponse>(responsePayloadFileName));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcTokenResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<WebRtcTokenResponse>(responsePayloadFileName);
 
             var request = new WebRtcTokenRequest("identity");
@@ -33,11 +37,43 @@ namespace Infobip.Api.SDK.Tests
         }
 
         [Fact]
+        public async Task GenerateWebRtcToken_IdentityInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/GenerateWebRtcTokenSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcTokenResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+
+            var request = new WebRtcTokenRequest("Id");
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.GenerateWebRtcToken(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        [Fact]
+        public async Task GenerateWebRtcToken_DisplayNameInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/GenerateWebRtcTokenSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcTokenResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+
+            var request = new WebRtcTokenRequest("Identity", displayName: "a");
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.GenerateWebRtcToken(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        [Fact]
         public async Task GetWebRtcApplications_Call_ExpectsSuccess()
         {
             // Arrange
             var responsePayloadFileName = "Data/WebRtc/GetWebRtcApplicationsSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<List<WebRtcApplicationResponse>>(responsePayloadFileName));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<List<WebRtcApplicationResponse>>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<List<WebRtcApplicationResponse>>(responsePayloadFileName);
 
             // Act
@@ -52,7 +88,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/WebRtc/SaveWebRtcApplicationSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
 
             var request = new WebRtcApplicationRequest("app");
@@ -69,7 +105,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/WebRtc/GetWebRtcApplicationSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
 
             // Act
@@ -84,7 +120,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/WebRtc/UpdateWebRtcApplicationSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient<WebRtcApplicationResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<WebRtcApplicationResponse>(responsePayloadFileName);
 
             var request = new WebRtcApplicationRequest("app");

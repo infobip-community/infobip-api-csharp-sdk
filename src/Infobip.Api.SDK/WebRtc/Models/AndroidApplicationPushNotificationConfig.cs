@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.WebRtc.Models
 {
@@ -12,6 +13,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>FCM Server Key used to enable Android push notifications.</value>
         [JsonProperty("fcmServerKey")]
+        [Required(ErrorMessage = "FcmServerKey is required")]
         public string FcmServerKey { get; set; }
         
     }

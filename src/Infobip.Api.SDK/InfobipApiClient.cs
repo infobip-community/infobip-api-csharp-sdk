@@ -13,7 +13,7 @@ namespace Infobip.Api.SDK
         {
             WhatsApp = new WhatsAppClient(client);
             Rcs = new Rcs(client, requestValidator);
-            WebRtc = new WebRtcClient(client);
+            WebRtc = new WebRtcClient(client, requestValidator);
         }
 
         /// <inheritdoc />

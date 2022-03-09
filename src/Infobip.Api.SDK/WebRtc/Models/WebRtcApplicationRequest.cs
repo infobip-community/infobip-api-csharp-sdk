@@ -6,16 +6,16 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.WebRtc.Models
 {
     /// <summary>
-    /// 
-
+    /// WebRtcApplicationRequest
     /// </summary>
-    public class WebRtcApplicationRequest : IValidatableObject
+    public class WebRtcApplicationRequest
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WebRtcApplicationRequest" /> class.
         /// </summary>
         [JsonConstructor]
         protected WebRtcApplicationRequest() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WebRtcApplicationRequest" /> class.
         /// </summary>
@@ -42,6 +42,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>Application name</value>
         [JsonProperty("name")]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
         /// <summary>
@@ -49,6 +50,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>Application description containing up to 160 characters.</value>
         [JsonProperty("description")]
+        [MaxLength(160)]
         public string Description { get; set; }
 
         /// <summary>

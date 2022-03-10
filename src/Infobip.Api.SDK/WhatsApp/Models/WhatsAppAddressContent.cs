@@ -7,8 +7,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Array of addresses information.
     /// </summary>
-    public class WhatsAppAddressContent : IValidatableObject
+    public class WhatsAppAddressContent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WhatsAppAddressContent" /> class.
+        /// </summary>
+        [JsonConstructor]
+        public WhatsAppAddressContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppAddressContent" /> class.
         /// </summary>
@@ -19,7 +25,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <param name="country">Country name..</param>
         /// <param name="countryCode">Country code value..</param>
         /// <param name="type">type.</param>
-        public WhatsAppAddressContent(string street = default, string city = default, string state = default, string zip = default, string country = default, string countryCode = default, WhatsAppAddressType type = default)
+        public WhatsAppAddressContent(string street = default, string city = default, string state = default, string zip = default, string country = default, string countryCode = default, WhatsAppAddressType type = WhatsAppAddressType.Home)
         {
             Street = street;
             City = city;
@@ -77,15 +83,5 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         [JsonProperty("type")]
         public WhatsAppAddressType Type { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

@@ -9,9 +9,9 @@ namespace Infobip.Api.SDK
     /// <inheritdoc />
     public sealed class InfobipApiClient : IInfobipApiClient
     {
-        public InfobipApiClient(HttpClient client, IRequestValidator requestValidator = null)
+        public InfobipApiClient(HttpClient client, IRequestValidator requestValidator)
         {
-            WhatsApp = new WhatsAppClient(client);
+            WhatsApp = new WhatsAppClient(client, requestValidator);
             Rcs = new Rcs(client, requestValidator);
             WebRtc = new WebRtcClient(client, requestValidator);
         }

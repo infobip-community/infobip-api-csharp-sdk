@@ -10,7 +10,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// WhatsAppTemplateManagementTemplateRequest
     /// </summary>
-    public class WhatsAppTemplateManagementTemplateRequest : IValidatableObject
+    public class WhatsAppTemplateManagementTemplateRequest
     {
         /// <summary>
         /// The language code or locale to use. Multiple templates with different language codes can be registered under the same template name.
@@ -435,7 +435,9 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>The language code or locale to use. Multiple templates with different language codes can be registered under the same template name.</value>
         [JsonProperty("language")]
+        [Required(ErrorMessage = "Language is required")]
         public LanguageEnum Language { get; set; }
+
         /// <summary>
         /// Category of the template.
         /// </summary>
@@ -517,12 +519,15 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Category of the template.</value>
         [JsonProperty("category")]
+        [Required(ErrorMessage = "Category is required")]
         public CategoryEnum Category { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateManagementTemplateRequest" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppTemplateManagementTemplateRequest() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateManagementTemplateRequest" /> class.
         /// </summary>
@@ -543,22 +548,15 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Template name. Must only contain lowercase alphanumeric characters and underscores.</value>
         [JsonProperty("name")]
+        [Required(ErrorMessage = "Name is required")]
+        [RegularExpression("^[a-zA-Z0-9_]+$", ErrorMessage = "Name must only contain lowercase alphanumeric characters and underscores. Regex: ^[a-zA-Z0-9_]+$")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets Structure
         /// </summary>
         [JsonProperty("structure")]
+        [Required(ErrorMessage = "Structure is required")]
         public WhatsAppTemplateTemplateStructureApiData Structure { get; set; }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

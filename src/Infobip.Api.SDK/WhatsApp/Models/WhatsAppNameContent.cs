@@ -8,13 +8,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Contains information about contact&#39;s name.
     /// </summary>
-    public class WhatsAppNameContent : IValidatableObject
+    public class WhatsAppNameContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppNameContent" /> class.
         /// </summary>
         [JsonConstructor]
         public WhatsAppNameContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppNameContent" /> class.
         /// </summary>
@@ -39,6 +40,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Contact&#39;s first name.</value>
         [JsonProperty("firstName")]
+        [Required(ErrorMessage = "FirstName is required")]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -74,16 +76,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Contact&#39;s full name as it normally appears.</value>
         [JsonProperty("formattedName")]
+        [Required(ErrorMessage = "FormattedName is required")]
         public string FormattedName { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

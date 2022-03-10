@@ -15,6 +15,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         [JsonConstructor]
         protected DeleteWhatsAppMediaRequest() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteWhatsAppMediaRequest" /> class.
         /// </summary>
@@ -29,6 +30,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>URL of the WhatsApp media to be deleted.</value>
         [JsonProperty("url")]
+        [Required(ErrorMessage = "Url is required")]
         public string Url { get; set; }
         
         /// <summary>

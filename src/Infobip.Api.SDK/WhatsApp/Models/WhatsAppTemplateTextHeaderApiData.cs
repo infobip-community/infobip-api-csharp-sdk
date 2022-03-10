@@ -15,19 +15,20 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateLocationHeaderApiData), "LOCATION")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateTextHeaderApiData), "TEXT")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateVideoHeaderApiData), "VIDEO")]
-    public class WhatsAppTemplateTextHeaderApiData : WhatsAppTemplateHeaderApiData, IValidatableObject
+    public class WhatsAppTemplateTextHeaderApiData : WhatsAppTemplateHeaderApiData
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateTextHeaderApiData" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppTemplateTextHeaderApiData() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateTextHeaderApiData" /> class.
         /// </summary>
         /// <param name="text">Template header text. Can contain up to 60 characters, with one placeholder {{1}}. (required).</param>
         /// <param name="format">format.</param>
-        public WhatsAppTemplateTextHeaderApiData(string text = default, SendFormatEnum? format = default) : base(format)
+        public WhatsAppTemplateTextHeaderApiData(string text = default, FormatEnum? format = default) : base(format)
         {
             Text = text ?? throw new ArgumentNullException(nameof(text));
         }
@@ -37,30 +38,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Template header text. Can contain up to 60 characters, with one placeholder {{1}}.</value>
         [JsonProperty("text")]
+        [Required(ErrorMessage = "Text is required")]
         public string Text { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            foreach (var x in BaseValidate(validationContext))
-            {
-                yield return x;
-            }
-            yield break;
-        }
     }
 }

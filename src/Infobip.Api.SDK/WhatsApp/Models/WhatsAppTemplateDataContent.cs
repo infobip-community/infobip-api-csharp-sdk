@@ -8,13 +8,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Template data. Values have to be set as registered in the template.
     /// </summary>
-    public class WhatsAppTemplateDataContent : IValidatableObject
+    public class WhatsAppTemplateDataContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateDataContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppTemplateDataContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateDataContent" /> class.
         /// </summary>
@@ -32,6 +33,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// Gets or Sets Body
         /// </summary>
         [JsonProperty("body")]
+        [Required(ErrorMessage = "Body is required")]
         public WhatsAppTemplateBodyContent Body { get; set; }
 
         /// <summary>
@@ -46,15 +48,5 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>Template buttons. Should be defined in correct order, only if &#x60;quick reply&#x60; or &#x60;dynamic URL&#x60; buttons have been registered. It can have up to three &#x60;quick reply&#x60; buttons or only one &#x60;dynamic URL&#x60; button.</value>
         [JsonProperty("buttons")]
         public List<WhatsAppTemplateButtonContent> Buttons { get; set; }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

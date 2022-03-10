@@ -7,14 +7,20 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Array of emails information.
     /// </summary>
-    public class WhatsAppEmailContent : IValidatableObject
+    public class WhatsAppEmailContent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WhatsAppEmailContent" /> class.
+        /// </summary>
+        [JsonConstructor]
+        public WhatsAppEmailContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppEmailContent" /> class.
         /// </summary>
         /// <param name="email">Contact&#39;s email..</param>
         /// <param name="type">type.</param>
-        public WhatsAppEmailContent(string email = default, WhatsAppEmailType type = default)
+        public WhatsAppEmailContent(string email = default, WhatsAppEmailType type = WhatsAppEmailType.Home)
         {
             Email = email;
             Type = type;
@@ -32,15 +38,5 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         [JsonProperty("type")]
         public WhatsAppEmailType Type { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

@@ -8,13 +8,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// The content object to build a message that will be sent.
     /// </summary>
-    public class WhatsAppContactsContent : IValidatableObject
+    public class WhatsAppContactsContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppContactsContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppContactsContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppContactsContent" /> class.
         /// </summary>
@@ -29,16 +30,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>An array of contacts sent in a WhatsApp message.</value>
         [JsonProperty("contacts")]
+        [Required(ErrorMessage = "Contacts is required")]
         public List<WhatsAppContactContent> Contacts { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

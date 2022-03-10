@@ -14,38 +14,13 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateLocationHeaderApiData), "LOCATION")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateTextHeaderApiData), "TEXT")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateVideoHeaderApiData), "VIDEO")]
-    public class WhatsAppTemplateDocumentHeaderApiData : WhatsAppTemplateHeaderApiData, IValidatableObject
+    public class WhatsAppTemplateDocumentHeaderApiData : WhatsAppTemplateHeaderApiData
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateDocumentHeaderApiData" /> class.
         /// </summary>
-        /// <param name="format">format.</param>
-        public WhatsAppTemplateDocumentHeaderApiData(SendFormatEnum? format = default) : base()
+        public WhatsAppTemplateDocumentHeaderApiData() : base(FormatEnum.Document)
         {
-        }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            foreach (var x in BaseValidate(validationContext))
-            {
-                yield return x;
-            }
-            yield break;
         }
     }
 }

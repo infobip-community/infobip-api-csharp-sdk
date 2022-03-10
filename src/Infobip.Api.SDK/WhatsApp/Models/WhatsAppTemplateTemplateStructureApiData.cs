@@ -10,7 +10,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Template structure.
     /// </summary>
-    public class WhatsAppTemplateTemplateStructureApiData : IValidatableObject
+    public class WhatsAppTemplateTemplateStructureApiData
     {
         /// <summary>
         /// Defines Type
@@ -46,18 +46,11 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         public SendTypeEnum? Type { get; set; }
 
         /// <summary>
-        /// Returns false as Type should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeType()
-        {
-            return false;
-        }
-        /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateTemplateStructureApiData" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppTemplateTemplateStructureApiData() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateTemplateStructureApiData" /> class.
         /// </summary>
@@ -84,6 +77,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Template body. Can be registered as plain text or text with placeholders. Placeholders have to be correctly formatted and in the correct order, regardless of other sections. Example: {{1}}, {{2}}, {{3}}...</value>
         [JsonProperty("body")]
+        [Required(ErrorMessage = "Body is required")]
         public string Body { get; set; }
 
         /// <summary>
@@ -91,6 +85,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Template footer. Plain text, up to 60 characters.</value>
         [JsonProperty("footer")]
+        [MaxLength(60)]
         public string Footer { get; set; }
 
         /// <summary>
@@ -98,28 +93,8 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Template buttons. Can be either up to 3 &#x60;quick reply&#x60; buttons or up to 2 &#x60;call to action&#x60; buttons. Call to action buttons must be unique in type.</value>
         [JsonProperty("buttons")]
+        [MinLength(1)]
+        [MaxLength(3)]
         public List<WhatsAppTemplateButtonApiData> Buttons { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            // Footer (string) maxLength
-            if (Footer != null && Footer.Length > 60)
-            {
-                yield return new ValidationResult("Invalid value for Footer, length must be less than 60.", new[] { "Footer" });
-            }
-
-            // Footer (string) minLength
-            if (Footer != null && Footer.Length < 0)
-            {
-                yield return new ValidationResult("Invalid value for Footer, length must be greater than 0.", new[] { "Footer" });
-            }
-
-            yield break;
-        }
     }
 }

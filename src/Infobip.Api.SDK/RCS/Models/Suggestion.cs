@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 using JsonSubTypes;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Infobip.Api.SDK.RCS.Models
 {
@@ -11,57 +9,13 @@ namespace Infobip.Api.SDK.RCS.Models
     /// List of suggestions that will be sent in card
     /// </summary>
     [JsonConverter(typeof(JsonSubtypes), "Type")]
-    [JsonSubtypes.KnownSubTypeAttribute(typeof(DialPhoneSuggestion), "DIAL_PHONE")]
-    [JsonSubtypes.KnownSubTypeAttribute(typeof(OpenUrlSuggestion), "OPEN_URL")]
-    [JsonSubtypes.KnownSubTypeAttribute(typeof(ReplySuggestion), "REPLY")]
-    [JsonSubtypes.KnownSubTypeAttribute(typeof(RequestLocationSuggestion), "REQUEST_LOCATION")]
-    [JsonSubtypes.KnownSubTypeAttribute(typeof(ShowLocationSuggestion), "SHOW_LOCATION")]
+    [JsonSubtypes.KnownSubType(typeof(DialPhoneSuggestion), "DIAL_PHONE")]
+    [JsonSubtypes.KnownSubType(typeof(OpenUrlSuggestion), "OPEN_URL")]
+    [JsonSubtypes.KnownSubType(typeof(ReplySuggestion), "REPLY")]
+    [JsonSubtypes.KnownSubType(typeof(RequestLocationSuggestion), "REQUEST_LOCATION")]
+    [JsonSubtypes.KnownSubType(typeof(ShowLocationSuggestion), "SHOW_LOCATION")]
     public class Suggestion
     {
-        /// <summary>
-        /// Defines Type
-        /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum TypeEnum
-        {
-            /// <summary>
-            /// Enum REPLY for value: REPLY
-            /// </summary>
-            [EnumMember(Value = "REPLY")]
-            REPLY = 1,
-
-            /// <summary>
-            /// Enum OPENURL for value: OPEN_URL
-            /// </summary>
-            [EnumMember(Value = "OPEN_URL")]
-            OPENURL = 2,
-
-            /// <summary>
-            /// Enum DIALPHONE for value: DIAL_PHONE
-            /// </summary>
-            [EnumMember(Value = "DIAL_PHONE")]
-            DIALPHONE = 3,
-
-            /// <summary>
-            /// Enum SHOWLOCATION for value: SHOW_LOCATION
-            /// </summary>
-            [EnumMember(Value = "SHOW_LOCATION")]
-            SHOWLOCATION = 4,
-
-            /// <summary>
-            /// Enum REQUESTLOCATION for value: REQUEST_LOCATION
-            /// </summary>
-            [EnumMember(Value = "REQUEST_LOCATION")]
-            REQUESTLOCATION = 5
-
-        }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [JsonProperty("type")]
-        public TypeEnum? Type { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Suggestion" /> class.
         /// </summary>
@@ -74,12 +28,18 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="text">Suggestion text (required).</param>
         /// <param name="postbackData">Value which is going to be sent as a reply to a suggestion (required).</param>
         /// <param name="type">type.</param>
-        public Suggestion(string text = default, string postbackData = default, TypeEnum? type = default)
+        public Suggestion(string text, string postbackData, CardContentSuggestionTypeEnum type)
         {
             Text = text ?? throw new ArgumentNullException(nameof(text));
             PostbackData = postbackData ?? throw new ArgumentNullException(nameof(postbackData));
             Type = type;
         }
+
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [JsonProperty("type")]
+        public CardContentSuggestionTypeEnum Type { get; set; }
 
         /// <summary>
         /// Suggestion text

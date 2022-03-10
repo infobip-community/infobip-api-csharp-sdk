@@ -16,7 +16,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="description">Description of the card, displayed as regular text.</param>
         /// <param name="media">media.</param>
         /// <param name="suggestions">List of suggestions that will be sent in card.</param>
-        public CardContent(string title = default, string description = default, CardMedia media = default, List<Suggestion> suggestions = default)
+        public CardContent(string title, string description, CardMedia media = default, List<Suggestion> suggestions = default)
         {
             Title = title;
             Description = description;

@@ -27,7 +27,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="postbackData">Value which is going to be sent as a reply to a suggestion (required).</param>
         /// <param name="type">type.</param>
         public RequestLocationSuggestion(string text = default, string postbackData = default)
-            : base(text, postbackData, TypeEnum.REQUESTLOCATION)
+            : base(text, postbackData, CardContentSuggestionTypeEnum.RequestLocation)
         {
         }
     }

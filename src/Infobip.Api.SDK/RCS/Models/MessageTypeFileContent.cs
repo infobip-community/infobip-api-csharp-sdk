@@ -20,12 +20,13 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         [JsonConstructor]
         protected MessageTypeFileContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageTypeFileContent" /> class.
         /// </summary>
         /// <param name="file">file (required).</param>
-        /// <param name="thumbnail">thumbnail.</param>
-        public MessageTypeFileContent(MessageResource file = default, MessageResource thumbnail = default) :base(TypeEnum.FILE)
+        /// <param name="thumbnail">thumbnail (required).</param>
+        public MessageTypeFileContent(MessageResource file, MessageResource thumbnail) :base(MessageTypeContentTypeEnum.File)
         {
             File = file ?? throw new ArgumentNullException(nameof(file));
             Thumbnail = thumbnail;

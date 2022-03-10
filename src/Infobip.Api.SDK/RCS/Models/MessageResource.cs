@@ -19,7 +19,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// Initializes a new instance of the <see cref="MessageResource" /> class.
         /// </summary>
         /// <param name="url">URL of the given resource (required).</param>
-        public MessageResource(string url = default)
+        public MessageResource(string url)
         {
             Url = url ?? throw new ArgumentNullException(nameof(url));
         }

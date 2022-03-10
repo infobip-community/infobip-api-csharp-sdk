@@ -28,7 +28,7 @@ namespace Infobip.Api.SDK.Tests
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
             var content = new MessageTypeTextContent("Text");
-            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content);
 
             // Act
             var response = await apiClient.Rcs.SendRcsMessage(request);
@@ -45,7 +45,7 @@ namespace Infobip.Api.SDK.Tests
             var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
 
             var content = new MessageTypeTextContent("");
-            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content);
 
             // Act
             Func<Task> act = () => apiClient.Rcs.SendRcsMessage(request);
@@ -63,7 +63,7 @@ namespace Infobip.Api.SDK.Tests
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
             var content = new MessageTypeFileContent(new MessageResource("url"), new MessageResource("url"));
-            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content);
 
             // Act
             var response = await apiClient.Rcs.SendRcsMessage(request);
@@ -80,8 +80,8 @@ namespace Infobip.Api.SDK.Tests
             var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
-            var content = new MessageTypeCardContent(MessageTypeCardContent.OrientationEnum.HORIZONTAL, content:new CardContent("Title"));
-            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+            var content = new MessageTypeCardContent(MessageTypeCardContentOrientationEnum.Horizontal, MessageTypeCardContentAlignmentEnum.Left, new CardContent("Title", "Description"));
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content);
 
             // Act
             var response = await apiClient.Rcs.SendRcsMessage(request);
@@ -99,8 +99,8 @@ namespace Infobip.Api.SDK.Tests
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
             var contents = new List<CardContent>();
-            var content = new MessageTypeCarouselContent(MessageTypeCarouselContent.CardWidthEnum.SMALL, contents: contents);
-            var request = new SendRcsMessageRequest("447860099299", "447860099300", content: content);
+            var content = new MessageTypeCarouselContent(MessageTypeCarouselContentCardWidthEnum.Small, contents);
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content);
 
             // Act
             var response = await apiClient.Rcs.SendRcsMessage(request);
@@ -117,10 +117,10 @@ namespace Infobip.Api.SDK.Tests
             var apiClient = new InfobipApiClient(_clientFixture.GetClient<RcsMessageResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<RcsMessageResponse>(responsePayloadFileName);
 
-            var content = new MessageTypeContent(MessageTypeContent.TypeEnum.TEXT);
+            var content = new MessageTypeContent(MessageTypeContentTypeEnum.Text);
             var messages = new List<SendRcsMessageRequest>
             {
-                new("447860099299", "447860099300", content: content)
+                new("447860099299", "447860099300", content)
             };
             var request = new SendRscBulkMessagesRequest(messages);
 

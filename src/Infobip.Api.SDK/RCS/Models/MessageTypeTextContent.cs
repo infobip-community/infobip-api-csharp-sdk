@@ -20,17 +20,14 @@ namespace Infobip.Api.SDK.RCS.Models
         /// Initializes a new instance of the <see cref="MessageTypeTextContent" /> class.
         /// </summary>
         [JsonConstructor]
-        protected MessageTypeTextContent()
-        {
-        }
+        protected MessageTypeTextContent() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageTypeTextContent" /> class.
         /// </summary>
         /// <param name="text">Message text (required).</param>
         /// <param name="suggestions">List of suggestions.</param>
-        public MessageTypeTextContent(string text = default, List<Suggestion> suggestions = default) : base(
-            TypeEnum.TEXT)
+        public MessageTypeTextContent(string text, List<Suggestion> suggestions = default) : base(MessageTypeContentTypeEnum.Text)
         {
             Text = text ?? throw new ArgumentNullException(nameof(text));
             Suggestions = suggestions;

@@ -28,8 +28,8 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="url">URL that will be opened on mobile phone when the suggestion is selected (required).</param>
         /// <param name="text">Suggestion text (required).</param>
         /// <param name="postbackData">Value which is going to be sent as a reply to a suggestion (required).</param>
-        public OpenUrlSuggestion(string url = default, string text = default, string postbackData = default)
-            : base(text, postbackData, TypeEnum.OPENURL)
+        public OpenUrlSuggestion(string url, string text, string postbackData)
+            : base(text, postbackData, CardContentSuggestionTypeEnum.OpenUrl)
         {
             Url = url ?? throw new ArgumentNullException(nameof(url));
         }

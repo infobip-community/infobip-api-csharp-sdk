@@ -29,7 +29,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="text">Suggestion text (required).</param>
         /// <param name="postbackData">Value which is going to be sent as a reply to a suggestion (required).</param>
         public ShowLocationSuggestion(double latitude = default, double longitude = default, string label = default, string text = default, string postbackData = default) 
-            : base(text, postbackData, TypeEnum.SHOWLOCATION)
+            : base(text, postbackData, CardContentSuggestionTypeEnum.ShowLocation)
         {
             Latitude = latitude;
             Longitude = longitude;

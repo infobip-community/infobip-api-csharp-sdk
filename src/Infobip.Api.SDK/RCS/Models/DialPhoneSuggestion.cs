@@ -27,8 +27,8 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="phoneNumber">Valid phone number.</param>
         /// <param name="text">Suggestion text (required).</param>
         /// <param name="postbackData">Value which is going to be sent as a reply to a suggestion (required).</param>
-        public DialPhoneSuggestion(string phoneNumber = default, string text = default, string postbackData = default)
-            : base(text, postbackData, TypeEnum.DIALPHONE)
+        public DialPhoneSuggestion(string phoneNumber, string text, string postbackData = default)
+            : base(text, postbackData, CardContentSuggestionTypeEnum.DialPhone)
         {
             PhoneNumber = phoneNumber;
         }

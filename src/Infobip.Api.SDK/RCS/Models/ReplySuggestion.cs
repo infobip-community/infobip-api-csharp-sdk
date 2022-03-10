@@ -26,7 +26,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <param name="text">Suggestion text (required).</param>
         /// <param name="postbackData">Value which is going to be sent as a reply to a suggestion (required).</param>
         public ReplySuggestion(string text = default, string postbackData = default)
-            : base(text, postbackData, TypeEnum.REPLY)
+            : base(text, postbackData, CardContentSuggestionTypeEnum.Reply)
         {
         }
     }

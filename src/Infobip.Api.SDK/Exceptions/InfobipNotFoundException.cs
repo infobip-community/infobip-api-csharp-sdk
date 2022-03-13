@@ -2,12 +2,12 @@
 
 namespace Infobip.Api.SDK.Exceptions
 {
-    public class InfobipUnauthorizedException : InfobipException
+    public class InfobipNotFoundException : InfobipException
     {
         public string MessageId { get; }
         public string Text { get; }
 
-        public InfobipUnauthorizedException(string message, string messageId, string text) : base(message, (int)HttpStatusCode.Unauthorized)
+        public InfobipNotFoundException(string message, string messageId, string text) : base(message, (int)HttpStatusCode.NotFound)
         {
             MessageId = messageId;
             Text = text;

@@ -27,7 +27,6 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <param name="latitude">Latitude of a location sent in the header. (required).</param>
         /// <param name="longitude">Longitude of a location sent in the header. (required).</param>
-        /// <param name="type">type (required).</param>
         public WhatsAppTemplateLocationHeaderContent(double latitude = default, double longitude = default) : base(TypeEnum.Location)
         {
             Latitude = latitude;

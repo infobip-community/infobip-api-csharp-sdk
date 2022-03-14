@@ -85,15 +85,5 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// <value>Enable to forward incoming calls to a phone number.</value>
         [JsonProperty("appToPhone")]
         public bool AppToPhone { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

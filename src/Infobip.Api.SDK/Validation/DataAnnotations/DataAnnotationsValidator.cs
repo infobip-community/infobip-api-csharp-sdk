@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using Infobip.Api.SDK.Extensions;
+#pragma warning disable CS1591
 
 namespace Infobip.Api.SDK.Validation.DataAnnotations
 {

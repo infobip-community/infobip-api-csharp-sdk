@@ -23,7 +23,6 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <param name="id">Unique identifier of the button. (required).</param>
         /// <param name="title">Unique title of the button. Doesn&#39;t allow emojis or markdown. (required).</param>
-        /// <param name="type">type (required).</param>
         public WhatsAppInteractiveReplyButtonContent(string id = default, string title = default) : base(InteractiveButtonEnum.Reply)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));

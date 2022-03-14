@@ -10,6 +10,10 @@ namespace Infobip.Api.SDK.Validation
     {
         private readonly IDataAnnotationsValidator _validator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestValidator"/> class.
+        /// </summary>
+        /// <param name="validator">An instance of the <see cref="IDataAnnotationsValidator"/>.</param>
         public RequestValidator(IDataAnnotationsValidator validator)
         {
             _validator = validator;

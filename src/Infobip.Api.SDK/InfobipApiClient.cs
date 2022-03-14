@@ -9,6 +9,11 @@ namespace Infobip.Api.SDK
     /// <inheritdoc />
     public sealed class InfobipApiClient : IInfobipApiClient
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfobipApiClient"/> class.
+        /// </summary>
+        /// <param name="client">An instance of the <see cref="HttpClient"/></param>
+        /// <param name="requestValidator">An instance of the <see cref="IRequestValidator"/></param>
         public InfobipApiClient(HttpClient client, IRequestValidator requestValidator)
         {
             WhatsApp = new WhatsAppClient(client, requestValidator);

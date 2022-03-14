@@ -8,8 +8,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Infobip.Api.SDK.Extensions
 {
+    /// <summary>
+    ///  Extension methods for <see cref="IServiceCollection"/> to add <see cref="InfobipApiClient"/> class related services.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Registers all needed services related to the <see cref="InfobipApiClient"/> class.
+        /// </summary>
+        /// <param name="services">An instance of <see cref="IServiceCollection"/>.</param>
+        /// <param name="configuration">An instance of <see cref="IConfiguration"/>.</param>
+        /// <returns>Returns <see cref="IServiceCollection"/> with all registered services needed by <see cref="InfobipApiClient"/>.</returns>
+        /// <remarks>
+        /// Provided <see cref="IConfiguration"/> object needs to have configuration section (<see cref="IConfigurationSection"/>) named "Infobip" that contains following parameters: ApiKey, ApiBaseUrl and Timeout 
+        /// </remarks>
+        /// <exception cref="ArgumentNullException"></exception>
         public static IServiceCollection AddInfobipClient(this IServiceCollection services,
             IConfiguration configuration)
         {

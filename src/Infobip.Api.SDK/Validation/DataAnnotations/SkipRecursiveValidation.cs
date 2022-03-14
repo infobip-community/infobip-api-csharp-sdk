@@ -5,6 +5,7 @@
  */
 
 using System;
+#pragma warning disable CS1591
 
 namespace Infobip.Api.SDK.Validation.DataAnnotations
 {

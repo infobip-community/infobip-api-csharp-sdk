@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,8 +9,22 @@ using Newtonsoft.Json.Linq;
 
 namespace Infobip.Api.SDK.Extensions
 {
+    /// <summary>
+    ///  Extension methods for <see cref="HttpResponseMessage"/>.
+    /// </summary>
     internal static class HttpResponseMessageExtensions
     {
+        /// <summary>
+        /// Throws an exception in case when <see cref="HttpResponseMessage"/> status code is not <c>SuccessStatusCode</c>
+        /// </summary>
+        /// <param name="responseMessage">An <see cref="HttpResponseMessage"/></param>
+        /// <returns></returns>
+        /// <exception cref="InfobipBadRequestException"></exception>
+        /// <exception cref="InfobipUnauthorizedException"></exception>
+        /// <exception cref="InfobipForbiddenException"></exception>
+        /// <exception cref="InfobipNotFoundException"></exception>
+        /// <exception cref="InfobipTooManyRequestsException"></exception>
+        /// <exception cref="InfobipException"></exception>
         public static async Task ThrowIfRequestWasUnsuccessful(this HttpResponseMessage responseMessage)
         {
             if (responseMessage.IsSuccessStatusCode)
@@ -27,7 +39,7 @@ namespace Infobip.Api.SDK.Extensions
 
                 var exceptionMessage = GetDefaultExceptionMessage(responseContent, statusCode, reasonPhrase);
                 var exceptionMessageId = string.Empty;
-                var exceptionText = string.Empty;
+                string exceptionText;
                 IDictionary<string, string[]> exceptionValidationErrors = new Dictionary<string, string[]>();
 
                 // Api is not returning "application/json" content type always, so we need to check it before we try to deserialize exception response.

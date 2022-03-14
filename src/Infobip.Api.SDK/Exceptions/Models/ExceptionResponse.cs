@@ -2,9 +2,9 @@
 
 namespace Infobip.Api.SDK.Exceptions.Models
 {
-    public class ExceptionResponse
+    internal class ExceptionResponse
     {
         [JsonProperty("requestError")]
-        public RequestError RequestError { get; set; }
+        internal RequestError RequestError { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.Exceptions.Models
 {
-    public class ServiceException
+    internal class ServiceException
     {
         [JsonProperty("messageId")]
         public string MessageId { get; set; }

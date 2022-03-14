@@ -2,7 +2,7 @@
 
 namespace Infobip.Api.SDK.Exceptions.Models
 {
-    public class RequestError
+    internal class RequestError
     {
         [JsonProperty("serviceException")]
         public ServiceException ServiceException { get; set; }

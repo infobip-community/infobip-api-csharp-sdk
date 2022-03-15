@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using JsonSubTypes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Infobip.Api.SDK.WhatsApp.Models
 {
@@ -12,18 +13,38 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     [JsonConverter(typeof(JsonSubtypes), "Type")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateQuickReplyButtonContent), "QUICK_REPLY")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateUrlButtonContent), "URL")]
-    public class WhatsAppTemplateButtonContent : IValidatableObject
+    public class WhatsAppTemplateButtonContent
     {
+        /// <summary>
+        /// Defines Type
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum QUICK_REPLY for value: QUICK_REPLY
+            /// </summary>
+            [EnumMember(Value = "QUICK_REPLY")]
+            QuickReply = 1,
+
+            /// <summary>
+            /// Enum URL for value: URL
+            /// </summary>
+            [EnumMember(Value = "URL")]
+            Url = 2
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateButtonContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppTemplateButtonContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateButtonContent" /> class.
         /// </summary>
         /// <param name="type">type (required).</param>
-        public WhatsAppTemplateButtonContent(string type = default)
+        public WhatsAppTemplateButtonContent(TypeEnum? type = default)
         {
             Type = type ?? throw new ArgumentNullException(nameof(type));
         }
@@ -32,26 +53,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// Gets or Sets Type
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            yield break;
-        }
+        [Required(ErrorMessage = "Type is required")]
+        public TypeEnum? Type { get; set; }
     }
 }

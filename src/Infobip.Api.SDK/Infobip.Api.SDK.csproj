@@ -4,7 +4,23 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Authors>Martin Arapović</Authors>
 		<Product>Infobip.Api.CSharp.SDK</Product>
+		<Description>C# SDK for Infobip API and you can use it as a dependency to add Infobip APIs features to your .NET application.</Description>
+		<PackageTags>api;sdk;csharp;whatsapp;webrtc;rcs;sms;email;mms;http-client;httpclient;infobip</PackageTags>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageIcon>infobip-icon.png</PackageIcon>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\infobip-icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE" Pack="true" PackagePath=""/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="JsonSubTypes" Version="1.8.0" />

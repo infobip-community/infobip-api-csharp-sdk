@@ -8,13 +8,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Array of sections in the list.
     /// </summary>
-    public class WhatsAppInteractiveListSectionContent : IValidatableObject
+    public class WhatsAppInteractiveListSectionContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveListSectionContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppInteractiveListSectionContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveListSectionContent" /> class.
         /// </summary>
@@ -31,6 +32,8 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Title of the section. Required if the message has more than one section.</value>
         [JsonProperty("title")]
+        [MinLength(1)]
+        [MaxLength(24)]
         public string Title { get; set; }
 
         /// <summary>
@@ -38,28 +41,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Array of rows sent in the section. Section must contain at least one row. Message can have up to ten rows.</value>
         [JsonProperty("rows")]
+        [Required(ErrorMessage = "List Section Rows property is required")]
         public List<WhatsAppInteractiveRowContent> Rows { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            // Title (string) maxLength
-            if (Title != null && Title.Length > 24)
-            {
-                yield return new ValidationResult("Invalid value for Title, length must be less than 24.", new[] { "Title" });
-            }
-
-            // Title (string) minLength
-            if (Title != null && Title.Length < 0)
-            {
-                yield return new ValidationResult("Invalid value for Title, length must be greater than 0.", new[] { "Title" });
-            }
-
-            yield break;
-        }
     }
 }

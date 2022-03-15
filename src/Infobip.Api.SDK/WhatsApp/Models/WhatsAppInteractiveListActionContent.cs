@@ -8,13 +8,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Message action.
     /// </summary>
-    public class WhatsAppInteractiveListActionContent : IValidatableObject
+    public class WhatsAppInteractiveListActionContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveListActionContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppInteractiveListActionContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveListActionContent" /> class.
         /// </summary>
@@ -31,6 +32,9 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Title of the list. Does not allow emojis or markdown.</value>
         [JsonProperty("title")]
+        [Required(ErrorMessage = "List Action Title is required")]
+        [MinLength(1)]
+        [MaxLength(20)]
         public string Title { get; set; }
 
         /// <summary>
@@ -38,28 +42,8 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Array of sections in the list.</value>
         [JsonProperty("sections")]
+        [MinLength(1)]
+        [MaxLength(10)]
         public List<WhatsAppInteractiveListSectionContent> Sections { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            // Title (string) maxLength
-            if (Title != null && Title.Length > 20)
-            {
-                yield return new ValidationResult("Invalid value for Title, length must be less than 20.", new[] { "Title" });
-            }
-
-            // Title (string) minLength
-            if (Title != null && Title.Length < 1)
-            {
-                yield return new ValidationResult("Invalid value for Title, length must be greater than 1.", new[] { "Title" });
-            }
-
-            yield break;
-        }
     }
 }

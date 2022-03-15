@@ -8,13 +8,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Message action.
     /// </summary>
-    public class WhatsAppInteractiveMultiProductActionContent : IValidatableObject
+    public class WhatsAppInteractiveMultiProductActionContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveMultiProductActionContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppInteractiveMultiProductActionContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveMultiProductActionContent" /> class.
         /// </summary>
@@ -31,6 +32,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>The ID that uniquely identifies the catalog registered with Facebook, connected to the WhatsApp Business Account (WABA) the sender belongs to.</value>
         [JsonProperty("catalogId")]
+        [Required(ErrorMessage = "MultiProduct Action CatalogId is required")]
         public string CatalogId { get; set; }
 
         /// <summary>
@@ -38,16 +40,9 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>An array of multi product sections.</value>
         [JsonProperty("sections")]
+        [Required(ErrorMessage = "MultiProduct Action Sections property is required")]
+        [MinLength(1)]
+        [MaxLength(10)]
         public List<WhatsAppInteractiveMultiProductSectionContent> Sections { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

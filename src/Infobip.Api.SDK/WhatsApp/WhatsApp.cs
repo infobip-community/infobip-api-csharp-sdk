@@ -4,23 +4,30 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Infobip.Api.SDK.Extensions;
+using Infobip.Api.SDK.Validation;
 using Infobip.Api.SDK.WhatsApp.Models;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.WhatsApp
 {
+    /// <inheritdoc />
     internal class WhatsAppClient : IWhatsApp
     {
         private readonly HttpClient _client;
+        private readonly IRequestValidator _requestValidator;
 
-        public WhatsAppClient(HttpClient client)
+        public WhatsAppClient(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
+            _requestValidator = requestValidator;
         }
 
         // Send WhatsApp Message
+        /// <inheritdoc />
         public async Task<WhatsAppBulkMessageInfoResponse> SendWhatsAppTemplateMessage(WhatsAppBulkMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/template"))
@@ -39,8 +46,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage(WhatsAppTextMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/text"))
@@ -59,8 +69,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppDocumentMessage(WhatsAppDocumentMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/document"))
@@ -79,8 +92,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppImageMessage(WhatsAppImageMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/image"))
@@ -99,8 +115,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppAudioMessage(WhatsAppAudioMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/audio"))
@@ -119,8 +138,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppVideoMessage(WhatsAppVideoMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/video"))
@@ -139,8 +161,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppStickerMessage(WhatsAppStickerMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/sticker"))
@@ -159,8 +184,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppLocationMessage(WhatsAppLocationMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/location"))
@@ -179,8 +207,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppContactMessage(WhatsAppContactsMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/contact"))
@@ -199,8 +230,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveButtonsMessage(WhatsAppInteractiveButtonsMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/buttons"))
@@ -219,8 +253,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveListMessage(WhatsAppInteractiveListMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/list"))
@@ -239,8 +276,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveProductMessage(WhatsAppInteractiveProductMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/product"))
@@ -259,8 +299,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveMultiProductMessage(WhatsAppInteractiveMultiProductMessageRequest requestPayload, CancellationToken cancellationToken)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/message/interactive/multi-product"))
@@ -281,6 +324,7 @@ namespace Infobip.Api.SDK.WhatsApp
 
 
         // Receive WhatsApp Message
+        /// <inheritdoc />
         public async Task<Stream> DownloadWhatsAppInboundMedia(string sender, string mediaId, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/media/{mediaId}"))
@@ -296,6 +340,7 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<string> GetWhatsAppMediaMetadata(string sender, string mediaId, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Head, $"whatsapp/1/senders/{sender}/media/{mediaId}"))
@@ -311,6 +356,7 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task MarkWhatsAppMessageAsRead(string sender, string messageId, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Post, $"whatsapp/1/senders/{sender}/message/{messageId}/read"))
@@ -325,6 +371,7 @@ namespace Infobip.Api.SDK.WhatsApp
         }
 
         // Manage WhatsApp
+        /// <inheritdoc />
         public async Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsAppTemplates(string sender, CancellationToken cancellationToken = default)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/templates"))
@@ -341,8 +388,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<WhatsAppTemplateManagementTemplateResponse> CreateWhatsAppTemplate(string sender, WhatsAppTemplateManagementTemplateRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/senders/{sender}/templates"))
@@ -361,8 +411,11 @@ namespace Infobip.Api.SDK.WhatsApp
             }
         }
 
+        /// <inheritdoc />
         public async Task<string> DeleteWhatsAppMedia(string sender, DeleteWhatsAppMediaRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Delete, $"whatsapp/1/senders/{sender}/media"))

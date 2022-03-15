@@ -16,6 +16,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         [JsonConstructor]
         protected WebRtcTokenRequest() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WebRtcTokenRequest" /> class.
         /// </summary>
@@ -65,6 +66,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>Optional. This field represents a number of seconds until the token expires. If not set, the token will last 8 hours. The maximum value is 24 hours.</value>
         [JsonProperty("timeToLive")]
+        [Range(0, 86400)]
         public long TimeToLive { get; set; }
 
         /// <summary>
@@ -75,10 +77,18 @@ namespace Infobip.Api.SDK.WebRtc.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             // Identity (string) pattern
-            var regexIdentity = new Regex(@"^[\\p{L}\\p{N}\\-_+=\/.]{3,64}$", RegexOptions.CultureInvariant);
+            var regexIdentity = new Regex(@"^[\p{L}\p{N}\-_+=/.]{3,64}$", RegexOptions.CultureInvariant);
             if (false == regexIdentity.Match(Identity).Success)
             {
-                yield return new ValidationResult("Invalid value for Identity, must match a pattern of " + regexIdentity, new[] { "Identity" });
+                yield return new ValidationResult(
+                    $"Invalid value for Identity, must match a pattern of {regexIdentity}", new[] { "Identity" });
+            }
+
+            // DisplayName (string)
+            if (!string.IsNullOrEmpty(DisplayName) &&
+                (DisplayName.Length < 5 || DisplayName.Length > 50))
+            {
+                yield return new ValidationResult("Invalid value for DisplayName, If set, must contain at least 5 and at most 50 characters.", new[] { "DisplayName" });
             }
         }
     }

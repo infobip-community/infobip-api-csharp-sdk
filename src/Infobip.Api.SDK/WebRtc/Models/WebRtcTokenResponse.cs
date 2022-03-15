@@ -7,6 +7,9 @@ namespace Infobip.Api.SDK.WebRtc.Models
     /// </summary>
     public class WebRtcTokenResponse
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebRtcTokenResponse" /> class.
+        /// </summary>
         [JsonConstructor]
         public WebRtcTokenResponse() { }
 

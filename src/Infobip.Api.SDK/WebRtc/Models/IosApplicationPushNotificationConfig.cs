@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.WebRtc.Models
 {
@@ -12,6 +13,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>Name of the APNS certificate file used to enable iOS push notifications.</value>
         [JsonProperty("apnsCertificateFileName")]
+        [Required(ErrorMessage = "ApnsCertificateFileName is required")]
         public string ApnsCertificateFileName { get; set; }
 
         /// <summary>
@@ -19,6 +21,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>Content of the APNS certificate file used to enable iOS push notifications.</value>
         [JsonProperty("apnsCertificateFileContent")]
+        [Required(ErrorMessage = "ApnsCertificateFileContent is required")]
         public string ApnsCertificateFileContent { get; set; }
 
         /// <summary>

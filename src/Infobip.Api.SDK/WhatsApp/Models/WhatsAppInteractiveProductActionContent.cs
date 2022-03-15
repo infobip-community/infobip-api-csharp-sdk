@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -8,13 +7,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Message action.
     /// </summary>
-    public class WhatsAppInteractiveProductActionContent : IValidatableObject
+    public class WhatsAppInteractiveProductActionContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveProductActionContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppInteractiveProductActionContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveProductActionContent" /> class.
         /// </summary>
@@ -31,6 +31,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>The ID that uniquely identifies the catalog registered with Facebook, connected to the WhatsApp Business Account (WABA) the sender belongs to.</value>
         [JsonProperty("catalogId")]
+        [Required(ErrorMessage = "CatalogId is required")]
         public string CatalogId { get; set; }
 
         /// <summary>
@@ -38,16 +39,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Product-unique identifier, as defined in catalog.</value>
         [JsonProperty("productRetailerId")]
+        [Required(ErrorMessage = "ProductRetailerId is required")]
         public string ProductRetailerId { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

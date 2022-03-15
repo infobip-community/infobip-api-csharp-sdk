@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using JsonSubTypes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Infobip.Api.SDK.WhatsApp.Models
 {
@@ -11,22 +12,60 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// </summary>
     [JsonConverter(typeof(JsonSubtypes), "Type")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateDocumentHeaderContent), "DOCUMENT")]
-    [JsonSubtypes.KnownSubType(typeof(SendWhatsAppTemplateImageHeaderContent), "IMAGE")]
-    [JsonSubtypes.KnownSubType(typeof(SendWhatsAppTemplateLocationHeaderContent), "LOCATION")]
-    [JsonSubtypes.KnownSubType(typeof(SendWhatsAppTemplateTextHeaderContent), "TEXT")]
+    [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateImageHeaderContent), "IMAGE")]
+    [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateLocationHeaderContent), "LOCATION")]
+    [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateTextHeaderContent), "TEXT")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateVideoHeaderContent), "VIDEO")]
-    public class WhatsAppTemplateHeaderContent : IValidatableObject
+    public class WhatsAppTemplateHeaderContent
     {
+        /// <summary>
+        /// Defines Format
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum TEXT for value: TEXT
+            /// </summary>
+            [EnumMember(Value = "TEXT")]
+            Text = 1,
+
+            /// <summary>
+            /// Enum IMAGE for value: IMAGE
+            /// </summary>
+            [EnumMember(Value = "IMAGE")]
+            Image = 2,
+
+            /// <summary>
+            /// Enum VIDEO for value: VIDEO
+            /// </summary>
+            [EnumMember(Value = "VIDEO")]
+            Video = 3,
+
+            /// <summary>
+            /// Enum DOCUMENT for value: DOCUMENT
+            /// </summary>
+            [EnumMember(Value = "DOCUMENT")]
+            Document = 4,
+
+            /// <summary>
+            /// Enum LOCATION for value: LOCATION
+            /// </summary>
+            [EnumMember(Value = "LOCATION")]
+            Location = 5
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateHeaderContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppTemplateHeaderContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateHeaderContent" /> class.
         /// </summary>
         /// <param name="type">type (required).</param>
-        public WhatsAppTemplateHeaderContent(string type = default)
+        public WhatsAppTemplateHeaderContent(TypeEnum? type = default)
         {
             Type = type ?? throw new ArgumentNullException(nameof(type));
         }
@@ -35,26 +74,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// Gets or Sets Type
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            yield break;
-        }
+        [Required(ErrorMessage = "Type is required")]
+        public TypeEnum? Type { get; set; }
     }
 }

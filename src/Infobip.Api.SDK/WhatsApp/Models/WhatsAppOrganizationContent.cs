@@ -7,8 +7,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Contains information about contact&#39;s company.
     /// </summary>
-    public class WhatsAppOrganizationContent : IValidatableObject
+    public class WhatsAppOrganizationContent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WhatsAppOrganizationContent" /> class.
+        /// </summary>
+        [JsonConstructor]
+        public WhatsAppOrganizationContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppOrganizationContent" /> class.
         /// </summary>
@@ -42,15 +48,5 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>Title value.</value>
         [JsonProperty("title")]
         public string Title { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

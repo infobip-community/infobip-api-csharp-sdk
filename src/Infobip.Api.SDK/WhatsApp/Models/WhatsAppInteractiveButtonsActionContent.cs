@@ -8,7 +8,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Message action.
     /// </summary>
-    public class WhatsAppInteractiveButtonsActionContent : IValidatableObject
+    public class WhatsAppInteractiveButtonsActionContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveButtonsActionContent" /> class.
@@ -29,16 +29,8 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>An array of buttons sent in a message. It can have up to three buttons.</value>
         [JsonProperty("buttons")]
+        [MinLength(1)]
+        [MaxLength(3)]
         public List<WhatsAppInteractiveButtonContent> Buttons { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

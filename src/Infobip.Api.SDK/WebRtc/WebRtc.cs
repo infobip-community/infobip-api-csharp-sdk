@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Infobip.Api.SDK.Extensions;
+using Infobip.Api.SDK.Validation;
 using Infobip.Api.SDK.WebRtc.Models;
 using Newtonsoft.Json;
 
@@ -13,15 +14,19 @@ namespace Infobip.Api.SDK.WebRtc
     internal class WebRtcClient : IWebRtc
     {
         private readonly HttpClient _client;
+        private readonly IRequestValidator _requestValidator;
 
-        public WebRtcClient(HttpClient client)
+        public WebRtcClient(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
+            _requestValidator = requestValidator;
         }
 
         /// <inheritdoc />
         public async Task<WebRtcTokenResponse> GenerateWebRtcToken(WebRtcTokenRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "webrtc/1/token"))
@@ -60,6 +65,8 @@ namespace Infobip.Api.SDK.WebRtc
         /// <inheritdoc />
         public async Task<WebRtcApplicationResponse> SaveWebRtcApplication(WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "webrtc/1/applications"))
@@ -98,6 +105,8 @@ namespace Infobip.Api.SDK.WebRtc
         /// <inheritdoc />
         public async Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Put, $"webrtc/1/applications/{id}"))

@@ -5,11 +5,48 @@ using Infobip.Api.SDK.WhatsApp.Models;
 
 namespace Infobip.Api.SDK.WhatsApp
 {
+    /// <summary>
+    /// Represents a collection of functions to interact with the WhatsApp API endpoints.
+    /// </summary>
     public interface IWhatsApp
     {
         // Send WhatsApp Message
+        /// <summary>
+        /// Send WhatsApp template message
+        /// </summary>
+        /// <remarks>
+        /// Send a single or multiple template messages to one or more recipients.
+        /// Template messages can be sent and delivered at anytime. Each template sent needs to be registered and pre-approved by WhatsApp.
+        /// The API response will not contain the final delivery status, use [Delivery Reports](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports) instead.
+        /// </remarks>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplateResponse"/>.</returns>
         Task<WhatsAppBulkMessageInfoResponse> SendWhatsAppTemplateMessage(WhatsAppBulkMessageRequest requestPayload, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Send WhatsApp text message
+        /// </summary>
+        /// <remarks>
+        /// Send a text message to a single recipient.
+        /// Text messages can only be successfully delivered if the recipient has contacted the business within the last 24 hours, otherwise [template message](https://www.infobip.com/docs/api#channels/whatsapp/send-whatsapp-template-message) should be used.
+        /// The API response will not contain the final delivery status, use [Delivery Reports](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports) instead.
+        /// </remarks>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplateResponse"/>.</returns>
         Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage(WhatsAppTextMessageRequest requestPayload, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Send WhatsApp document message
+        /// </summary>
+        /// <remarks>
+        /// Send a document to a single recipient. Document messages can only be successfully delivered if the recipient has contacted the business within the last 24 hours, otherwise [template message](https://www.infobip.com/docs/api#channels/whatsapp/send-whatsapp-template-message) should be used.
+        /// The API response will not contain the final delivery status, use [Delivery Reports](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports) instead.
+        /// </remarks>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplateResponse"/>.</returns>
         Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppDocumentMessage(WhatsAppDocumentMessageRequest requestPayload, CancellationToken cancellationToken);
         Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppImageMessage(WhatsAppImageMessageRequest requestPayload, CancellationToken cancellationToken);
         Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppAudioMessage(WhatsAppAudioMessageRequest requestPayload, CancellationToken cancellationToken);
@@ -33,7 +70,7 @@ namespace Infobip.Api.SDK.WhatsApp
         /// <param name="sender">Registered WhatsApp sender number. Must be in international format.</param>
         /// <param name="mediaId">ID of the media.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation. See <seealso cref="CancellationToken"/></param>
-        /// /// <returns>A <see cref="Task"/> of <see cref="Stream"/>.</returns>
+        /// <returns>A <see cref="Task"/> of <see cref="Stream"/>.</returns>
         Task<Stream> DownloadWhatsAppInboundMedia(string sender, string mediaId, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -45,7 +82,7 @@ namespace Infobip.Api.SDK.WhatsApp
         /// <param name="sender">Registered WhatsApp sender number. Must be in international format.</param>
         /// <param name="mediaId">ID of the media.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation. See <seealso cref="CancellationToken"/></param>
-        /// /// <returns>A <see cref="Task"/> of <see cref="string"/>.</returns>
+        /// <returns>A <see cref="Task"/> of <see cref="string"/>.</returns>
         Task<string> GetWhatsAppMediaMetadata(string sender, string mediaId, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -57,7 +94,7 @@ namespace Infobip.Api.SDK.WhatsApp
         /// <param name="sender">Registered WhatsApp sender number. Must be in international format.</param>
         /// <param name="messageId">ID of the message to be marked as read.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation. See <seealso cref="CancellationToken"/></param>
-        /// /// <returns>A <see cref="Task"/>.</returns>
+        /// <returns>A <see cref="Task"/>.</returns>
         Task MarkWhatsAppMessageAsRead(string sender, string messageId, CancellationToken cancellationToken = default);
 
 
@@ -70,7 +107,7 @@ namespace Infobip.Api.SDK.WhatsApp
         /// </remarks>
         /// <param name="sender">Registered WhatsApp sender number. Must be in international format.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation. See <seealso cref="CancellationToken"/></param>
-        /// /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplatesResponse"/>.</returns>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplatesResponse"/>.</returns>
         Task<WhatsAppTemplateManagementTemplatesResponse> GetWhatsAppTemplates(string sender, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -96,5 +133,9 @@ namespace Infobip.Api.SDK.WhatsApp
         /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> of <see cref="string"/>.</returns>
         Task<string> DeleteWhatsAppMedia(string sender, DeleteWhatsAppMediaRequest requestPayload, CancellationToken cancellationToken = default);
+
+
+        // Identity Change
+        // TODO: Add Identity Change endpoints.
     }
 }

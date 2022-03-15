@@ -15,7 +15,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplatePhoneNumberButtonApiData), "PHONE_NUMBER")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateQuickReplyButtonApiData), "QUICK_REPLY")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateUrlButtonApiData), "URL")]
-    public class WhatsAppTemplateButtonApiData : IValidatableObject
+    public class WhatsAppTemplateButtonApiData
     {
         /// <summary>
         /// Defines Type
@@ -48,12 +48,15 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// Gets or Sets Type
         /// </summary>
         [JsonProperty("type")]
+        [Required(ErrorMessage = "Type is required")]
         public SendTypeEnum? Type { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateButtonApiData" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppTemplateButtonApiData() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateButtonApiData" /> class.
         /// </summary>
@@ -70,36 +73,9 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Button text.</value>
         [JsonProperty("text")]
+        [Required(ErrorMessage = "Text is required")]
+        [MinLength(0)]
+        [MaxLength(200)]
         public string Text { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            // Text (string) maxLength
-            if (Text != null && Text.Length > 200)
-            {
-                yield return new ValidationResult("Invalid value for Text, length must be less than 200.", new[] { "Text" });
-            }
-
-            // Text (string) minLength
-            if (Text != null && Text.Length <= 0)
-            {
-                yield return new ValidationResult("Invalid value for Text, length must be greater than 0.", new[] { "Text" });
-            }
-        }
     }
 }

@@ -1,9 +1,13 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.Extensions;
 using Infobip.Api.SDK.RCS.Models;
+using Infobip.Api.SDK.Validation;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.RCS
@@ -12,15 +16,19 @@ namespace Infobip.Api.SDK.RCS
     internal class Rcs : IRcs
     {
         private readonly HttpClient _client;
+        private readonly IRequestValidator _requestValidator;
 
-        public Rcs(HttpClient client)
+        public Rcs(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
+            _requestValidator = requestValidator;
         }
 
         /// <inheritdoc />
         public async Task<RcsMessageResponse> SendRcsMessage(SendRcsMessageRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "ott/rcs/1/message"))
@@ -42,6 +50,8 @@ namespace Infobip.Api.SDK.RCS
         /// <inheritdoc />
         public async Task<RcsMessageResponse> SendBulkRcsMessages(SendRscBulkMessagesRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            _requestValidator.Validate(requestPayload);
+
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, "ott/rcs/1/message/bulk"))

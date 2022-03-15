@@ -6,15 +6,16 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.WhatsApp.Models
 {
     /// <summary>
-    /// SendWhatsAppInteractiveMultiProductMessageRequest
+    /// WhatsAppInteractiveMultiProductMessageRequest
     /// </summary>
-    public class WhatsAppInteractiveMultiProductMessageRequest : IValidatableObject
+    public class WhatsAppInteractiveMultiProductMessageRequest
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveMultiProductMessageRequest" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppInteractiveMultiProductMessageRequest() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveMultiProductMessageRequest" /> class.
         /// </summary>
@@ -37,6 +38,9 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Registered WhatsApp sender number. Must be in international format and comply with [WhatsApp&#39;s requirements](https://www.infobip.com/docs/whatsapp/get-started#phone-number-what-you-need-to-know).</value>
         [JsonProperty("from")]
+        [Required(ErrorMessage = "From is required")]
+        [MinLength(1)]
+        [MaxLength(24)]
         public string From { get; set; }
 
         /// <summary>
@@ -44,6 +48,9 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>Message recipient number. Must be in international format and comply with [WhatsApp&#39;s requirements](https://www.infobip.com/docs/whatsapp/get-started#phone-number-what-you-need-to-know).</value>
         [JsonProperty("to")]
+        [Required(ErrorMessage = "To is required")]
+        [MinLength(1)]
+        [MaxLength(24)]
         public string To { get; set; }
 
         /// <summary>
@@ -51,77 +58,33 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         /// <value>The ID that uniquely identifies the message sent.</value>
         [JsonProperty("messageId")]
+        [MinLength(0)]
+        [MaxLength(50)]
         public string MessageId { get; set; }
 
         /// <summary>
         /// Gets or Sets Content
         /// </summary>
         [JsonProperty("content")]
+        [Required(ErrorMessage = "Content is required")]
         public WhatsAppInteractiveMultiProductContent Content { get; set; }
 
         /// <summary>
-        /// Custom client data that will be included in a [Delivery Report](#channels/whatsapp/receive-whatsapp-delivery-reports).
+        /// Custom client data that will be included in a [Delivery Report](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports).
         /// </summary>
-        /// <value>Custom client data that will be included in a [Delivery Report](#channels/whatsapp/receive-whatsapp-delivery-reports).</value>
+        /// <value>Custom client data that will be included in a [Delivery Report](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports).</value>
         [JsonProperty("callbackData")]
+        [MinLength(0)]
+        [MaxLength(4000)]
         public string CallbackData { get; set; }
-        
+
         /// <summary>
-        /// To validate all properties of the instance
+        /// The URL on your callback server to which delivery and seen reports will be sent. [Delivery report format](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports), [Seen report format](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-seen-reports).
         /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            // From (string) maxLength
-            if (From != null && From.Length > 24)
-            {
-                yield return new ValidationResult("Invalid value for From, length must be less than 24.", new[] { "From" });
-            }
-
-            // From (string) minLength
-            if (From != null && From.Length < 1)
-            {
-                yield return new ValidationResult("Invalid value for From, length must be greater than 1.", new[] { "From" });
-            }
-
-            // To (string) maxLength
-            if (To != null && To.Length > 24)
-            {
-                yield return new ValidationResult("Invalid value for To, length must be less than 24.", new[] { "To" });
-            }
-
-            // To (string) minLength
-            if (To != null && To.Length < 1)
-            {
-                yield return new ValidationResult("Invalid value for To, length must be greater than 1.", new[] { "To" });
-            }
-
-            // MessageId (string) maxLength
-            if (MessageId != null && MessageId.Length > 50)
-            {
-                yield return new ValidationResult("Invalid value for MessageId, length must be less than 50.", new[] { "MessageId" });
-            }
-
-            // MessageId (string) minLength
-            if (MessageId != null && MessageId.Length < 0)
-            {
-                yield return new ValidationResult("Invalid value for MessageId, length must be greater than 0.", new[] { "MessageId" });
-            }
-
-            // CallbackData (string) maxLength
-            if (CallbackData != null && CallbackData.Length > 4000)
-            {
-                yield return new ValidationResult("Invalid value for CallbackData, length must be less than 4000.", new[] { "CallbackData" });
-            }
-
-            // CallbackData (string) minLength
-            if (CallbackData != null && CallbackData.Length < 0)
-            {
-                yield return new ValidationResult("Invalid value for CallbackData, length must be greater than 0.", new[] { "CallbackData" });
-            }
-
-            yield break;
-        }
+        /// <value>Custom client data that will be included in a [Delivery report format](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports), [Seen report format](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-seen-reports).</value>
+        [JsonProperty("notifyUrl")]
+        [MinLength(0)]
+        [MaxLength(2048)]
+        public string NotifyUrl { get; set; }
     }
 }

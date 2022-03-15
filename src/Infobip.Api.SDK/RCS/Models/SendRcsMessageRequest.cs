@@ -1,54 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Infobip.Api.SDK.RCS.Models
 {
-    public class SendRcsMessageRequest : IValidatableObject
+    /// <summary>
+    /// SendRcsMessageRequest
+    /// </summary>
+    public class SendRcsMessageRequest
     {
-        /// <summary>
-        /// Message validity period time unit
-        /// </summary>
-        /// <value>Message validity period time unit</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum ValidityPeriodTimeUnitEnum
-        {
-            /// <summary>
-            /// Enum SECONDS for value: SECONDS
-            /// </summary>
-            [EnumMember(Value = "SECONDS")]
-            SECONDS = 1,
-
-            /// <summary>
-            /// Enum MINUTES for value: MINUTES
-            /// </summary>
-            [EnumMember(Value = "MINUTES")]
-            MINUTES = 2,
-
-            /// <summary>
-            /// Enum HOURS for value: HOURS
-            /// </summary>
-            [EnumMember(Value = "HOURS")]
-            HOURS = 3,
-
-            /// <summary>
-            /// Enum DAYS for value: DAYS
-            /// </summary>
-            [EnumMember(Value = "DAYS")]
-            DAYS = 4
-
-        }
-
-
-        /// <summary>
-        /// Message validity period time unit
-        /// </summary>
-        /// <value>Message validity period time unit</value>
-        [JsonProperty("validityPeriodTimeUnit")]
-        public ValidityPeriodTimeUnitEnum? ValidityPeriodTimeUnit { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SendRcsMessageRequest" /> class.
         /// </summary>
@@ -60,18 +20,18 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <param name="from">Message sender.</param>
         /// <param name="to">Message destination (required).</param>
+        /// <param name="content">content (required).</param>
         /// <param name="validityPeriod">Message validity period.</param>
         /// <param name="validityPeriodTimeUnit">Message validity period time unit.</param>
-        /// <param name="content">content (required).</param>
         /// <param name="smsFailover">smsFailover.</param>
         /// <param name="notifyUrl">The URL on your call back server on which the Delivery report will be sent..</param>
         /// <param name="callbackData">Custom client data that will be included in Delivery Report..</param>
         /// <param name="messageId">MessageId data that will be included in Delivery Report..</param>
-        public SendRcsMessageRequest(string from = default, string to = default, int validityPeriod = default, ValidityPeriodTimeUnitEnum? validityPeriodTimeUnit = default, MessageTypeContent content = default, SmsFailover smsFailover = default, string notifyUrl = default, string callbackData = default, string messageId = default)
+        public SendRcsMessageRequest(string from, string to, MessageTypeContent content, int validityPeriod = default, ValidityPeriodTimeUnitEnum? validityPeriodTimeUnit = default, SmsFailover smsFailover = default, string notifyUrl = default, string callbackData = default, string messageId = default)
         {
+            From = from;
             To = to ?? throw new ArgumentNullException(nameof(to));
             Content = content ?? throw new ArgumentNullException(nameof(content));
-            From = from;
             ValidityPeriod = validityPeriod;
             ValidityPeriodTimeUnit = validityPeriodTimeUnit;
             SmsFailover = smsFailover;
@@ -79,6 +39,13 @@ namespace Infobip.Api.SDK.RCS.Models
             CallbackData = callbackData;
             MessageId = messageId;
         }
+
+        /// <summary>
+        /// Message validity period time unit
+        /// </summary>
+        /// <value>Message validity period time unit</value>
+        [JsonProperty("validityPeriodTimeUnit")]
+        public ValidityPeriodTimeUnitEnum? ValidityPeriodTimeUnit { get; set; }
 
         /// <summary>
         /// Message sender
@@ -92,6 +59,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// </summary>
         /// <value>Message destination</value>
         [JsonProperty("to")]
+        [Required(ErrorMessage = "To is required")]
         public string To { get; set; }
 
         /// <summary>
@@ -105,6 +73,7 @@ namespace Infobip.Api.SDK.RCS.Models
         /// Gets or Sets Content
         /// </summary>
         [JsonProperty("content", Required = Required.Always)]
+        [Required(ErrorMessage = "Content is required")]
         public MessageTypeContent Content { get; set; }
 
         /// <summary>
@@ -133,16 +102,5 @@ namespace Infobip.Api.SDK.RCS.Models
         /// <value>MessageId data that will be included in Delivery Report.</value>
         [JsonProperty("messageId")]
         public string MessageId { get; set; }
-
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

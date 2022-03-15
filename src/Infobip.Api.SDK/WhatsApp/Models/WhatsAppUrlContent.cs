@@ -7,8 +7,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// Array of urls information.
     /// </summary>
-    public class WhatsAppUrlContent : IValidatableObject
+    public class WhatsAppUrlContent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WhatsAppUrlContent" /> class.
+        /// </summary>
+        [JsonConstructor]
+        public WhatsAppUrlContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppUrlContent" /> class.
         /// </summary>
@@ -28,19 +34,9 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         public string Url { get; set; }
 
         /// <summary>
-        /// Gets or Sets Type
+        /// Gets or Sets url Type
         /// </summary>
         [JsonProperty("type")]
         public SendWhatsAppUrlType Type { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

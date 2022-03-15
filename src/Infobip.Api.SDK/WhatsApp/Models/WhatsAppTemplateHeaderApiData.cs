@@ -16,13 +16,13 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateLocationHeaderApiData), "LOCATION")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateTextHeaderApiData), "TEXT")]
     [JsonSubtypes.KnownSubType(typeof(WhatsAppTemplateVideoHeaderApiData), "VIDEO")]
-    public class WhatsAppTemplateHeaderApiData : IValidatableObject
+    public class WhatsAppTemplateHeaderApiData
     {
         /// <summary>
         /// Defines Format
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum SendFormatEnum
+        public enum FormatEnum
         {
             /// <summary>
             /// Enum TEXT for value: TEXT
@@ -61,34 +61,16 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// Gets or Sets Format
         /// </summary>
         [JsonProperty("format")]
-        public SendFormatEnum? Format { get; set; }
+        [Required(ErrorMessage = "Format is required")]
+        public FormatEnum? Format { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppTemplateHeaderApiData" /> class.
         /// </summary>
         /// <param name="format">format.</param>
-        public WhatsAppTemplateHeaderApiData(SendFormatEnum? format = default)
+        public WhatsAppTemplateHeaderApiData(FormatEnum? format = default)
         {
             Format = format;
-        }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 }

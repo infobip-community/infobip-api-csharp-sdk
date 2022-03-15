@@ -8,13 +8,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// The content object to build a message that will be sent.
     /// </summary>
-    public class WhatsAppInteractiveButtonsContent : IValidatableObject
+    public class WhatsAppInteractiveButtonsContent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveButtonsContent" /> class.
         /// </summary>
         [JsonConstructor]
         protected WhatsAppInteractiveButtonsContent() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsAppInteractiveButtonsContent" /> class.
         /// </summary>
@@ -34,12 +35,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// Gets or Sets Body
         /// </summary>
         [JsonProperty("body")]
+        [Required(ErrorMessage = "Body is required")]
         public WhatsAppInteractiveBodyContent Body { get; set; }
 
         /// <summary>
         /// Gets or Sets Action
         /// </summary>
         [JsonProperty("action")]
+        [Required(ErrorMessage = "Action is required")]
         public WhatsAppInteractiveButtonsActionContent Action { get; set; }
 
         /// <summary>
@@ -53,15 +56,5 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         [JsonProperty("footer")]
         public WhatsAppInteractiveFooterContent Footer { get; set; }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

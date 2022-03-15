@@ -6,16 +6,16 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.WebRtc.Models
 {
     /// <summary>
-    /// 
-
+    /// WebRtcApplicationRequest
     /// </summary>
-    public class WebRtcApplicationRequest : IValidatableObject
+    public class WebRtcApplicationRequest
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WebRtcApplicationRequest" /> class.
         /// </summary>
         [JsonConstructor]
         protected WebRtcApplicationRequest() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WebRtcApplicationRequest" /> class.
         /// </summary>
@@ -42,6 +42,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>Application name</value>
         [JsonProperty("name")]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
         /// <summary>
@@ -49,6 +50,7 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// </summary>
         /// <value>Application description containing up to 160 characters.</value>
         [JsonProperty("description")]
+        [MaxLength(160)]
         public string Description { get; set; }
 
         /// <summary>
@@ -83,15 +85,5 @@ namespace Infobip.Api.SDK.WebRtc.Models
         /// <value>Enable to forward incoming calls to a phone number.</value>
         [JsonProperty("appToPhone")]
         public bool AppToPhone { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

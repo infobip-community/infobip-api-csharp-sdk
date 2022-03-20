@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Infobip.Api.SDK.Email.Models;
@@ -23,7 +24,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/GetEmailDeliveryReportsSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<GetEmailDeliveryReportsResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<GetEmailDeliveryReportsResponse>(responsePayloadFileName);
 
             var request = new GetEmailDeliveryReportsRequest();
@@ -40,7 +41,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/GetEmailLogsSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<GetEmailLogsResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<GetEmailLogsResponse>(responsePayloadFileName);
 
             var request = new GetEmailLogsRequest();
@@ -57,7 +58,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/SendFullyFeaturedEmailSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<SendFullyFeaturedEmailResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<SendFullyFeaturedEmailResponse>(responsePayloadFileName);
 
             var request = new SendFullyFeaturedEmailRequest("to", "from", "Subject");
@@ -74,7 +75,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/GetSentEmailBulksSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<GetSentEmailBulksResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<GetSentEmailBulksResponse>(responsePayloadFileName);
 
             // Act
@@ -89,7 +90,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/RescheduleEmailMessagesSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RescheduleEmailMessagesResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<RescheduleEmailMessagesResponse>(responsePayloadFileName);
 
             var request = new RescheduleEmailMessagesRequest(DateTime.Now);
@@ -106,7 +107,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/GetSentEmailBulksStatusSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<GetSentEmailBulksStatusResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<GetSentEmailBulksStatusResponse>(responsePayloadFileName);
 
             // Act
@@ -121,7 +122,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/UpdateScheduledEmailMessagesStatusSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<UpdateScheduledEmailMessagesStatusResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<UpdateScheduledEmailMessagesStatusResponse>(responsePayloadFileName);
 
             var request = new UpdateScheduledEmailMessagesStatusRequest(BulkStatusInfoEnum.Finished);
@@ -138,7 +139,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/ValidateEmailAddressesSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<ValidateEmailAddressesResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
             var mockedResponse = _clientFixture.GetMockedResponse<ValidateEmailAddressesResponse>(responsePayloadFileName);
 
             var request = new ValidateEmailAddressesRequest("to");
@@ -150,12 +151,13 @@ namespace Infobip.Api.SDK.Tests
             mockedResponse.Should().BeEquivalentTo(response);
         }
 
+        // Throws InfobipRequestNotValidException
         [Fact]
-        public async Task SendFullyFeaturedEmail_InvalidRequest_Call_ThrowsException()
+        public async Task SendFullyFeaturedEmail_InvalidRequest_Call_Throws_InfobipRequestNotValidException()
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/SendFullyFeaturedEmailSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<SendFullyFeaturedEmailResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
 
             var request = new SendFullyFeaturedEmailRequest();
 
@@ -167,11 +169,11 @@ namespace Infobip.Api.SDK.Tests
         }
 
         [Fact]
-        public async Task RescheduleEmailMessages_InvalidRequest_Call_ThrowsException()
+        public async Task RescheduleEmailMessages_InvalidRequest_Call_Throws_InfobipRequestNotValidException()
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/RescheduleEmailMessagesSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<RescheduleEmailMessagesResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
 
             var request = new RescheduleEmailMessagesRequest();
 
@@ -183,11 +185,11 @@ namespace Infobip.Api.SDK.Tests
         }
 
         [Fact]
-        public async Task UpdateScheduledEmailMessagesStatus_InvalidRequest_Call_ThrowsException()
+        public async Task UpdateScheduledEmailMessagesStatus_InvalidRequest_Call_Throws_InfobipRequestNotValidException()
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/UpdateScheduledEmailMessagesStatusSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<UpdateScheduledEmailMessagesStatusResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
 
             var request = new UpdateScheduledEmailMessagesStatusRequest();
 
@@ -203,7 +205,7 @@ namespace Infobip.Api.SDK.Tests
         {
             // Arrange
             var responsePayloadFileName = "Data/Email/ValidateEmailAddressesSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient<UpdateScheduledEmailMessagesStatusResponse>(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
 
             var request = new ValidateEmailAddressesRequest();
 
@@ -212,6 +214,55 @@ namespace Infobip.Api.SDK.Tests
 
             // Assert
             var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        // Throws InfobipBadRequestException
+        [Fact]
+        public async Task GetEmailDeliveryReports_Call_With_BadRequestResponse_Throws_InfobipBadRequestException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Email/GetEmailDeliveryReportsBadRequest.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.BadRequest), new RequestValidator(new DataAnnotationsValidator()));
+
+            var request = new GetEmailDeliveryReportsRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Email.GetEmailDeliveryReports(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipBadRequestException>(act);
+        }
+
+        [Fact]
+        public async Task SendFullyFeaturedEmail_Call_With_BadRequestResponse_Throws_InfobipBadRequestException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Email/SendFullyFeaturedEmailBadRequest.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.BadRequest), new RequestValidator(new DataAnnotationsValidator()));
+
+            var request = new SendFullyFeaturedEmailRequest("from", "to", "Subject");
+
+            // Act
+            Func<Task> act = () => apiClient.Email.SendFullyFeaturedEmail(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipBadRequestException>(act);
+        }
+
+        [Fact]
+        public async Task ValidateEmailAddresses_Call_With_BadRequestResponse_Throws_InfobipBadRequestException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Email/ValidateEmailAddressesBadRequest.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.BadRequest), new RequestValidator(new DataAnnotationsValidator()));
+
+            var request = new ValidateEmailAddressesRequest("a@b.c");
+
+            // Act
+            Func<Task> act = () => apiClient.Email.ValidateEmailAddresses(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipBadRequestException>(act);
         }
     }
 }

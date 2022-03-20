@@ -26,6 +26,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\Email\GetEmailDeliveryReportsBadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\SendFullyFeaturedEmailBadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\ValidateEmailAddressesBadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Email\ValidateEmailAddressesSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

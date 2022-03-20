@@ -127,7 +127,7 @@ namespace Infobip.Api.SDK.Extensions
         private static string GetDefaultExceptionMessage(string responseContent, HttpStatusCode statusCode, string reasonPhrase)
         {
             var contentMessage = string.IsNullOrWhiteSpace(responseContent) ? string.Empty : $"Content: {responseContent}";
-            return $"Response status code does not indicate success: {statusCode} ({reasonPhrase}).{contentMessage}";
+            return $"Response status code does not indicate success: {statusCode} ({reasonPhrase}). {contentMessage}";
         }
     }
 }

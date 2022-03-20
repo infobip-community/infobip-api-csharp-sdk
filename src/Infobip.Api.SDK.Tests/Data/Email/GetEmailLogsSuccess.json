@@ -1,0 +1,26 @@
+{
+  "results": [
+    {
+      "messageId": "string",
+      "to": "string",
+      "from": "string",
+      "text": "string",
+      "sentAt": "2022-03-20T13:23:21Z",
+      "doneAt": "2022-03-20T13:23:21Z",
+      "messageCount": 0,
+      "price": {
+        "pricePerMessage": 0,
+        "currency": "string"
+      },
+      "status": {
+        "groupId": 0,
+        "groupName": "string",
+        "id": 0,
+        "name": "string",
+        "description": "string",
+        "action": "string"
+      },
+      "bulkId": "string"
+    }
+  ]
+}

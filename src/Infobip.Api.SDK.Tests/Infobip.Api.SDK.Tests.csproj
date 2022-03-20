@@ -26,6 +26,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\Email\ValidateEmailAddressesSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\UpdateScheduledEmailMessagesStatusSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\GetSentEmailBulksStatusSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\RescheduleEmailMessagesSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\GetSentEmailBulksSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\SendFullyFeaturedEmailSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\GetEmailLogsSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Email\GetEmailDeliveryReportsSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Rcs\SendBulkRcsMessagesSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

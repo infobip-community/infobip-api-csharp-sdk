@@ -12,9 +12,9 @@ namespace Infobip.Api.SDK.Tests
 {
     public class MockedHttpClientFixture : IDisposable
     {
-        public HttpClient GetClient<TResponse>(string payloadFileName) where TResponse : new()
+        public HttpClient GetClient<TResponse>(string payloadFileName, HttpStatusCode responseHttpStatusCode = HttpStatusCode.OK) where TResponse : new()
         {
-            var client = MockHttpClient<TResponse>(HttpStatusCode.OK, GetJsonDataFromFile(payloadFileName));
+            var client = MockHttpClient<TResponse>(responseHttpStatusCode, GetJsonDataFromFile(payloadFileName));
 
             return client;
         }

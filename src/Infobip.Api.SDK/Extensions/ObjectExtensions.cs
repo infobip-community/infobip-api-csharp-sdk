@@ -1,5 +1,8 @@
 ﻿namespace Infobip.Api.SDK.Extensions
 {
+    /// <summary>
+    /// Extensions for <see cref="object"/>.
+    /// </summary>
     internal static class ObjectExtensions
     {
         public static object GetPropertyValue(this object o, string propertyName)

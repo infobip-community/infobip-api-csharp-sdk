@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Infobip.Api.SDK.Email;
 using Infobip.Api.SDK.RCS;
+using Infobip.Api.SDK.SMS;
 using Infobip.Api.SDK.Validation;
 using Infobip.Api.SDK.WebRtc;
 using Infobip.Api.SDK.WhatsApp;
@@ -21,6 +22,7 @@ namespace Infobip.Api.SDK
             Rcs = new Rcs(client, requestValidator);
             WebRtc = new WebRtcClient(client, requestValidator);
             Email = new EmailClient(client, requestValidator);
+            Sms = new SmsClient(client, requestValidator);
         }
 
         /// <inheritdoc />
@@ -34,5 +36,8 @@ namespace Infobip.Api.SDK
 
         /// <inheritdoc />
         public IEmail Email { get; }
+
+        /// <inheritdoc />
+        public ISms Sms { get; }
     }
 }

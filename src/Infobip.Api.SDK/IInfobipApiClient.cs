@@ -1,5 +1,6 @@
 ﻿using Infobip.Api.SDK.Email;
 using Infobip.Api.SDK.RCS;
+using Infobip.Api.SDK.SMS;
 using Infobip.Api.SDK.WebRtc;
 using Infobip.Api.SDK.WhatsApp;
 
@@ -29,5 +30,10 @@ namespace Infobip.Api.SDK
         /// Exposes Email API endpoints
         /// </summary>
         IEmail Email { get; }
+
+        /// <summary>
+        /// Exposes SMS API endpoints
+        /// </summary>
+        ISms Sms { get; }
     }
 }

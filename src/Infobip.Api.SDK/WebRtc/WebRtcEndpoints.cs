@@ -11,12 +11,12 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.WebRtc
 {
     /// <inheritdoc />
-    internal class WebRtcClient : IWebRtc
+    internal class WebRtcEndpoints : IWebRtcEndpoints
     {
         private readonly HttpClient _client;
         private readonly IRequestValidator _requestValidator;
 
-        public WebRtcClient(HttpClient client, IRequestValidator requestValidator)
+        public WebRtcEndpoints(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
             _requestValidator = requestValidator;

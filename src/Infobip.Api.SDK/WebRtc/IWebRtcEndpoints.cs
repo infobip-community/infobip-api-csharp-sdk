@@ -8,7 +8,7 @@ namespace Infobip.Api.SDK.WebRtc
     /// <summary>
     /// Represents a collection of functions to interact with the WebRTC API endpoints.
     /// </summary>
-    public interface IWebRtc
+    public interface IWebRtcEndpoints
     {
         // WebRTC Token
         /// <summary>

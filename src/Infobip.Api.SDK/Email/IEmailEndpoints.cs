@@ -7,7 +7,7 @@ namespace Infobip.Api.SDK.Email
     /// <summary>
     /// Represents a collection of functions to interact with the Email API endpoints.
     /// </summary>
-    public interface IEmail
+    public interface IEmailEndpoints
     {
         // Send Email
         /// <summary>

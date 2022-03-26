@@ -12,12 +12,12 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.SMS
 {
     /// <inheritdoc />
-    internal class SmsClient : ISms
+    internal class SmsEndpoints : ISmsEndpoints
     {
         private readonly HttpClient _client;
         private readonly IRequestValidator _requestValidator;
 
-        public SmsClient(HttpClient client, IRequestValidator requestValidator)
+        public SmsEndpoints(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
             _requestValidator = requestValidator;

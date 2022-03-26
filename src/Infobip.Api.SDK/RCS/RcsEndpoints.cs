@@ -13,12 +13,12 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.RCS
 {
     /// <inheritdoc />
-    internal class Rcs : IRcs
+    internal class RcsEndpoints : IRcsEndpoints
     {
         private readonly HttpClient _client;
         private readonly IRequestValidator _requestValidator;
 
-        public Rcs(HttpClient client, IRequestValidator requestValidator)
+        public RcsEndpoints(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
             _requestValidator = requestValidator;

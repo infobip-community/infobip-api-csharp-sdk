@@ -7,7 +7,7 @@ namespace Infobip.Api.SDK.SMS
     /// <summary>
     /// Represents a collection of functions to interact with the SMS API endpoints.
     /// </summary>
-    public interface ISms
+    public interface ISmsEndpoints
     {
         // Send SMS
         /// <summary>

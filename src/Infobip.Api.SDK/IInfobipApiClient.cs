@@ -14,26 +14,26 @@ namespace Infobip.Api.SDK
         /// <summary>
         /// Exposes WhatsApp API endpoints
         /// </summary>
-        IWhatsApp WhatsApp { get; }
+        IWhatsAppEndpoints WhatsApp { get; }
 
         /// <summary>
         /// Exposes RCS API endpoints
         /// </summary>
-        IRcs Rcs { get; }
+        IRcsEndpoints Rcs { get; }
 
         /// <summary>
         /// Exposes WebRTC API endpoints
         /// </summary>
-        IWebRtc WebRtc { get; }
+        IWebRtcEndpoints WebRtc { get; }
 
         /// <summary>
         /// Exposes Email API endpoints
         /// </summary>
-        IEmail Email { get; }
+        IEmailEndpoints Email { get; }
 
         /// <summary>
         /// Exposes SMS API endpoints
         /// </summary>
-        ISms Sms { get; }
+        ISmsEndpoints Sms { get; }
     }
 }

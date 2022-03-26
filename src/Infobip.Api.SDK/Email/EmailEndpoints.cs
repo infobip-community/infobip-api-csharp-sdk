@@ -11,12 +11,12 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.Email
 {
     /// <inheritdoc />
-    internal class EmailClient : IEmail
+    internal class EmailEndpoints : IEmailEndpoints
     {
         private readonly HttpClient _client;
         private readonly IRequestValidator _requestValidator;
 
-        public EmailClient(HttpClient client, IRequestValidator requestValidator)
+        public EmailEndpoints(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
             _requestValidator = requestValidator;

@@ -7,7 +7,7 @@ namespace Infobip.Api.SDK.RCS
     /// <summary>
     /// Represents a collection of functions to interact with the RCS API endpoints
     /// </summary>
-    public interface IRcs
+    public interface IRcsEndpoints
     {
         /// <summary>
         /// Send RCS message

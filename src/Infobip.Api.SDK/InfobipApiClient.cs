@@ -1,8 +1,11 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using Infobip.Api.SDK.Email;
 using Infobip.Api.SDK.RCS;
 using Infobip.Api.SDK.SMS;
 using Infobip.Api.SDK.Validation;
+using Infobip.Api.SDK.Validation.DataAnnotations;
 using Infobip.Api.SDK.WebRtc;
 using Infobip.Api.SDK.WhatsApp;
 
@@ -11,33 +14,67 @@ namespace Infobip.Api.SDK
     /// <inheritdoc />
     public sealed class InfobipApiClient : IInfobipApiClient
     {
+        private static readonly IRequestValidator RequestValidator = new RequestValidator(new DataAnnotationsValidator());
+        private static HttpClient _httpClient;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfobipApiClient"/> class.
+        /// </summary>
+        public InfobipApiClient(ApiClientConfiguration configuration)
+        {
+            CreateAndConfigureHttpClient(configuration);
+            Initialize(_httpClient);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="InfobipApiClient"/> class.
         /// </summary>
         /// <param name="client">An instance of the <see cref="HttpClient"/></param>
-        /// <param name="requestValidator">An instance of the <see cref="IRequestValidator"/></param>
-        public InfobipApiClient(HttpClient client, IRequestValidator requestValidator)
+        public InfobipApiClient(HttpClient client)
         {
-            WhatsApp = new WhatsAppClient(client, requestValidator);
-            Rcs = new Rcs(client, requestValidator);
-            WebRtc = new WebRtcClient(client, requestValidator);
-            Email = new EmailClient(client, requestValidator);
-            Sms = new SmsClient(client, requestValidator);
+            Initialize(client);
         }
 
-        /// <inheritdoc />
-        public IWhatsApp WhatsApp { get; }
+        private void CreateAndConfigureHttpClient(ApiClientConfiguration configuration)
+        {
+            if (_httpClient != null)
+            {
+                return;
+            }
+
+            _httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(configuration.BaseUrl),
+                DefaultRequestHeaders =
+                {
+                    Authorization = new AuthenticationHeaderValue("App", configuration.ApiKey)
+                }
+            };
+        }
+
+        private void Initialize(HttpClient client)
+        {
+            WhatsApp = new WhatsAppEndpoints(client, RequestValidator);
+            Rcs = new RcsEndpoints(client, RequestValidator);
+            WebRtc = new WebRtcEndpoints(client, RequestValidator);
+            Email = new EmailEndpoints(client, RequestValidator);
+            Sms = new SmsEndpoints(client, RequestValidator);
+        }
+
 
         /// <inheritdoc />
-        public IRcs Rcs { get; }
+        public IWhatsAppEndpoints WhatsApp { get; private set; }
 
         /// <inheritdoc />
-        public IWebRtc WebRtc { get; }
+        public IRcsEndpoints Rcs { get; private set; }
 
         /// <inheritdoc />
-        public IEmail Email { get; }
+        public IWebRtcEndpoints WebRtc { get; private set; }
 
         /// <inheritdoc />
-        public ISms Sms { get; }
+        public IEmailEndpoints Email { get; private set; }
+
+        /// <inheritdoc />
+        public ISmsEndpoints Sms { get; private set; }
     }
 }

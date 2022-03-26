@@ -11,12 +11,12 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.WhatsApp
 {
     /// <inheritdoc />
-    internal class WhatsAppClient : IWhatsApp
+    internal class WhatsAppEndpoints : IWhatsAppEndpoints
     {
         private readonly HttpClient _client;
         private readonly IRequestValidator _requestValidator;
 
-        public WhatsAppClient(HttpClient client, IRequestValidator requestValidator)
+        public WhatsAppEndpoints(HttpClient client, IRequestValidator requestValidator)
         {
             _client = client;
             _requestValidator = requestValidator;

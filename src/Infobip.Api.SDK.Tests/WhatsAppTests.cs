@@ -25,7 +25,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsappTemplateMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppBulkMessageInfoResponse>(responsePayloadFileName);
 
             var messages = new List<WhatsAppFailoverMessage>
@@ -51,7 +51,7 @@ namespace Infobip.Api.SDK.Tests
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppTextMessageSuccess.json";
             var apiClient =
-                new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+                new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppTextContent("text");
@@ -72,7 +72,7 @@ namespace Infobip.Api.SDK.Tests
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppDocumentMessageSuccess.json";
             var apiClient =
-                new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+                new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppDocumentContent("http://example.com/media");
@@ -93,7 +93,7 @@ namespace Infobip.Api.SDK.Tests
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppImageMessageSuccess.json";
             var apiClient =
-                new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+                new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppImageContent("http://example.com/media");
@@ -113,7 +113,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppAudioMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppAudioContent("http://example.com/media");
@@ -133,7 +133,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppVideoMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppVideoContent("http://example.com/media");
@@ -153,7 +153,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppStickerMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppStickerContent("http://example.com/media");
@@ -173,7 +173,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppLocationMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppLocationContent();
@@ -193,7 +193,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppContactMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var nameContent = new WhatsAppNameContent(firstName: "First name", formattedName: "FirstName LastName");
@@ -218,7 +218,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppInteractiveButtonsMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var buttons = new List<WhatsAppInteractiveButtonContent>
@@ -242,7 +242,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppInteractiveListMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var buttons = new List<WhatsAppInteractiveListSectionContent>
@@ -266,7 +266,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppInteractiveProductMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppInteractiveProductContent(
@@ -289,7 +289,7 @@ namespace Infobip.Api.SDK.Tests
             // Arrange
             var cts = new CancellationTokenSource();
             var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppInteractiveMultiProductMessageSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName), new RequestValidator(new DataAnnotationsValidator()));
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppSingleMessageInfoResponse>(responsePayloadFileName);
 
             var content = new WhatsAppInteractiveMultiProductContent(

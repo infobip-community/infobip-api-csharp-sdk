@@ -8,7 +8,7 @@ namespace Infobip.Api.SDK.WhatsApp
     /// <summary>
     /// Represents a collection of functions to interact with the WhatsApp API endpoints.
     /// </summary>
-    public interface IWhatsApp
+    public interface IWhatsAppEndpoints
     {
         // Send WhatsApp Message
         /// <summary>

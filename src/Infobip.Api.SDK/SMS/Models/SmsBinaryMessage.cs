@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Infobip.Api.SDK.Shared.Models;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -28,7 +29,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <param name="sendAt">Date and time when the message is to be sent. Used for scheduled SMS. Has the following format: yyyy-MM-dd'T'HH:mm:ss.SSSZ. Must be sooner than 180 days from now.</param>
         /// <param name="validityPeriod">The message validity period in minutes. When the period expires, it will not be allowed for the message to be sent. Validity period longer than 48h is not supported. Any bigger value will automatically default back to 2880.</param>
         public SmsBinaryMessage(SmsBinaryContent binary = default, string callbackData = default,
-            SmsDeliveryTimeWindow deliveryTimeWindow = default,
+            DeliveryTimeWindow deliveryTimeWindow = default,
             List<SmsDestination> destinations = default, bool flash = default,
             string from = default, bool intermediateReport = default,
             string notifyContentType = default, string notifyUrl = default,
@@ -67,7 +68,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Sets specific scheduling options to send a message within daily or hourly intervals.
         /// </summary>
         [JsonProperty("deliveryTimeWindow")]
-        public SmsDeliveryTimeWindow DeliveryTimeWindow { get; set; }
+        public DeliveryTimeWindow DeliveryTimeWindow { get; set; }
 
         /// <summary>
         /// An array of destination objects for where messages are being sent. A valid destination is required.

@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Infobip.Api.SDK.Email;
+using Infobip.Api.SDK.MMS;
 using Infobip.Api.SDK.RCS;
 using Infobip.Api.SDK.SMS;
 using Infobip.Api.SDK.Validation;
@@ -59,6 +60,7 @@ namespace Infobip.Api.SDK
             WebRtc = new WebRtcEndpoints(client, RequestValidator);
             Email = new EmailEndpoints(client, RequestValidator);
             Sms = new SmsEndpoints(client, RequestValidator);
+            Mms = new MmsEndpoints(client, RequestValidator);
         }
 
 
@@ -76,5 +78,8 @@ namespace Infobip.Api.SDK
 
         /// <inheritdoc />
         public ISmsEndpoints Sms { get; private set; }
+
+        /// <inheritdoc />
+        public IMmsEndpoints Mms { get; private set; }
     }
 }

@@ -92,10 +92,8 @@ namespace Infobip.Api.SDK.Email
 
             var url = "email/2/send";
 
-            var multipartFormDataContent = new MultipartFormDataContent
-            {
-                requestPayload
-            };
+            var multipartFormDataContent = new MultipartFormDataContent();
+            multipartFormDataContent.Add(requestPayload);
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {

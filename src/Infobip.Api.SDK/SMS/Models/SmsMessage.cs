@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Infobip.Api.SDK.Shared.Models;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -30,7 +31,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <param name="transliteration">The transliteration of your sent message from one script to another. Transliteration is used to replace characters which are not recognized as part of your defaulted alphabet. Possible values: TURKISH, GREEK, CYRILLIC, SERBIAN_CYRILLIC, CENTRAL_EUROPEAN, BALTIC and NON_UNICODE.</param>
         /// <param name="validityPeriod">The message validity period in minutes. When the period expires, it will not be allowed for the message to be sent. Validity period longer than 48h is not supported. Any bigger value will automatically default back to 2880.</param>
         public SmsMessage(string callbackData = default,
-            SmsDeliveryTimeWindow deliveryTimeWindow = default,
+            DeliveryTimeWindow deliveryTimeWindow = default,
             List<SmsDestination> destinations = default, bool flash = default,
             string from = default, bool intermediateReport = default, SmsLanguage language = default,
             string notifyContentType = default, string notifyUrl = default,
@@ -65,7 +66,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Sets specific scheduling options to send a message within daily or hourly intervals.
         /// </summary>
         [JsonProperty("deliveryTimeWindow")]
-        public SmsDeliveryTimeWindow DeliveryTimeWindow { get; set; }
+        public DeliveryTimeWindow DeliveryTimeWindow { get; set; }
 
         /// <summary>
         /// An array of destination objects for where messages are being sent. A valid destination is required.

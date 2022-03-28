@@ -2,13 +2,13 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Infobip.Api.SDK.SMS.Models
+namespace Infobip.Api.SDK.Shared.Models
 {
     /// <summary>
-    /// Defines SmsDeliveryDay
+    /// Defines DeliveryDay
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum SmsDeliveryDay
+    public enum DeliveryDay
     {
         /// <summary>
         /// Enum Monday for value: MONDAY

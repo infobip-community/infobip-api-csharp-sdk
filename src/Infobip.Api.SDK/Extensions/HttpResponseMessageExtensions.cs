@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 namespace Infobip.Api.SDK.Extensions
 {
     /// <summary>
-    ///  Extension methods for <see cref="HttpResponseMessage"/>.
+    /// Extension methods for <see cref="HttpResponseMessage"/>.
     /// </summary>
     internal static class HttpResponseMessageExtensions
     {

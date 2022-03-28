@@ -8,13 +8,13 @@ namespace Infobip.Api.SDK.SMS.Models
     public class SmsPreviewLanguageConfiguration
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="SmsPreviewLanguageConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="SmsPreviewLanguageConfiguration" /> class.
         /// </summary>
         [JsonConstructor]
         public SmsPreviewLanguageConfiguration() { }
 
         /// <summary>
-        ///     Gets or Sets Language
+        /// Gets or Sets Language
         /// </summary>
         [JsonProperty("language")]
         public SmsLanguage Language { get; set; }

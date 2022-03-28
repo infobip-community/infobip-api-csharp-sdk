@@ -21,8 +21,8 @@ namespace Infobip.Api.SDK.WhatsApp
         /// </remarks>
         /// <param name="requestPayload">Request payload.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplateResponse"/>.</returns>
-        Task<WhatsAppBulkMessageInfoResponse> SendWhatsAppTemplateMessage(WhatsAppBulkMessageRequest requestPayload, CancellationToken cancellationToken);
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppBulkMessageInfoResponse"/>.</returns>
+        Task<WhatsAppBulkMessageInfoResponse> SendWhatsAppTemplateMessage(WhatsAppBulkMessageRequest requestPayload, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Send WhatsApp text message
@@ -34,8 +34,8 @@ namespace Infobip.Api.SDK.WhatsApp
         /// </remarks>
         /// <param name="requestPayload">Request payload.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplateResponse"/>.</returns>
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage(WhatsAppTextMessageRequest requestPayload, CancellationToken cancellationToken);
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage(WhatsAppTextMessageRequest requestPayload, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Send WhatsApp document message
@@ -46,18 +46,88 @@ namespace Infobip.Api.SDK.WhatsApp
         /// </remarks>
         /// <param name="requestPayload">Request payload.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppTemplateManagementTemplateResponse"/>.</returns>
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppDocumentMessage(WhatsAppDocumentMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppImageMessage(WhatsAppImageMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppAudioMessage(WhatsAppAudioMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppVideoMessage(WhatsAppVideoMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppStickerMessage(WhatsAppStickerMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppLocationMessage(WhatsAppLocationMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppContactMessage(WhatsAppContactsMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveButtonsMessage(WhatsAppInteractiveButtonsMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveListMessage(WhatsAppInteractiveListMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveProductMessage(WhatsAppInteractiveProductMessageRequest requestPayload, CancellationToken cancellationToken);
-        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveMultiProductMessage(WhatsAppInteractiveMultiProductMessageRequest requestPayload, CancellationToken cancellationToken);
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppDocumentMessage(WhatsAppDocumentMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp image message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppImageMessage(WhatsAppImageMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp audio message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppAudioMessage(WhatsAppAudioMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp video message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppVideoMessage(WhatsAppVideoMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp sticker message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppStickerMessage(WhatsAppStickerMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp location message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppLocationMessage(WhatsAppLocationMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp contact message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppContactMessage(WhatsAppContactsMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp interactive buttons message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveButtonsMessage(WhatsAppInteractiveButtonsMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp interactive list message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveListMessage(WhatsAppInteractiveListMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp interactive product message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveProductMessage(WhatsAppInteractiveProductMessageRequest requestPayload, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send WhatsApp interactive multi-product message
+        /// </summary>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request. See <see cref="CancellationToken"/>.</param>
+        /// <returns>A <see cref="Task"/> of <see cref="WhatsAppSingleMessageInfoResponse"/>.</returns>
+        Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppInteractiveMultiProductMessage(WhatsAppInteractiveMultiProductMessageRequest requestPayload, CancellationToken cancellationToken = default);
 
 
         // Receive WhatsApp Message

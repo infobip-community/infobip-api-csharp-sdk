@@ -9,7 +9,7 @@ namespace Infobip.Api.SDK.SMS.Models
     public class SmsDeliveryReport
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="SmsDeliveryReport" /> class.
+        /// Initializes a new instance of the <see cref="SmsDeliveryReport" /> class.
         /// </summary>
         [JsonConstructor]
         public SmsDeliveryReport() { }

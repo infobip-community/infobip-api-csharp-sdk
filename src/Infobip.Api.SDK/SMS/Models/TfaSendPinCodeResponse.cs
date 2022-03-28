@@ -3,7 +3,7 @@
 namespace Infobip.Api.SDK.SMS.Models
 {
     /// <summary>
-    ///     TfaPinCodeResponse
+    /// TfaPinCodeResponse
     /// </summary>
     public class TfaPinCodeResponse
     {
@@ -14,7 +14,7 @@ namespace Infobip.Api.SDK.SMS.Models
         protected TfaPinCodeResponse() { }
 
         /// <summary>
-        ///     Call status.
+        /// Call status.
         /// </summary>
         /// <value>Call status.</value>
         [JsonProperty("callStatus")]

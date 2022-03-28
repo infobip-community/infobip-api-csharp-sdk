@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Infobip.Api.SDK.SMS.Models
 {
     /// <summary>
-    ///     VerifyPhoneNumberRequest
+    /// VerifyPhoneNumberRequest
     /// </summary>
     public class VerifyPhoneNumberRequest
     {
@@ -25,7 +25,7 @@ namespace Infobip.Api.SDK.SMS.Models
         }
 
         /// <summary>
-        ///     PIN code to verify
+        /// PIN code to verify
         /// </summary>
         [JsonProperty("pin")]
         [Required]

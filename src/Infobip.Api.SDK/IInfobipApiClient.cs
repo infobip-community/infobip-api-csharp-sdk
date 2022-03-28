@@ -1,4 +1,5 @@
 ﻿using Infobip.Api.SDK.Email;
+using Infobip.Api.SDK.MMS;
 using Infobip.Api.SDK.RCS;
 using Infobip.Api.SDK.SMS;
 using Infobip.Api.SDK.WebRtc;
@@ -35,5 +36,10 @@ namespace Infobip.Api.SDK
         /// Exposes SMS API endpoints
         /// </summary>
         ISmsEndpoints Sms { get; }
+
+        /// <summary>
+        /// Exposes MMS API endpoints
+        /// </summary>
+        IMmsEndpoints Mms { get; }
     }
 }

@@ -18,8 +18,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClientConfiguration" /> class.
         /// </summary>
-        /// <param name="baseUrl"></param>
-        /// <param name="apiKey"></param>
+        /// <param name="baseUrl">API Base URL</param>
+        /// <param name="apiKey">API key</param>
         public ApiClientConfiguration(string baseUrl, string apiKey)
         {
             BaseUrl = baseUrl;

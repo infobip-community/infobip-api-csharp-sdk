@@ -9,7 +9,7 @@ namespace Infobip.Api.SDK.MMS.Models
     public class GetInboundMmsMessagesResponse
     {
         /// <summary>
-        ///  Initializes a new instance of the <see cref="GetInboundMmsMessagesResponse" /> class.
+        /// Initializes a new instance of the <see cref="GetInboundMmsMessagesResponse" /> class.
         /// </summary>
         [JsonConstructor]
         public GetInboundMmsMessagesResponse() { }

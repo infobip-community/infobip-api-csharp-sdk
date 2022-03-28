@@ -62,6 +62,9 @@
     <None Update="Data\Rcs\SendBulkRcsMessagesSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Rcs\SendRcsMessageBadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Rcs\SendRcsMessageSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

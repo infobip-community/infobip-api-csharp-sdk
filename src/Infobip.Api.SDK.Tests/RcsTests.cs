@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.RCS.Models;
-using Infobip.Api.SDK.Validation;
-using Infobip.Api.SDK.Validation.DataAnnotations;
 using Xunit;
 
 namespace Infobip.Api.SDK.Tests
@@ -129,6 +128,45 @@ namespace Infobip.Api.SDK.Tests
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        // Throws InfobipBadRequestException
+        [Fact]
+        public async Task SendRcsMessage_Call_With_BadRequestResponse_Throws_InfobipBadRequestException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Rcs/SendRcsMessageBadRequest.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.BadRequest));
+
+            var content = new MessageTypeTextContent("Text");
+            var request = new SendRcsMessageRequest("447860099299", "447860099300", content);
+
+            // Act
+            Func<Task> act = () => apiClient.Rcs.SendRcsMessage(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipBadRequestException>(act);
+        }
+
+        [Fact]
+        public async Task SendBulkRcsMessages_Call_With_BadRequestResponse_Throws_InfobipBadRequestException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Rcs/SendRcsMessageBadRequest.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.BadRequest));
+
+            var content = new MessageTypeContent(MessageTypeContentTypeEnum.Text);
+            var messages = new List<SendRcsMessageRequest>
+            {
+                new("447860099299", "447860099300", content)
+            };
+            var request = new SendRscBulkMessagesRequest(messages);
+
+            // Act
+            Func<Task> act = () => apiClient.Rcs.SendBulkRcsMessages(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipBadRequestException>(act);
         }
     }
 }

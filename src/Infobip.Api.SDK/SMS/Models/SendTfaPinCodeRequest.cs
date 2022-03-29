@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Infobip.Api.SDK.Attributes;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -40,7 +39,6 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <summary>
         /// Indicates if Number Lookup is needed before sending the 2FA message. If the parameter value is true, Number Lookup will be requested before sending the SMS. If the value is false, the SMS will be sent without requesting Number Lookup. Field's default value is true.
         /// </summary>
-        [QueryParameter("ncNeeded")]
         [JsonIgnore]
         public bool NcNeeded { get; set; }
 

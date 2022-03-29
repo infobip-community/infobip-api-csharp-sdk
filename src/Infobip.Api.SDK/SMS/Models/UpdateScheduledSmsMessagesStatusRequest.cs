@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Infobip.Api.SDK.Attributes;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -30,7 +29,6 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <summary>
         /// Unique ID assigned to the request if messaging multiple recipients or sending multiple messages via a single API request.
         /// </summary>
-        [QueryParameter("bulkId")]
         [JsonIgnore]
         [Required]
         public string BulkId { get; set; }

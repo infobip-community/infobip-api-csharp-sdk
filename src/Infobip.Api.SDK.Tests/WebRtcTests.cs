@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Infobip.Api.SDK.Exceptions;
-using Infobip.Api.SDK.Validation;
-using Infobip.Api.SDK.Validation.DataAnnotations;
 using Infobip.Api.SDK.WebRtc.Models;
 using Xunit;
 
@@ -69,6 +68,22 @@ namespace Infobip.Api.SDK.Tests
         }
 
         [Fact]
+        public async Task GenerateWebRtcToken_TimeToLiveInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/GenerateWebRtcTokenSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = new WebRtcTokenRequest("Identity", displayName: "DisplayName", timeToLive: 86401);
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.GenerateWebRtcToken(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        [Fact]
         public async Task GetWebRtcApplications_Call_ExpectsSuccess()
         {
             // Arrange
@@ -101,6 +116,22 @@ namespace Infobip.Api.SDK.Tests
         }
 
         [Fact]
+        public async Task SaveWebRtcApplication_DescriptionInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/SaveWebRtcApplicationSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = new WebRtcApplicationRequest("app", description: new string('A', 161));
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.SaveWebRtcApplication(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        [Fact]
         public async Task GetWebRtcApplication_Call_ExpectsSuccess()
         {
             // Arrange
@@ -130,6 +161,81 @@ namespace Infobip.Api.SDK.Tests
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        // Throws InfobipUnauthorizedException
+        [Fact]
+        public async Task GetWebRtcApplications_Call_With_UnauthorizedResponse_Throws_InfobipUnauthorizedException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/Unauthorized.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.Unauthorized));
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.GetWebRtcApplications();
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipUnauthorizedException>(act);
+        }
+
+        [Fact]
+        public async Task SaveWebRtcApplication_Call_With_UnauthorizedResponse_Throws_InfobipUnauthorizedException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/Unauthorized.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.Unauthorized));
+
+            var request = new WebRtcApplicationRequest("app");
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.SaveWebRtcApplication(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipUnauthorizedException>(act);
+        }
+
+        [Fact]
+        public async Task GetWebRtcApplication_Call_With_UnauthorizedResponse_Throws_InfobipUnauthorizedException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/Unauthorized.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.Unauthorized));
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.GetWebRtcApplication("app");
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipUnauthorizedException>(act);
+        }
+
+        [Fact]
+        public async Task UpdateWebRtcApplication_Call_With_UnauthorizedResponse_Throws_InfobipUnauthorizedException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/Unauthorized.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.Unauthorized));
+
+            var request = new WebRtcApplicationRequest("app");
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.UpdateWebRtcApplication("app_id", request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipUnauthorizedException>(act);
+        }
+
+        [Fact]
+        public async Task DeleteWebRtcApplication_Call_With_UnauthorizedResponse_Throws_InfobipUnauthorizedException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/Unauthorized.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.Unauthorized));
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.DeleteWebRtcApplication("app_id");
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipUnauthorizedException>(act);
         }
     }
 }

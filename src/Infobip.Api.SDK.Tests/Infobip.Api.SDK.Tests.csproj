@@ -68,6 +68,9 @@
     <None Update="Data\Rcs\SendRcsMessageSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\WebRtc\Unauthorized.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\WebRtc\GetWebRtcApplicationSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

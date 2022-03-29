@@ -81,14 +81,14 @@ namespace Infobip.Api.SDK.WebRtc.Models
             if (false == regexIdentity.Match(Identity).Success)
             {
                 yield return new ValidationResult(
-                    $"Invalid value for Identity, must match a pattern of {regexIdentity}", new[] { "Identity" });
+                    $"Invalid value for Identity, must match a pattern of {regexIdentity}", new[] { nameof(Identity) });
             }
 
             // DisplayName (string)
             if (!string.IsNullOrEmpty(DisplayName) &&
                 (DisplayName.Length < 5 || DisplayName.Length > 50))
             {
-                yield return new ValidationResult("Invalid value for DisplayName, If set, must contain at least 5 and at most 50 characters.", new[] { "DisplayName" });
+                yield return new ValidationResult("Invalid value for DisplayName, If set, must contain at least 5 and at most 50 characters.", new[] { nameof(DisplayName) });
             }
         }
     }

@@ -59,6 +59,21 @@
     <None Update="Data\Email\GetEmailDeliveryReportsSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Mms\SendSingleMmsMessageInternalServerError.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Mms\SendSingleMmsMessageBadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Mms\GetInboundMmsMessagesSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Mms\GetOutboundMmsMessageDeliveryReportsSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Mms\SendSingleMmsMessageSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Rcs\SendBulkRcsMessagesSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -12,7 +12,7 @@ namespace Infobip.Api.SDK.MMS.Models
         /// Initializes a new instance of the <see cref="GetMmsDeliveryReportResponse" /> class.
         /// </summary>
         [JsonConstructor]
-        protected GetMmsDeliveryReportResponse() { }
+        public GetMmsDeliveryReportResponse() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetMmsDeliveryReportResponse" /> class.

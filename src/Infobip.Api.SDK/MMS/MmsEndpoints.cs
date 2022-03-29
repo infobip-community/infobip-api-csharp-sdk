@@ -49,7 +49,7 @@ namespace Infobip.Api.SDK.MMS
             }
 
             // Add externallyHostedMedia as object <json array>
-            if (requestPayload.ExternallyHostedMedia.Any())
+            if (requestPayload.ExternallyHostedMedia != null && requestPayload.ExternallyHostedMedia.Any() )
             {
                 multipartFormDataContent.Add(new StringContent(
                         JsonConvert.SerializeObject(requestPayload.ExternallyHostedMedia), Encoding.UTF8,

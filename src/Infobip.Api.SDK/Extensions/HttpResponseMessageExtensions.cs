@@ -52,6 +52,13 @@ namespace Infobip.Api.SDK.Extensions
                     // {
                     //     "error": "string"
                     // }
+                    // This happens also for MMS endpoints
+                    // In mms case returned data is:
+                    //{
+                    //    "bulkId": "",
+                    //    "messages": [],
+                    //    "errorMessage": "Head part is mandatory. Check API documentation"
+                    //}
                     // Otherwise, default response is looking like this:
                     // {
                     //     "requestError": {
@@ -66,9 +73,14 @@ namespace Infobip.Api.SDK.Extensions
 
                     var errorResponseJObject = JObject.Parse(responseContent);
                     var errorToken = errorResponseJObject.SelectToken("error");
+                    var errorMessageToken = errorResponseJObject.SelectToken("errorMessage");
                     if (errorToken != null)
                     {
                         exceptionMessageId = exceptionText = errorToken.Value<string>();
+                    }
+                    else if (errorMessageToken != null)
+                    {
+                        exceptionMessageId = exceptionText = errorMessageToken.Value<string>();
                     }
                     else
                     {

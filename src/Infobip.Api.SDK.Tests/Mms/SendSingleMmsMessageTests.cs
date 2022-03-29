@@ -8,13 +8,13 @@ using Infobip.Api.SDK.MMS.Models;
 using Infobip.Api.SDK.Shared.Models;
 using Xunit;
 
-namespace Infobip.Api.SDK.Tests
+namespace Infobip.Api.SDK.Tests.Mms
 {
-    public class MmsTests : IClassFixture<MockedHttpClientFixture>
+    public class SendSingleMmsMessageTests : IClassFixture<MockedHttpClientFixture>
     {
         private readonly MockedHttpClientFixture _clientFixture;
 
-        public MmsTests(MockedHttpClientFixture clientFixture)
+        public SendSingleMmsMessageTests(MockedHttpClientFixture clientFixture)
         {
             _clientFixture = clientFixture;
         }
@@ -42,41 +42,6 @@ namespace Infobip.Api.SDK.Tests
         }
 
         [Fact]
-        public async Task GetOutboundMmsMessageDeliveryReports_Call_ExpectsSuccess()
-        {
-            // Arrange
-            var responsePayloadFileName = "Data/Mms/GetOutboundMmsMessageDeliveryReportsSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
-            var mockedResponse = _clientFixture.GetMockedResponse<GetMmsDeliveryReportResponse>(responsePayloadFileName);
-
-            var request = new GetMmsDeliveryReportRequest();
-
-            // Act
-            var response = await apiClient.Mms.GetOutboundMmsMessageDeliveryReports(request);
-
-            // Assert
-            mockedResponse.Should().BeEquivalentTo(response);
-        }
-
-        [Fact]
-        public async Task GetInboundMmsMessages_Call_ExpectsSuccess()
-        {
-            // Arrange
-            var responsePayloadFileName = "Data/Mms/GetInboundMmsMessagesSuccess.json";
-            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
-            var mockedResponse = _clientFixture.GetMockedResponse<GetInboundMmsMessagesResponse>(responsePayloadFileName);
-
-            var request = new GetInboundMmsMessagesRequest();
-
-            // Act
-            var response = await apiClient.Mms.GetInboundMmsMessages(request);
-
-            // Assert
-            mockedResponse.Should().BeEquivalentTo(response);
-        }
-
-        // Throws InfobipBadRequestException
-        [Fact]
         public async Task SendSingleMmsMessage_Call_With_BadRequestResponse_Throws_InfobipBadRequestException()
         {
             // Arrange
@@ -92,7 +57,7 @@ namespace Infobip.Api.SDK.Tests
 
             // Act
             Func<Task> act = () => apiClient.Mms.SendSingleMmsMessage(request);
-        
+
             // Assert
             var exception = await Assert.ThrowsAsync<InfobipBadRequestException>(act);
         }

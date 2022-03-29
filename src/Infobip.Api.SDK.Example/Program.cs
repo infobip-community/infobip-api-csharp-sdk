@@ -15,15 +15,38 @@ namespace Infobip.Api.SDK.Example
         {
             using IHost host = CreateHostBuilder(args).Build();
 
-            await MakeApiCallExample();
+            await SendWhatsAppTextMessage();
+
+            await MakeSomeApiCalls();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args);
 
-        private static async Task MakeApiCallExample()
+        public static async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage()
         {
-            var configuration = new ApiClientConfiguration("https://XYZ.api.infobip.com", "YOUR_API_KEY_FROM_PORTAL");
+            var configuration = new ApiClientConfiguration(
+                "https://XYZ.api.infobip.com",
+                "YOUR_API_KEY_FROM_PORTAL");
+
+            var client = new InfobipApiClient(configuration);
+
+            var request = new WhatsAppTextMessageRequest
+            {
+                From = "FROM_NUMBER",
+                To = "TO_NUMBER",
+                MessageId = "MESSAGE_ID",
+                Content = new WhatsAppTextContent("Message Text!")
+            };
+            return await client.WhatsApp.SendWhatsAppTextMessage(request);
+        }
+
+        private static async Task MakeSomeApiCalls()
+        {
+            var configuration = new ApiClientConfiguration(
+                "https://XYZ.api.infobip.com",
+                "YOUR_API_KEY_FROM_PORTAL");
+
             var infobipClient = new InfobipApiClient(configuration);
 
             // WebRtc.GetWebRtcApplications

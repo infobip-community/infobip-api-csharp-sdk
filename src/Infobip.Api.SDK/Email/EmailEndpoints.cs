@@ -92,14 +92,160 @@ namespace Infobip.Api.SDK.Email
 
             var url = "email/2/send";
 
-            var multipartFormDataContent = new MultipartFormDataContent();
-            multipartFormDataContent.Add(requestPayload);
+            // Add mandatory parts
+            var multipartFormDataContent = new MultipartFormDataContent
+            {
+                { new StringContent(requestPayload.From), "from" },
+                { new StringContent(requestPayload.To), "to" },
+                { new StringContent(requestPayload.Subject), "subject" },
+            };
+
+            // Others are not mandatory and add them only if specified.
+            // Add cc
+            if (!string.IsNullOrEmpty(requestPayload.Cc))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.Cc), "cc");
+            }
+
+            // Add bcc
+            if (!string.IsNullOrEmpty(requestPayload.Bcc))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.Bcc), "bcc");
+            }
+
+            // Add text
+            if (!string.IsNullOrEmpty(requestPayload.Text))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.Text), "text");
+            }
+
+            // Add bulkId
+            if (!string.IsNullOrEmpty(requestPayload.BulkId))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.BulkId), "bulkId");
+            }
+
+            // Add messageId
+            if (!string.IsNullOrEmpty(requestPayload.MessageId))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.MessageId), "messageId");
+            }
+
+            // Add templateid
+            if (requestPayload.TemplateId.HasValue)
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.TemplateId.Value.ToString()), "templateid");
+            }
+
+            // Add attachment
+            if (requestPayload.Attachment != null)
+            {
+                var mediaContent = new StreamContent(requestPayload.Attachment);
+                mediaContent.Headers.Add("Content-Type", "application/octet-stream");
+                multipartFormDataContent.Add(mediaContent, "attachment", "attachment");
+            }
+
+            // Add inlineImage
+            if (requestPayload.InlineImage != null)
+            {
+                var mediaContent = new StreamContent(requestPayload.InlineImage);
+                mediaContent.Headers.Add("Content-Type", "application/octet-stream");
+                multipartFormDataContent.Add(mediaContent, "inlineImage", "inlineImage");
+            }
+
+            // Add HTML
+            if (!string.IsNullOrEmpty(requestPayload.Html))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.Html), "HTML");
+            }
+
+            // Add replyto
+            if (!string.IsNullOrEmpty(requestPayload.ReplyTo))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.ReplyTo), "replyto");
+            }
+
+            // Add defaultplaceholders
+            if (!string.IsNullOrEmpty(requestPayload.DefaultPlaceholders))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.DefaultPlaceholders), "defaultplaceholders");
+            }
+
+            // Add preserverecipients
+            if (requestPayload.PreserveRecipients.HasValue)
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.PreserveRecipients.Value.ToString()), "preserverecipients");
+            }
+
+            // Add trackingUrl
+            if (!string.IsNullOrEmpty(requestPayload.TrackingUrl))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.TrackingUrl), "trackingUrl");
+            }
+
+            // Add trackclicks
+            if (requestPayload.TrackClicks.HasValue)
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.TrackClicks.Value.ToString()), "trackclicks");
+            }
+
+            // Add trackopens
+            if (requestPayload.TrackOpens.HasValue)
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.TrackOpens.Value.ToString()), "trackopens");
+            }
+
+            // Add track
+            if (requestPayload.Track.HasValue)
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.Track.Value.ToString()), "track");
+            }
+
+            // Add callbackData
+            if (!string.IsNullOrEmpty(requestPayload.CallbackData))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.CallbackData), "callbackData");
+            }
+
+            // Add intermediateReport
+            if (requestPayload.IntermediateReport.HasValue)
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.IntermediateReport.Value.ToString()), "intermediateReport");
+            }
+
+            // Add notifyUrl
+            if (!string.IsNullOrEmpty(requestPayload.NotifyUrl))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.NotifyUrl), "notifyUrl");
+            }
+
+            // Add notifyContentType
+            if (!string.IsNullOrEmpty(requestPayload.NotifyContentType))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.NotifyContentType), "notifyContentType");
+            }
+
+            // Add sendAt
+            if (requestPayload.SendAt.HasValue)
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.SendAt.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffK")), "sendAt");
+            }
+
+            // Add landingPagePlaceholders
+            if (!string.IsNullOrEmpty(requestPayload.LandingPagePlaceholders))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.LandingPagePlaceholders), "landingPagePlaceholders");
+            }
+
+            // Add landingPageId
+            if (!string.IsNullOrEmpty(requestPayload.LandingPageId))
+            {
+                multipartFormDataContent.Add(new StringContent(requestPayload.LandingPageId), "landingPageId");
+            }
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {
                 request.Content = multipartFormDataContent;
-                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 using (var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
                 {

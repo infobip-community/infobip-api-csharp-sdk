@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Infobip.Api.SDK.SMS.Models;
 
@@ -147,8 +148,8 @@ namespace Infobip.Api.SDK.SMS
         /// [Read me first: Introduction and use cases](https://www.infobip.com/docs/use-cases/two-factor-authentication-over-api)
         /// </remarks>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.See <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of <see cref="TfaApplicationResponse"/>.</returns>
-        Task<TfaApplicationResponse> GetTfaApplications(CancellationToken cancellationToken = default);
+        /// <returns>A <see cref="Task"/> of List&lt;<see cref="TfaApplicationResponse"/>&gt;.</returns>
+        Task<List<TfaApplicationResponse>> GetTfaApplications(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Create 2FA application
@@ -196,8 +197,8 @@ namespace Infobip.Api.SDK.SMS
         /// </remarks>
         /// <param name="appId">ID of application for which requested message was created.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.See <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="Task"/> of <see cref="TfaMessageTemplateResponse"/>.</returns>
-        Task<TfaMessageTemplateResponse> GetTfaMessageTemplates(string appId, CancellationToken cancellationToken = default);
+        /// <returns>A <see cref="Task"/> of List&lt;<see cref="TfaMessageTemplateResponse"/>&gt;.</returns>
+        Task<List<TfaMessageTemplateResponse>> GetTfaMessageTemplates(string appId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Create 2FA message template

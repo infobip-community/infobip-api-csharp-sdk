@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -7,7 +9,7 @@ namespace Infobip.Api.SDK.SMS.Models
     /// <summary>
     /// SmsBinaryContent
     /// </summary>
-    public class SmsBinaryContent
+    public class SmsBinaryContent : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SmsBinaryContent" /> class.
@@ -51,5 +53,22 @@ namespace Infobip.Api.SDK.SMS.Models
         [JsonProperty("hex")]
         [Required]
         public string Hex { get; set; }
+
+        /// <summary>
+        /// To validate all properties of the instance
+        /// </summary>
+        /// <param name="validationContext">Validation context</param>
+        /// <returns>Validation Result</returns>
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            //
+            // Hex (string) pattern
+            var regexHex = new Regex(@"^(?:^|\s)([0-9a-fA-F]{2}(?:\s|$))+$", RegexOptions.CultureInvariant);
+            if (false == regexHex.Match(Hex).Success)
+            {
+                yield return new ValidationResult(
+                    $"Invalid value for Hex, must match a pattern of {regexHex}", new[] { nameof(Hex) });
+            }
+        }
     }
 }

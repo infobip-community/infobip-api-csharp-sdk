@@ -37,6 +37,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// </summary>
         [JsonProperty("to")]
         [Required]
+        [StringLength(50)]
         public string To { get; set; }
     }
 }

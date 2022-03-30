@@ -15,6 +15,15 @@ namespace Infobip.Api.SDK.SMS.Models
         protected GetScheduledSmsMessagesStatusRequest() { }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="GetScheduledSmsMessagesRequest" /> class.
+        /// </summary>
+        /// <param name="bulkId">BulkId</param>
+        public GetScheduledSmsMessagesStatusRequest(string bulkId)
+        {
+            BulkId = bulkId;
+        }
+
+        /// <summary>
         /// Gets or Sets BulkId
         /// </summary>
         [JsonProperty("bulkId")]

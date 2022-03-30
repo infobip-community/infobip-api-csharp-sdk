@@ -11,7 +11,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Initializes a new instance of the <see cref="TfaMessageTemplateResponse" /> class.
         /// </summary>
         [JsonConstructor]
-        protected TfaMessageTemplateResponse() { }
+        public TfaMessageTemplateResponse() { }
 
         /// <summary>
         /// The ID of the application that represents your service (e.g. 2FA for login, 2FA for changing the password, etc.) for which the requested message has been created.

@@ -18,11 +18,10 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="TfaApplicationRequest" /> class.
         /// </summary>
-        /// <param name="configuration">Created 2FA application configuration..</param>
-        /// <param name="enabled">Indicates if the created application is enabled..</param>
         /// <param name="name">2FA application name. (required).</param>
-        public TfaApplicationRequest(TfaApplicationConfiguration configuration = default, bool enabled = default,
-            string name = default)
+        /// <param name="enabled">Indicates if the created application is enabled.</param>
+        /// <param name="configuration">Created 2FA application configuration.</param>
+        public TfaApplicationRequest(string name, bool enabled = default, TfaApplicationConfiguration configuration = default)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Configuration = configuration;

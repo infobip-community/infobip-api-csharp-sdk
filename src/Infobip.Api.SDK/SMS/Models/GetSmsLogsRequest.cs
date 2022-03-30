@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -7,7 +9,7 @@ namespace Infobip.Api.SDK.SMS.Models
     /// <summary>
     /// GetSmsLogsRequest
     /// </summary>
-    public class GetSmsLogsRequest
+    public class GetSmsLogsRequest : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSmsLogsRequest" /> class.
@@ -30,7 +32,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <param name="mcc">Mobile Country Code.</param>
         /// <param name="mnc">Mobile Network Code.</param>
         public GetSmsLogsRequest(string from = default, string to = default,
-            List<string> bulkId = default, List<string> messageId = default, string generalStatus = default, 
+            string bulkId = default, string messageId = default, string generalStatus = default, 
             DateTimeOffset? sentSince = default, DateTimeOffset? sentUntil = default, 
             int? limit = default, string mcc = default, string mnc = default)
         {
@@ -59,12 +61,12 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <summary>
         /// Unique ID assigned to the request if messaging multiple recipients or sending multiple messages via a single API request.
         /// </summary>
-        public List<string> BulkId { get; set; }
+        public string BulkId { get; set; }
 
         /// <summary>
         /// Unique message ID for which a log is requested.
         /// </summary>
-        public List<string> MessageId { get; set; }
+        public string MessageId { get; set; }
 
         /// <summary>
         /// Sent message status. Possible values: ACCEPTED, PENDING, UNDELIVERABLE, DELIVERED, REJECTED, EXPIRED.
@@ -84,6 +86,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <summary>
         /// Maximum number of messages to include in logs. If not set, the latest 50 records are returned. Maximum limit value is 1000 and you can only access logs for the last 48h. If you want to fetch more than 1000 logs allowed per call, use sentBefore and sentUntil to retrieve them in pages.
         /// </summary>
+        [Range(0, 1000)]
         public int? Limit { get; set; }
 
         /// <summary>
@@ -95,5 +98,21 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Mobile Network Code.
         /// </summary>
         public string Mnc { get; set; }
+
+        /// <summary>
+        /// To validate all properties of the instance
+        /// </summary>
+        /// <param name="validationContext">Validation context</param>
+        /// <returns>Validation Result</returns>
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            // GeneralStatus (string) pattern
+            var regex = new Regex(@"^(ACCEPTED|PENDING|UNDELIVERABLE|DELIVERED|REJECTED|EXPIRED)$", RegexOptions.CultureInvariant);
+            if (!string.IsNullOrEmpty(GeneralStatus) && false == regex.Match(GeneralStatus).Success)
+            {
+                yield return new ValidationResult(
+                    $"Invalid value for GeneralStatus, must match a pattern of {regex}", new[] { nameof(GeneralStatus) });
+            }
+        }
     }
 }

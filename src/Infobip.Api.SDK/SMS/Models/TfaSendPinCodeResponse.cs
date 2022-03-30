@@ -11,7 +11,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Initializes a new instance of the <see cref="TfaPinCodeResponse" /> class.
         /// </summary>
         [JsonConstructor]
-        protected TfaPinCodeResponse() { }
+        public TfaPinCodeResponse() { }
 
         /// <summary>
         /// Call status.

@@ -335,7 +335,7 @@ namespace Infobip.Api.SDK.SMS
 
         // 2FA Over SMS And Voice (Tfa - Two-Factor Authentication)
         /// <inheritdoc />
-        public async Task<TfaApplicationResponse> GetTfaApplications(CancellationToken cancellationToken = default)
+        public async Task<List<TfaApplicationResponse>> GetTfaApplications(CancellationToken cancellationToken = default)
         {
             var url = "2fa/2/applications";
 
@@ -348,7 +348,7 @@ namespace Infobip.Api.SDK.SMS
                     await response.ThrowIfRequestWasUnsuccessful();
 
                     var stream = await response.Content.ReadAsStreamAsync();
-                    return stream.ReadAndDeserializeFromJson<TfaApplicationResponse>();
+                    return stream.ReadAndDeserializeFromJson<List<TfaApplicationResponse>>();
                 }
             }
         }
@@ -423,7 +423,7 @@ namespace Infobip.Api.SDK.SMS
         }
 
         /// <inheritdoc />
-        public async Task<TfaMessageTemplateResponse> GetTfaMessageTemplates(string appId, CancellationToken cancellationToken = default)
+        public async Task<List<TfaMessageTemplateResponse>> GetTfaMessageTemplates(string appId, CancellationToken cancellationToken = default)
         {
             var url = $"2fa/2/applications/{appId}/messages";
 
@@ -436,7 +436,7 @@ namespace Infobip.Api.SDK.SMS
                     await response.ThrowIfRequestWasUnsuccessful();
 
                     var stream = await response.Content.ReadAsStreamAsync();
-                    return stream.ReadAndDeserializeFromJson<TfaMessageTemplateResponse>();
+                    return stream.ReadAndDeserializeFromJson<List<TfaMessageTemplateResponse>>();
                 }
             }
         }

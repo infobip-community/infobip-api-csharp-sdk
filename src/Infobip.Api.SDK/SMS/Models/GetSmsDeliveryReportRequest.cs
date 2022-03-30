@@ -44,7 +44,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Maximum number of delivery reports to be returned.
         /// </summary>
         [JsonProperty("limit")]
-        [Range(0, int.MaxValue)]
+        [Range(0, 1000)]
         public int Limit { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Infobip.Api.SDK.Shared.Models;
 using Newtonsoft.Json;
 
@@ -9,8 +10,14 @@ namespace Infobip.Api.SDK.SMS.Models
     /// <summary>
     /// SmsMessage
     /// </summary>
-    public class SmsMessage
+    public class SmsMessage : IValidatableObject
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SmsMessage" /> class.
+        /// </summary>
+        [JsonConstructor]
+        protected SmsMessage() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SmsMessage" /> class.
         /// </summary>
@@ -145,5 +152,22 @@ namespace Infobip.Api.SDK.SMS.Models
         /// </summary>
         [JsonProperty("validityPeriod")]
         public long ValidityPeriod { get; set; }
+
+        /// <summary>
+        /// To validate all properties of the instance
+        /// </summary>
+        /// <param name="validationContext">Validation context</param>
+        /// <returns>Validation Result</returns>
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var allowedTypes = new[] { "application/json", "application/xml" };
+
+            if (NotifyContentType != null && !allowedTypes.Contains(NotifyContentType))
+            {
+                yield return new ValidationResult(
+                    $"Invalid value for NotifyContentType, must be one of: {string.Join(", ", allowedTypes)}",
+                    new[] { "NotifyContentType" });
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -549,7 +550,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>Template name. Must only contain lowercase alphanumeric characters and underscores.</value>
         [JsonProperty("name")]
         [Required(ErrorMessage = "Name is required")]
-        [RegularExpression("^[a-zA-Z0-9_]+$", ErrorMessage = "Name must only contain lowercase alphanumeric characters and underscores. Regex: ^[a-zA-Z0-9_]+$")]
+        //[RegularExpression("^[a-zA-Z0-9_]+$", ErrorMessage = "Name must only contain lowercase alphanumeric characters and underscores. Regex: ^[a-zA-Z0-9_]+$")]
         public string Name { get; set; }
 
         /// <summary>
@@ -558,5 +559,21 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         [JsonProperty("structure")]
         [Required(ErrorMessage = "Structure is required")]
         public WhatsAppTemplateTemplateStructureApiData Structure { get; set; }
+
+        /// <summary>
+        /// To validate all properties of the instance
+        /// </summary>
+        /// <param name="validationContext">Validation context</param>
+        /// <returns>Validation Result</returns>
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            // Name (string) pattern
+            var regexName = new Regex(@"^[a-zA-Z0-9_]+$", RegexOptions.CultureInvariant);
+            if (false == regexName.Match(Name).Success)
+            {
+                yield return new ValidationResult(
+                    $"Invalid value for Name, must match a pattern of {regexName}", new[] { nameof(Name) });
+            }
+        }
     }
 }

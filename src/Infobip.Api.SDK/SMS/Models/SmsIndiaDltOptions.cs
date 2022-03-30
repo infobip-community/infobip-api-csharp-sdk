@@ -13,16 +13,14 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Initializes a new instance of the <see cref="SmsIndiaDltOptions" /> class.
         /// </summary>
         [JsonConstructor]
-        protected SmsIndiaDltOptions()
-        {
-        }
+        protected SmsIndiaDltOptions() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SmsIndiaDltOptions" /> class.
         /// </summary>
-        /// <param name="contentTemplateId">Registered DTL content template ID which matches message you are sending.</param>
         /// <param name="principalEntityId">Your assigned DTL principal entity ID.</param>
-        public SmsIndiaDltOptions(string contentTemplateId = default, string principalEntityId = default)
+        /// <param name="contentTemplateId">Registered DTL content template ID which matches message you are sending. (optional)</param>
+        public SmsIndiaDltOptions(string principalEntityId = default, string contentTemplateId = default)
         {
             PrincipalEntityId = principalEntityId ?? throw new ArgumentNullException(nameof(principalEntityId));
             ContentTemplateId = contentTemplateId;
@@ -33,6 +31,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// </summary>
         /// <value>Id of your registered DTL content template that matches this message&#39;s text.</value>
         [JsonProperty("contentTemplateId")]
+        [StringLength(30)]
         public string ContentTemplateId { get; set; }
 
         /// <summary>
@@ -41,6 +40,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// <value>Your assigned DTL principal entity id.</value>
         [JsonProperty("principalEntityId")]
         [Required]
+        [StringLength(30)]
         public string PrincipalEntityId { get; set; }
     }
 }

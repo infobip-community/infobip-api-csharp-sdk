@@ -14,7 +14,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Initializes a new instance of the <see cref="VerifyPhoneNumberResponse" /> class.
         /// </summary>
         [JsonConstructor]
-        protected VerifyPhoneNumberResponse() { }
+        public VerifyPhoneNumberResponse() { }
 
         /// <summary>
         /// Number of remaining PIN attempts.

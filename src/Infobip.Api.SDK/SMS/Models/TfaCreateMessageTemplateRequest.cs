@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -7,7 +9,7 @@ namespace Infobip.Api.SDK.SMS.Models
     /// <summary>
     /// TfaMessageTemplateRequest
     /// </summary>
-    public class TfaMessageTemplateRequest
+    public class TfaMessageTemplateRequest : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TfaMessageTemplateRequest" /> class.
@@ -29,7 +31,7 @@ namespace Infobip.Api.SDK.SMS.Models
         public TfaMessageTemplateRequest(string messageText, TfaPinType pinType,
             TfaLanguage? language = default, int pinLength = default,
             SmsRegionalOptions regional = default, string repeatDtmf = default,
-            string senderId = default, double speechRate = default)
+            string senderId = default, double speechRate = 1)
         {
             MessageText = messageText ?? throw new ArgumentNullException(nameof(messageText));
             PinType = pinType;
@@ -53,13 +55,14 @@ namespace Infobip.Api.SDK.SMS.Models
         /// </summary>
         [JsonProperty("messageText")]
         [Required]
-        [RegularExpression(@"\{\{pin\}\}", ErrorMessage = "Content of the message being sent which contains at minimum one placeholder for a PIN code ({{pin}}). Placeholder format is {{placeholderName}}.")]
+        //[RegularExpression(@"\{\{pin\}\}", ErrorMessage = "Content of the message being sent which contains at minimum one placeholder for a PIN code ({{pin}}). Placeholder format is {{placeholderName}}.")]
         public string MessageText { get; set; }
 
         /// <summary>
         /// PIN code length.
         /// </summary>
         [JsonProperty("pinLength")]
+        [Required]
         public int PinLength { get; set; }
 
         /// <summary>
@@ -100,5 +103,21 @@ namespace Infobip.Api.SDK.SMS.Models
         [JsonProperty("speechRate")]
         [Range(0.5, 20.0)]
         public double SpeechRate { get; set; }
+
+        /// <summary>
+        /// To validate all properties of the instance
+        /// </summary>
+        /// <param name="validationContext">Validation context</param>
+        /// <returns>Validation Result</returns>
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            // MessageText (string) pattern
+            var regexMessageText = new Regex(@"\{\{pin\}\}", RegexOptions.CultureInvariant);
+            if (false == regexMessageText.Match(MessageText).Success)
+            {
+                yield return new ValidationResult(
+                    $"Invalid value for MessageText, must match a pattern of {regexMessageText}", new[] { nameof(MessageText) });
+            }
+        }
     }
 }

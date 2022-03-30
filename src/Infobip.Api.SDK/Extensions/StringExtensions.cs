@@ -43,9 +43,19 @@ namespace Infobip.Api.SDK.Extensions
                     var value = GetValue(intValue);
                     result = AddQueryStringIfSpecified(result, parameter.Key, value);
                 }
+                else if (objValue is long longValue)
+                {
+                    var value = GetValue(longValue);
+                    result = AddQueryStringIfSpecified(result, parameter.Key, value);
+                }
                 else if (objValue is string stringValue)
                 {
                     var value = GetValue(stringValue);
+                    result = AddQueryStringIfSpecified(result, parameter.Key, value);
+                }
+                else if (objValue is bool boolValue)
+                {
+                    var value = GetValue(boolValue);
                     result = AddQueryStringIfSpecified(result, parameter.Key, value);
                 }
                 else if (objValue is DateTime dateTimeValue)
@@ -53,31 +63,27 @@ namespace Infobip.Api.SDK.Extensions
                     var value = GetValue(dateTimeValue);
                     result = AddQueryStringIfSpecified(result, parameter.Key, value);
                 }
+                else if (objValue is DateTimeOffset dateTimeOffsetValue)
+                {
+                    var value = GetValue(dateTimeOffsetValue);
+                    result = AddQueryStringIfSpecified(result, parameter.Key, value);
+                }
             }
 
             return result;
         }
 
-        /// <summary>
-        /// Get value if not equals to default <see cref="int"/>  value; otherwise returns <c>null</c>.
-        /// </summary>
-        /// <param name="value">Given value.</param>
-        /// <returns>Returns value if not equals to <c>default int</c> value; otherwise returns <c>null</c>.</returns>
         private static string GetValue(int value) => default == value ? null : value.ToString(CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Get value if not equals to <c>default string</c> value; otherwise returns <c>null</c>.
-        /// </summary>
-        /// <param name="value">Given value.</param>
-        /// <returns>Returns value if not equals to <c>default string</c> value; otherwise returns <c>null</c>.</returns>
+        private static string GetValue(long value) => default == value ? null : value.ToString(CultureInfo.InvariantCulture);
+
         private static string GetValue(string value) => value;
 
-        /// <summary>
-        /// Get value if not equals to <c>default DateTime?</c> value; otherwise returns <c>null</c>.
-        /// </summary>
-        /// <param name="value">Given value.</param>
-        /// <returns>Returns value if not equals to <c>default DateTime?</c> value; otherwise returns <c>null</c>.</returns>
-        private static string GetValue(DateTime? value) => default == value ? string.Empty : value.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        private static string GetValue(bool value) => default == value ? null : "true";
+
+        private static string GetValue(DateTime? value) => value?.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+
+        private static string GetValue(DateTimeOffset? value) => value?.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
 
         private static string AddQueryStringIfSpecified(string uri, string name, string value) =>
             !string.IsNullOrEmpty(value) 

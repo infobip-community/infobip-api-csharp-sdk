@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
 {
@@ -26,6 +27,7 @@ namespace Infobip.Api.SDK.SMS.Models
         /// Maximum number of messages to be returned in a response.
         /// </summary>
         [JsonProperty("limit")]
+        [Range(0,1000)]
         public int Limit { get; set; }
     }
 }

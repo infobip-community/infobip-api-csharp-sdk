@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.SMS.Models
@@ -13,6 +14,15 @@ namespace Infobip.Api.SDK.SMS.Models
         /// </summary>
         [JsonConstructor]
         protected TfaVerificationStatusRequest() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TfaVerificationStatusRequest" /> class.
+        /// </summary>
+        /// <param name="msisdn">Filter by msisdn (phone number) for which verification status is checked.</param>
+        public TfaVerificationStatusRequest(string msisdn)
+        {
+            Msisdn = msisdn ?? throw new ArgumentNullException(nameof(msisdn));
+        }
 
         /// <summary>
         /// Filter by msisdn (phone number) for which verification status is checked.

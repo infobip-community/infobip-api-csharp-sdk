@@ -17,8 +17,8 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore src/Infobip.Api.SDK.sln
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build src/Infobip.Api.SDK.sln --configuration Release --no-restore
       - name: Test
-        run: dotnet test --configuration Release --no-build
+        run: dotnet test src/Infobip.Api.SDK.sln --configuration Release --no-build

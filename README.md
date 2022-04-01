@@ -62,13 +62,13 @@ public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage()
 
 There are several exceptions defined and they can be thrown by _InfobipApiClient_ class, if some error occurs when calling an API endpoint:
 
-- _InfobipException_ - Occur during api endpoint call execution in case of general error.
-- _InfobipRequestNotValidException_ - Occur during api endpoint call execution when request model is not valid.
-- _InfobipBadRequestException_ - Occur during api endpoint call execution when http response status code is _BadRequest_ (400).
-- _InfobipUnauthorizedException_ - Occur during api endpoint call execution when http response status code is _Unauthorized_ (401).
-- _InfobipForbiddenException_ - Represents errors that occur during api endpoint call execution in case when http response status code is _Forbidden_ (403).
-- _InfobipNotFoundException_ - Represents errors that occur during api endpoint call execution in case when http response status code is _NotFound_ (404).
-- _InfobipTooManyRequestsException_ - Represents errors that occur during api endpoint call execution in case when http response status code is _TooManyRequests_ (429).
+- _InfobipException_ - Occurs during api endpoint call execution in case of general error.
+- _InfobipRequestNotValidException_ - Occurs during api endpoint call execution when request model is not valid.
+- _InfobipBadRequestException_ - Occurs during api endpoint call execution when http response status code is _BadRequest_ (400).
+- _InfobipUnauthorizedException_ - Occurs during api endpoint call execution when http response status code is _Unauthorized_ (401).
+- _InfobipForbiddenException_ - Represents errors that occurs during api endpoint call execution in case when http response status code is _Forbidden_ (403).
+- _InfobipNotFoundException_ - Represents errors that occurs during api endpoint call execution in case when http response status code is _NotFound_ (404).
+- _InfobipTooManyRequestsException_ - Represents errors that occurs during api endpoint call execution in case when http response status code is _TooManyRequests_ (429).
 
 ## Documentation
 

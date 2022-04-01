@@ -78,6 +78,14 @@ Infobip API Documentation can be found [here][apidocs].
 
 Feel free to participate in this open source project by following the standard _fork -> clone -> edit -> pull request_ workflow!
 
+For running _Tests_ you can use **Visual Studio** or your favorite **console**.
+
+To run them from **console**, just change working directory to **src** directory, and run following command.
+
+```shell
+ dotnet test
+```
+
 [apidocs]: https://www.infobip.com/docs/api
 [signup]: https://www.infobip.com/signup
 [semver]: https://semver.org

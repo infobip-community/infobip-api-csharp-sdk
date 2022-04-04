@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
@@ -12,9 +13,9 @@ namespace Infobip.Api.SDK.Tests
 {
     public class MockedHttpClientFixture : IDisposable
     {
-        public HttpClient GetClient<TResponse>(string payloadFileName) where TResponse : new()
+        public HttpClient GetClient(string payloadFileName, HttpStatusCode responseHttpStatusCode = HttpStatusCode.OK)
         {
-            var client = MockHttpClient<TResponse>(HttpStatusCode.OK, GetJsonDataFromFile(payloadFileName));
+            var client = MockHttpClient(responseHttpStatusCode, GetJsonDataFromFile(payloadFileName));
 
             return client;
         }
@@ -31,9 +32,14 @@ namespace Infobip.Api.SDK.Tests
 
         }
 
-        private static HttpClient MockHttpClient<T>(HttpStatusCode httpStatusCode, string mockedResponse)
-            where T : new()
+        private static HttpClient MockHttpClient(HttpStatusCode httpStatusCode, string mockedResponse)
         {
+            var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = httpStatusCode,
+                Content = new StringContent(mockedResponse)
+            };
+            responseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             var responseHttpMessageHandlerMock = new Mock<HttpMessageHandler>();
             responseHttpMessageHandlerMock
@@ -43,11 +49,7 @@ namespace Infobip.Api.SDK.Tests
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>()
                 )
-                .ReturnsAsync(new HttpResponseMessage
-                { 
-                    StatusCode = httpStatusCode,
-                    Content = new StringContent(mockedResponse)
-                });
+                .ReturnsAsync(responseMessage);
 
             var httpClient = new HttpClient(responseHttpMessageHandlerMock.Object)
             {

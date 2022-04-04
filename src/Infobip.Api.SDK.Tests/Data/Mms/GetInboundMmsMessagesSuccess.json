@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "messageId": "33649382066905282690",
+      "to": "41793026727",
+      "from": "InfoSMS",
+      "message": "Message",
+      "receivedAt": "2021-11-09T21:37:00.849+0000",
+      "mmsCount": 0,
+      "callbackData": "string",
+      "price": {
+        "pricePerMessage": 0.0,
+        "currency": "EUR"
+      }
+    }
+  ]
+}

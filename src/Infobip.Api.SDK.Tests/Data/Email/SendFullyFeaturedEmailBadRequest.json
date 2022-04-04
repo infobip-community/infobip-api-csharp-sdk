@@ -1,0 +1,8 @@
+{
+  "requestError": {
+    "serviceException": {
+      "messageId": "BAD_REQUEST",
+      "text": "Bad request"
+    }
+  }
+}

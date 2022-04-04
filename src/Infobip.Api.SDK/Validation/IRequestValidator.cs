@@ -4,7 +4,7 @@ using Infobip.Api.SDK.Validation.DataAnnotations;
 namespace Infobip.Api.SDK.Validation
 {
     /// <summary>
-    ///  Provides request payload validation functionality.
+    /// Provides request payload validation functionality.
     /// </summary>
     public interface IRequestValidator
     {

@@ -1,0 +1,12 @@
+{
+  "name": "2fa application name",
+  "enabled": true,
+  "configuration": {
+    "pinAttempts": 5,
+    "allowMultiplePinVerifications": true,
+    "pinTimeToLive": "10m",
+    "verifyPinLimit": "2/4s",
+    "sendPinPerApplicationLimit": "5000/12h",
+    "sendPinPerPhoneNumberLimit": "2/1d"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "results": [
+    {
+      "bulkId": "string",
+      "messageId": "33649382066905282690",
+      "to": "41793026727",
+      "from": "InfoSMS",
+      "sentAt": "2021-11-09T21:37:00.677+0000",
+      "doneAt": "2021-11-09T21:37:00.849+0000",
+      "mmsCount": 0,
+      "mccMnc": "21910",
+      "callbackData": "string",
+      "price": {
+        "pricePerMessage": 0.0,
+        "currency": "EUR"
+      },
+      "status": {
+        "groupId": 1,
+        "groupName": "PENDING",
+        "id": 26,
+        "name": "PENDING_ACCEPTED",
+        "description": "Message accepted, pending for delivery."
+      },
+      "error": {
+        "groupId": 0,
+        "groupName": "string",
+        "id": 0,
+        "name": "string",
+        "description": "string"
+      }
+    }
+  ]
+}

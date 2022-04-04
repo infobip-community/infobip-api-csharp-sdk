@@ -36,41 +36,39 @@ Either commands, from Package Manager Console or .NET Core CLI, will download an
 
 ## Usage Example
 
-If you are using ASP.NET Core, .NET Core (or .NET in general) _Infobip API C# SDK_ provides extension method `IServiceCollection.AddInfobipClient(Configuration)` which is used to register all needed services needed for a client to work
+Call example used to send WhatsApp text message
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
+public async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage()
 {
-  services.AddInfobipClient(Configuration);
+    var configuration = new ApiClientConfiguration(
+        "https://XYZ.api.infobip.com",
+        "YOUR_API_KEY_FROM_PORTAL");
+
+    var client = new InfobipApiClient(configuration);
+
+    var request = new WhatsAppTextMessageRequest
+    {
+        From = "FROM_NUMBER",
+        To = "TO_NUMBER",
+        MessageId = "MESSAGE_ID",
+        Content = new WhatsAppTextContent("Message Text!")
+    };
+    return await client.WhatsApp.SendWhatsAppTextMessage(request);
 }
 ```
 
-After this, you just simply _inject_ `IInfobipApiClient` into your _service_ class and use it to invoke API endpoints.
+## Exceptions
 
-```csharp
-public class MyWhatsAppService
-{
-    private readonly IInfobipApiClient _infobipApiClient;
+There are several exceptions defined and they can be thrown by _InfobipApiClient_ class, if some error occurs when calling an API endpoint:
 
-    public MyWhatsAppService(IInfobipApiClient infobipApiClient)
-    {
-        _infobipApiClient = infobipApiClient;
-    }
-
-    public async Task<WhatsAppSingleMessageInfoResponse> SendTextMessage(string from,
-        string to,
-        string message,
-        CancellationToken cancellationToken)
-    {
-        var request = new WhatsAppTextMessageRequest(from, to,
-            Guid.NewGuid().ToString(),
-            new WhatsAppTextContent(message));
-
-        return await _infobipApiClient.WhatsApp.SendWhatsAppTextMessage(request,
-            cancellationToken);
-    }
-}
-```
+- _InfobipException_ - Occurs during api endpoint call execution in case of general error.
+- _InfobipRequestNotValidException_ - Occurs during api endpoint call execution when request model is not valid.
+- _InfobipBadRequestException_ - Occurs during api endpoint call execution when http response status code is _BadRequest_ (400).
+- _InfobipUnauthorizedException_ - Occurs during api endpoint call execution when http response status code is _Unauthorized_ (401).
+- _InfobipForbiddenException_ - Represents errors that occurs during api endpoint call execution in case when http response status code is _Forbidden_ (403).
+- _InfobipNotFoundException_ - Represents errors that occurs during api endpoint call execution in case when http response status code is _NotFound_ (404).
+- _InfobipTooManyRequestsException_ - Represents errors that occurs during api endpoint call execution in case when http response status code is _TooManyRequests_ (429).
 
 ## Documentation
 
@@ -79,6 +77,14 @@ Infobip API Documentation can be found [here][apidocs].
 ## Development
 
 Feel free to participate in this open source project by following the standard _fork -> clone -> edit -> pull request_ workflow!
+
+For running _Tests_ you can use **Visual Studio** or your favorite **console**.
+
+To run them from **console**, just change working directory to **src** directory, and run following command.
+
+```shell
+ dotnet test
+```
 
 [apidocs]: https://www.infobip.com/docs/api
 [signup]: https://www.infobip.com/signup

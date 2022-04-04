@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.Extensions
 {
+    /// <summary>
+    /// Extensions for <see cref="Stream"/>.
+    /// </summary>
     internal static class StreamExtensions
     {
         public static T ReadAndDeserializeFromJson<T>(this Stream stream)

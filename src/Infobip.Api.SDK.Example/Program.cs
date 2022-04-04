@@ -1,13 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Infobip.Api.SDK.Extensions;
 using Infobip.Api.SDK.WebRtc.Models;
 using Infobip.Api.SDK.WhatsApp.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
@@ -19,29 +15,40 @@ namespace Infobip.Api.SDK.Example
         {
             using IHost host = CreateHostBuilder(args).Build();
 
-            using var scope = host.Services.CreateScope();
-            var infobipClient = scope.ServiceProvider.GetService<IInfobipApiClient>();
+            await SendWhatsAppTextMessage();
 
-            await MakeApiCallExample(infobipClient);
+            await MakeSomeApiCalls();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    var env = hostingContext.HostingEnvironment;
+            Host.CreateDefaultBuilder(args);
 
-                    config
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json", optional: false, true);
-                })
-                .ConfigureServices((hostingContext, services) =>
-                {
-                    services.AddInfobipClient(hostingContext.Configuration);
-                });
-
-        private static async Task MakeApiCallExample(IInfobipApiClient infobipClient)
+        public static async Task<WhatsAppSingleMessageInfoResponse> SendWhatsAppTextMessage()
         {
+            var configuration = new ApiClientConfiguration(
+                "https://XYZ.api.infobip.com",
+                "YOUR_API_KEY_FROM_PORTAL");
+
+            var client = new InfobipApiClient(configuration);
+
+            var request = new WhatsAppTextMessageRequest
+            {
+                From = "FROM_NUMBER",
+                To = "TO_NUMBER",
+                MessageId = "MESSAGE_ID",
+                Content = new WhatsAppTextContent("Message Text!")
+            };
+            return await client.WhatsApp.SendWhatsAppTextMessage(request);
+        }
+
+        private static async Task MakeSomeApiCalls()
+        {
+            var configuration = new ApiClientConfiguration(
+                "https://XYZ.api.infobip.com",
+                "YOUR_API_KEY_FROM_PORTAL");
+
+            var infobipClient = new InfobipApiClient(configuration);
+
             // WebRtc.GetWebRtcApplications
             var getWebRtcApplicationsResponse = await infobipClient.WebRtc.GetWebRtcApplications();
             getWebRtcApplicationsResponse.DumpToConsole("getWebRtcApplicationsResponse");
@@ -58,7 +65,7 @@ namespace Infobip.Api.SDK.Example
             var getWhatsAppTemplatesResponse = await infobipClient.WhatsApp.GetWhatsAppTemplates("sender", CancellationToken.None);
             getWhatsAppTemplatesResponse.DumpToConsole("getWhatsAppTemplatesResponse");
 
-            // Just use infobipClient instance to call desired api endpoint.
+            // Just use InfobipApiClient instance to call desired API endpoint.
         }
     }
 

@@ -9,9 +9,12 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageIcon>infobip-icon.png</PackageIcon>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageProjectUrl>https://github.com/infobip-community/infobip-api-csharp-sdk/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/infobip-community/infobip-api-csharp-sdk/</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,6 +23,10 @@
 
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>

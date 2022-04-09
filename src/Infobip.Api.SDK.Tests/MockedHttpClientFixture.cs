@@ -14,23 +14,16 @@ namespace Infobip.Api.SDK.Tests
     public class MockedHttpClientFixture : IDisposable
     {
         public HttpClient GetClient(string payloadFileName, HttpStatusCode responseHttpStatusCode = HttpStatusCode.OK)
-        {
-            var client = MockHttpClient(responseHttpStatusCode, GetJsonDataFromFile(payloadFileName));
+            => MockHttpClient(responseHttpStatusCode, GetJsonDataFromFile(payloadFileName));
 
-            return client;
-        }
+        public HttpClient GetClient(HttpResponseMessage mockedResponseMessage)
+            => MockHttpClient(mockedResponseMessage);
 
         public TResponse GetMockedResponse<TResponse>(string payloadFileName) where TResponse : new()
-        {
-            return JsonConvert.DeserializeObject<TResponse>(GetJsonDataFromFile(payloadFileName));
-        }
+            => JsonConvert.DeserializeObject<TResponse>(GetJsonDataFromFile(payloadFileName));
 
         private static string GetJsonDataFromFile(string fileName)
-        {
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
-            return File.ReadAllText(filePath);
-
-        }
+            => File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName));
 
         private static HttpClient MockHttpClient(HttpStatusCode httpStatusCode, string mockedResponse)
         {
@@ -41,6 +34,14 @@ namespace Infobip.Api.SDK.Tests
             };
             responseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
+            return BuildHttpClient(responseMessage);
+        }
+
+        private static HttpClient MockHttpClient(HttpResponseMessage mockedResponseMessage)
+            => BuildHttpClient(mockedResponseMessage);
+
+        private static HttpClient BuildHttpClient(HttpResponseMessage responseMessage)
+        {
             var responseHttpMessageHandlerMock = new Mock<HttpMessageHandler>();
             responseHttpMessageHandlerMock
                 .Protected()
@@ -57,7 +58,6 @@ namespace Infobip.Api.SDK.Tests
             };
 
             return httpClient;
-
         }
 
         public void Dispose() { }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Infobip.Api.SDK.MMS.Models
 {
@@ -26,6 +27,7 @@ namespace Infobip.Api.SDK.MMS.Models
         /// Maximal number of delivery reports that will be returned.
         /// </summary>
         [JsonProperty("limit")]
+        [Range(0, int.MaxValue)]
         public int Limit { get; set; }
     }
 }

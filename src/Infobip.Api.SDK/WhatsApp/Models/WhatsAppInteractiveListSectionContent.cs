@@ -42,6 +42,8 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>Array of rows sent in the section. Section must contain at least one row. Message can have up to ten rows.</value>
         [JsonProperty("rows")]
         [Required(ErrorMessage = "List Section Rows property is required")]
+        [MinLength(1)]
+        [MaxLength(10)]
         public List<WhatsAppInteractiveRowContent> Rows { get; set; }
     }
 }

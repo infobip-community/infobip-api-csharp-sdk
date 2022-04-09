@@ -49,5 +49,21 @@ namespace Infobip.Api.SDK.Tests.Email
             // Assert
             var exception = await Assert.ThrowsAsync<InfobipBadRequestException>(act);
         }
+
+        [Fact]
+        public async Task GetEmailDeliveryReports_Call_With_UnauthorizedResponse_Throws_InfobipUnauthorizedException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Email/Unauthorized.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName, HttpStatusCode.Unauthorized));
+
+            var request = new GetEmailDeliveryReportsRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Email.GetEmailDeliveryReports(request);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipUnauthorizedException>(act);
+        }
     }
 }

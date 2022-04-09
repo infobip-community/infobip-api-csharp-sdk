@@ -256,8 +256,8 @@ namespace Infobip.Api.SDK.Email.Models
             if (NotifyContentType != null && !allowedTypes.Contains(NotifyContentType))
             {
                 yield return new ValidationResult(
-                    $"Invalid value for NotifyContentType, must be one of: {string.Join(", ", allowedTypes)}",
-                    new[] { "NotifyContentType" });
+                    $"Invalid value for {nameof(NotifyContentType)}, must be one of: {string.Join(", ", allowedTypes)}",
+                    new[] { nameof(NotifyContentType) });
             }
         }
     }

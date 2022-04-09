@@ -49,6 +49,22 @@ namespace Infobip.Api.SDK.Tests.Sms
             await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
 
+        [Fact]
+        public async Task VerifyPhoneNumber_PinIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Sms/GetTfaMessageTemplateSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = GetRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Sms.VerifyPhoneNumber("", request);
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
         private static VerifyPhoneNumberRequest GetRequest()
         {
             var request = new VerifyPhoneNumberRequest("pin");

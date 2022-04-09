@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Infobip.Api.SDK.Email.Models;
+using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.Extensions;
 using Infobip.Api.SDK.Validation;
 using Newtonsoft.Json;
@@ -261,6 +263,11 @@ namespace Infobip.Api.SDK.Email
         /// <inheritdoc />
         public async Task<GetSentEmailBulksResponse> GetSentEmailBulks(string bulkId, CancellationToken cancellationToken = default)
         {
+            // bulkId required  
+            if (string.IsNullOrEmpty(bulkId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(bulkId)}'.", new List<ValidationResult>());
+            }
 
             var url = "email/1/bulks"
                 .AddToQueryString(
@@ -287,6 +294,12 @@ namespace Infobip.Api.SDK.Email
         /// <inheritdoc />
         public async Task<RescheduleEmailMessagesResponse> RescheduleEmailMessages(string bulkId, RescheduleEmailMessagesRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // bulkId required  
+            if (string.IsNullOrEmpty(bulkId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(bulkId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
@@ -318,6 +331,12 @@ namespace Infobip.Api.SDK.Email
         /// <inheritdoc />
         public async Task<GetSentEmailBulksStatusResponse> GetSentEmailBulksStatus(string bulkId, CancellationToken cancellationToken = default)
         {
+            // bulkId required  
+            if (string.IsNullOrEmpty(bulkId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(bulkId)}'.", new List<ValidationResult>());
+            }
+
             var url = "email/1/bulks/status"
                 .AddToQueryString(
                     new Dictionary<string, object>
@@ -343,6 +362,12 @@ namespace Infobip.Api.SDK.Email
         /// <inheritdoc />
         public async Task<UpdateScheduledEmailMessagesStatusResponse> UpdateScheduledEmailMessagesStatus(string bulkId, UpdateScheduledEmailMessagesStatusRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // bulkId required  
+            if (string.IsNullOrEmpty(bulkId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(bulkId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);

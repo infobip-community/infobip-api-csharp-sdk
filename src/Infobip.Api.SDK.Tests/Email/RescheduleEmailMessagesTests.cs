@@ -48,5 +48,21 @@ namespace Infobip.Api.SDK.Tests.Email
             // Assert
             var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
+
+        [Fact]
+        public async Task RescheduleEmailMessages_BulkIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Email/RescheduleEmailMessagesSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = new RescheduleEmailMessagesRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Email.RescheduleEmailMessages("bulkId", request);
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
     }
 }

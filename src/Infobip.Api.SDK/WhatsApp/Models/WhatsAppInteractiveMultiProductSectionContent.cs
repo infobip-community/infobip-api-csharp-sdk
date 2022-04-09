@@ -42,6 +42,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>An array of product-unique identifiers, as defined in catalog. If product retailer ID doesn&#39;t exist in your catalog, the product won&#39;t be displayed.</value>
         [JsonProperty("productRetailerIds")]
         [Required(ErrorMessage = "MultiProduct Section ProductRetailerIds property is required")]
+        [MinLength(1)]
         public List<string> ProductRetailerIds { get; set; }
     }
 }

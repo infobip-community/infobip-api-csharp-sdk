@@ -206,6 +206,29 @@ namespace Infobip.Api.SDK.WhatsApp
 
 
         // Identity Change
-        // TODO: Add Identity Change endpoints.
+        /// <summary>
+        /// Get identity
+        /// </summary>
+        /// <remarks>
+        /// Get end user's identity info. Feature is not enabled by default. [Learn More](https://www.infobip.com/docs/whatsapp/additional-functionality#identity-change)
+        /// </remarks>
+        /// <param name="sender">Registered WhatsApp sender number. Must be in international format.</param>
+        /// <param name="userNumber">End user's number. Must be in international format.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation. See <seealso cref="CancellationToken"/></param>
+        /// <returns>A <see cref="Task"/> of <see cref="GetIdentityResponse"/>.</returns>
+        Task<GetIdentityResponse> GetIdentity(string sender, string userNumber, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Confirm identity
+        /// </summary>
+        /// <remarks>
+        /// Confirm end user's identity. Feature is not enabled by default.. [Learn More](https://www.infobip.com/docs/whatsapp/additional-functionality#identity-change)
+        /// </remarks>
+        /// <param name="sender">Registered WhatsApp sender number. Must be in international format.</param>
+        /// <param name="userNumber">End user's number. Must be in international format.</param>
+        /// <param name="requestPayload">Request payload.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation. See <seealso cref="CancellationToken"/></param>
+        /// <returns>A <see cref="Task"/>.</returns>
+        Task ConfirmIdentity(string sender, string userNumber, ConfirmIdentityRequest requestPayload, CancellationToken cancellationToken = default);
     }
 }

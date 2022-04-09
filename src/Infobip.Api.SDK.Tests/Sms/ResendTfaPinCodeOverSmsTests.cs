@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.SMS.Models;
 using Xunit;
 
@@ -30,6 +32,22 @@ namespace Infobip.Api.SDK.Tests.Sms
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        [Fact]
+        public async Task ResendTfaPinCodeOverSms_PinIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Sms/ResendTfaPinCodeOverSmsSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = GetRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Sms.ResendTfaPinCodeOverSms("", request);
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
 
         private static ResendTfaPinCodeRequest GetRequest()

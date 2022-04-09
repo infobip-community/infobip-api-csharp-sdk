@@ -31,6 +31,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>An array of contacts sent in a WhatsApp message.</value>
         [JsonProperty("contacts")]
         [Required(ErrorMessage = "Contacts is required")]
+        [MinLength(1)]
         public List<WhatsAppContactContent> Contacts { get; set; }
     }
 }

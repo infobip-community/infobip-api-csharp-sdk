@@ -38,6 +38,12 @@ namespace Infobip.Api.SDK.Validation.DataAnnotations
             validatedObjects.Add(obj);
             bool result = TryValidateObject(obj, results, validationContextItems);
 
+            // Call Validate if object is implementing IValidatableObject 
+            if (obj is IValidatableObject validatableObject)
+            {
+                ValidateIValidatableObject(validatableObject, results);
+            }
+
             var properties = obj.GetType().GetProperties().Where(prop => prop.CanRead
                 && !prop.GetCustomAttributes(typeof(SkipRecursiveValidation), false).Any()
                 && prop.GetIndexParameters().Length == 0).ToList();
@@ -85,6 +91,21 @@ namespace Infobip.Api.SDK.Validation.DataAnnotations
             }
 
             return result;
+        }
+
+        // For more details check: https://github.com/aspnet/Mvc/issues/5366
+        private void ValidateIValidatableObject(IValidatableObject validatableObject, IList<ValidationResult> errors)
+        {
+            var validations = validatableObject.Validate(null).ToList();
+
+            validations.Where(vr => vr.MemberNames == null)
+                .ToList()
+                .ForEach(vr => errors.Add(new ValidationResult(vr.ErrorMessage)));
+
+            validations.Where(vr => vr.MemberNames != null)
+                .SelectMany(vr => vr.MemberNames.Select(mn => new { MemeberName = mn, vr.ErrorMessage }))
+                .ToList()
+                .ForEach(vr => errors.Add(new ValidationResult(vr.ErrorMessage, new string[] { vr.MemeberName })));
         }
     }
 }

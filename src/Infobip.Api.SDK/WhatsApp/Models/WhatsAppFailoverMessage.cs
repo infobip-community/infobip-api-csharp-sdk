@@ -23,14 +23,16 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <param name="messageId">The ID that uniquely identifies the message sent..</param>
         /// <param name="content">content (required).</param>
         /// <param name="callbackData">Custom client data that will be included in a [Delivery Report](#channels/whatsapp/receive-whatsapp-delivery-reports)..</param>
+        /// <param name="notifyUrl">The URL on your callback server to which delivery and seen reports will be sent. [Delivery report format](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-delivery-reports), [Seen report format](https://www.infobip.com/docs/api#channels/whatsapp/receive-whatsapp-seen-reports).</param>
         /// <param name="smsFailover">smsFailover.</param>
-        public WhatsAppFailoverMessage(string from = default, string to = default, string messageId = default, WhatsAppTemplateContent content = default, string callbackData = default, WhatsAppSmsFailover smsFailover = default)
+        public WhatsAppFailoverMessage(string from = default, string to = default, string messageId = default, WhatsAppTemplateContent content = default, string callbackData = default, string notifyUrl = default, WhatsAppSmsFailover smsFailover = default)
         {
             From = from ?? throw new ArgumentNullException(nameof(from));
             To = to ?? throw new ArgumentNullException(nameof(to));
             Content = content ?? throw new ArgumentNullException(nameof(content));
             MessageId = messageId;
             CallbackData = callbackData;
+            NotifyUrl = notifyUrl;
             SmsFailover = smsFailover;
         }
 

@@ -275,7 +275,7 @@
     <None Update="Data\WhatsApp\SendWhatsAppTextMessageSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\WhatsApp\SendWhatsAppTemplateMessageSuccess.json">
+    <None Update="Data\WhatsApp\SendWhatsappTemplateMessageSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\WhatsApp\SendWhatsAppAudioMessageSuccess.json">

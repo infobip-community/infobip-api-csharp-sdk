@@ -24,7 +24,7 @@ namespace Infobip.Api.SDK.Tests.WhatsApp
         public async Task SendWhatsAppTemplateMessage_Call_ExpectsSuccess()
         {
             // Arrange
-            var responsePayloadFileName = "Data/WhatsApp/SendWhatsAppTemplateMessageSuccess.json";
+            var responsePayloadFileName = "Data/WhatsApp/SendWhatsappTemplateMessageSuccess.json";
             var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
             var mockedResponse = _clientFixture.GetMockedResponse<WhatsAppBulkMessageInfoResponse>(responsePayloadFileName);
 

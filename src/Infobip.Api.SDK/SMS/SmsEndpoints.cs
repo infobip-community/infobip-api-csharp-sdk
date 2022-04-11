@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.Extensions;
 using Infobip.Api.SDK.SMS.Models;
 using Infobip.Api.SDK.Validation;
@@ -400,6 +402,12 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<TfaApplicationResponse> UpdateTfaApplication(string appId, TfaApplicationRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // appId required  
+            if (string.IsNullOrEmpty(appId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(appId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var url = $"2fa/2/applications/{appId}";
@@ -425,6 +433,12 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<List<TfaMessageTemplateResponse>> GetTfaMessageTemplates(string appId, CancellationToken cancellationToken = default)
         {
+            // appId required  
+            if (string.IsNullOrEmpty(appId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(appId)}'.", new List<ValidationResult>());
+            }
+
             var url = $"2fa/2/applications/{appId}/messages";
 
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
@@ -444,6 +458,12 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<TfaMessageTemplateResponse> CreateTfaMessageTemplate(string appId, TfaMessageTemplateRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // appId required  
+            if (string.IsNullOrEmpty(appId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(appId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var url = $"2fa/2/applications/{appId}/messages";
@@ -469,6 +489,18 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<TfaMessageTemplateResponse> GetTfaMessageTemplate(string appId, string msgId, CancellationToken cancellationToken = default)
         {
+            // appId required  
+            if (string.IsNullOrEmpty(appId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(appId)}'.", new List<ValidationResult>());
+            }
+
+            // msgId required  
+            if (string.IsNullOrEmpty(msgId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(msgId)}'.", new List<ValidationResult>());
+            }
+
             var url = $"2fa/2/applications/{appId}/messages/{msgId}";
 
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
@@ -488,6 +520,18 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<TfaMessageTemplateResponse> UpdateTfaMessageTemplate(string appId, string msgId, TfaMessageTemplateRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // appId required  
+            if (string.IsNullOrEmpty(appId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(appId)}'.", new List<ValidationResult>());
+            }
+
+            // msgId required  
+            if (string.IsNullOrEmpty(msgId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(msgId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var url = $"2fa/2/applications/{appId}/messages/{msgId}";
@@ -542,6 +586,12 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<TfaPinCodeResponse> ResendTfaPinCodeOverSms(string pinId, ResendTfaPinCodeRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // pinId required  
+            if (string.IsNullOrEmpty(pinId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(pinId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var url = $"2fa/2/pin/{pinId}/resend";
@@ -592,6 +642,12 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<TfaPinCodeResponse> ResendTfaPinCodeOverVoice(string pinId, ResendTfaPinCodeRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // pinId required  
+            if (string.IsNullOrEmpty(pinId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(pinId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var url = $"2fa/2/pin/{pinId}/resend/voice";
@@ -617,6 +673,12 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<VerifyPhoneNumberResponse> VerifyPhoneNumber(string pinId, VerifyPhoneNumberRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // pinId required  
+            if (string.IsNullOrEmpty(pinId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(pinId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var url = $"2fa/2/pin/{pinId}/verify";
@@ -642,6 +704,12 @@ namespace Infobip.Api.SDK.SMS
         /// <inheritdoc />
         public async Task<TfaVerificationStatusResponse> GetTfaVerificationStatus(string appId, TfaVerificationStatusRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // appId required  
+            if (string.IsNullOrEmpty(appId))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(appId)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var url = $"2fa/2/applications/{appId}/verifications"

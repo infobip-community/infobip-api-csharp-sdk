@@ -33,6 +33,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>An array of messages being sent.</value>
         [JsonProperty("messages")]
         [Required(ErrorMessage = "Messages are required")]
+        [MinLength(1)]
         public List<WhatsAppFailoverMessage> Messages { get; set; }
 
         /// <summary>

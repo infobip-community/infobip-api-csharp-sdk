@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -9,7 +7,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// List of all templates for given sender.
     /// </summary>
-    public class WhatsAppTemplateManagementTemplateResponse : IValidatableObject
+    public class WhatsAppTemplateManagementTemplateResponse
     {
         /// <summary>
         /// Template language, one template with same name can have multiple transliterations.
@@ -428,7 +426,6 @@ namespace Infobip.Api.SDK.WhatsApp.Models
 
         }
 
-
         /// <summary>
         /// Template language, one template with same name can have multiple transliterations.
         /// </summary>
@@ -575,26 +572,6 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>Category of the template.</value>
         [JsonProperty("category")]
         public CategoryEnum? Category { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WhatsAppTemplateManagementTemplateResponse" /> class.
-        /// </summary>
-        /// <param name="id">Template ID..</param>
-        /// <param name="businessAccountId">Business account ID to which template belongs..</param>
-        /// <param name="name">Name of the template..</param>
-        /// <param name="language">Template language, one template with same name can have multiple transliterations..</param>
-        /// <param name="status">Status of the template..</param>
-        /// <param name="category">Category of the template..</param>
-        /// <param name="structure">structure.</param>
-        public WhatsAppTemplateManagementTemplateResponse(string id = default, long businessAccountId = default, string name = default, LanguageEnum? language = default, StatusEnum? status = default, CategoryEnum? category = default, WhatsAppTemplateTemplateStructureApiData structure = default)
-        {
-            Id = id;
-            BusinessAccountId = businessAccountId;
-            Name = name;
-            Language = language;
-            Status = status;
-            Category = category;
-            Structure = structure;
-        }
 
         /// <summary>
         /// Template ID.
@@ -622,15 +599,5 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// </summary>
         [JsonProperty("structure")]
         public WhatsAppTemplateTemplateStructureApiData Structure { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Infobip.Api.SDK.Email.Models;
+using Infobip.Api.SDK.Exceptions;
 using Xunit;
 
 namespace Infobip.Api.SDK.Tests.Email
@@ -27,6 +29,20 @@ namespace Infobip.Api.SDK.Tests.Email
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        [Fact]
+        public async Task GetSentEmailBulks_BulkIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Email/GetSentEmailBulksSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            // Act
+            Func<Task> act = () => apiClient.Email.GetSentEmailBulks("");
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
     }
 }

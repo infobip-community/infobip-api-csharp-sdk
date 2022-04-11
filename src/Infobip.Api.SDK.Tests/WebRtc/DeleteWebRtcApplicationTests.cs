@@ -39,6 +39,20 @@ namespace Infobip.Api.SDK.Tests.WebRtc
             // Assert
             var exception = await Assert.ThrowsAsync<InfobipUnauthorizedException>(act);
         }
+
+        [Fact]
+        public async Task DeleteWebRtcApplication_IdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/WebRtc/SaveWebRtcApplicationSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            // Act
+            Func<Task> act = () => apiClient.WebRtc.DeleteWebRtcApplication("");
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
     }
 }
 

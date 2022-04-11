@@ -8,7 +8,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
     /// <summary>
     /// DeleteWhatsAppMediaRequest
     /// </summary>
-    public class DeleteWhatsAppMediaRequest : IValidatableObject
+    public class DeleteWhatsAppMediaRequest
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteWhatsAppMediaRequest" /> class.
@@ -32,15 +32,5 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         [JsonProperty("url")]
         [Required(ErrorMessage = "Url is required")]
         public string Url { get; set; }
-        
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 }

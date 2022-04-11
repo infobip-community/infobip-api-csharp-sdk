@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
+using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.SMS.Models;
 using Xunit;
 
@@ -27,6 +29,34 @@ namespace Infobip.Api.SDK.Tests.Sms
 
             // Assert
             mockedResponse.Should().BeEquivalentTo(response);
+        }
+
+        [Fact]
+        public async Task GetTfaMessageTemplate_AppIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Sms/GetTfaMessageTemplateSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            // Act
+            Func<Task> act = () => apiClient.Sms.GetTfaMessageTemplate("", "messageId");
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        [Fact]
+        public async Task GetTfaMessageTemplate_MessageIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Sms/GetTfaMessageTemplateSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            // Act
+            Func<Task> act = () => apiClient.Sms.GetTfaMessageTemplate("app_id", "");
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
     }
 }

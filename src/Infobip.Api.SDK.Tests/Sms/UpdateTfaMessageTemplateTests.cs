@@ -97,6 +97,38 @@ namespace Infobip.Api.SDK.Tests.Sms
             await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
 
+        [Fact]
+        public async Task UpdateTfaMessageTemplate_AppIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Sms/UpdateTfaMessageTemplateSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = GetRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Sms.UpdateTfaMessageTemplate("", "messageId", request);
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
+        [Fact]
+        public async Task UpdateTfaMessageTemplate_MessageIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Sms/UpdateTfaMessageTemplateSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = GetRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Sms.UpdateTfaMessageTemplate("app_id", "", request);
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
         private static TfaMessageTemplateRequest GetRequest()
         {
             var request = new TfaMessageTemplateRequest("Your pin is {{pin}}", TfaPinType.Numeric);

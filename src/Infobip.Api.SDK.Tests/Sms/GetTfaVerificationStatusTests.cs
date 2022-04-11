@@ -49,6 +49,23 @@ namespace Infobip.Api.SDK.Tests.Sms
             await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
         }
 
+
+        [Fact]
+        public async Task GetTfaVerificationStatus_AppIdInvalid_Call_ThrowsException()
+        {
+            // Arrange
+            var responsePayloadFileName = "Data/Sms/GetTfaVerificationStatusSuccess.json";
+            var apiClient = new InfobipApiClient(_clientFixture.GetClient(responsePayloadFileName));
+
+            var request = GetRequest();
+
+            // Act
+            Func<Task> act = () => apiClient.Sms.GetTfaVerificationStatus("", request);
+
+            // Assert
+            await Assert.ThrowsAsync<InfobipRequestNotValidException>(act);
+        }
+
         private static TfaVerificationStatusRequest GetRequest()
         {
             var request = new TfaVerificationStatusRequest("447860099299");

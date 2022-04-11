@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Infobip.Api.SDK.Exceptions;
 using Infobip.Api.SDK.Extensions;
 using Infobip.Api.SDK.Validation;
 using Infobip.Api.SDK.WebRtc.Models;
@@ -88,6 +90,12 @@ namespace Infobip.Api.SDK.WebRtc
         /// <inheritdoc />
         public async Task<WebRtcApplicationResponse> GetWebRtcApplication(string id, CancellationToken cancellationToken = default)
         {
+            // id required  
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(id)}'.", new List<ValidationResult>());
+            }
+
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"webrtc/1/applications/{id}"))
             {
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -105,6 +113,12 @@ namespace Infobip.Api.SDK.WebRtc
         /// <inheritdoc />
         public async Task<WebRtcApplicationResponse> UpdateWebRtcApplication(string id, WebRtcApplicationRequest requestPayload, CancellationToken cancellationToken = default)
         {
+            // id required  
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(id)}'.", new List<ValidationResult>());
+            }
+
             _requestValidator.Validate(requestPayload);
 
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
@@ -128,6 +142,12 @@ namespace Infobip.Api.SDK.WebRtc
         /// <inheritdoc />
         public async Task DeleteWebRtcApplication(string id, CancellationToken cancellationToken = default)
         {
+            // id required  
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(id)}'.", new List<ValidationResult>());
+            }
+
             using (var request = new HttpRequestMessage(HttpMethod.Delete, $"webrtc/1/applications/{id}"))
             {
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -32,6 +32,9 @@
     <None Update="Data\Email\SendFullyFeaturedEmailBadRequest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Email\Unauthorized.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Email\ValidateEmailAddressesBadRequest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -173,7 +176,22 @@
     <None Update="Data\WebRtc\GenerateWebRtcTokenSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\WhatsApp\CreateWhatsAppTemplateSuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\WhatsApp\media.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\WhatsApp\GetIdentitySuccess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\WhatsApp\BadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\WhatsApp\SendWhatsAppAudioMessageBadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\WhatsApp\GetWhatsAppTemplatesSuccess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\WhatsApp\SendWhatsAppContactMessageBadRequest.json">
@@ -236,10 +254,16 @@
     <None Update="Data\WhatsApp\SendWhatsAppTextMessageBadRequest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\WhatsApp\MarkWhatsAppMessageAsReadBadRequest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\WhatsApp\SendWhatsAppVideoMessageBadRequest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\WhatsApp\TooManyRequests.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\WhatsApp\Forbidden.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\WhatsApp\Unauthorized.json">

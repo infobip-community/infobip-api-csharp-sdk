@@ -4,7 +4,8 @@
   "name": "exampleName",
   "language": "en",
   "status": "APPROVED",
-  "category": "ACCOUNT_UPDATE",
+  "category": "UTILITY",
+  "allowCategoryChange": false,
   "structure": {
     "header": {
       "format": "IMAGE"

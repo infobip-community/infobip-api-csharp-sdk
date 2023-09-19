@@ -6,7 +6,7 @@
       "name": "exampleName",
       "language": "en",
       "status": "APPROVED",
-      "category": "ACCOUNT_UPDATE",
+      "category": "UTILITY",
       "structure": {
         "header": {
           "format": "IMAGE"

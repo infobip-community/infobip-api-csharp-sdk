@@ -447,70 +447,22 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         public enum CategoryEnum
         {
             /// <summary>
-            /// Enum ACCOUNTUPDATE for value: ACCOUNT_UPDATE
+            /// Enum MARKETING for value: MARKETING
             /// </summary>
-            [EnumMember(Value = "ACCOUNT_UPDATE")]
-            ACCOUNTUPDATE = 1,
+            [EnumMember(Value = "MARKETING")]
+            MARKETING = 1,
 
             /// <summary>
-            /// Enum PAYMENTUPDATE for value: PAYMENT_UPDATE
+            /// Enum AUTHENTICATION for value: AUTHENTICATION
             /// </summary>
-            [EnumMember(Value = "PAYMENT_UPDATE")]
-            PAYMENTUPDATE = 2,
+            [EnumMember(Value = "AUTHENTICATION")]
+            AUTHENTICATION = 2,
 
             /// <summary>
-            /// Enum PERSONALFINANCEUPDATE for value: PERSONAL_FINANCE_UPDATE
+            /// Enum UTILITY for value: UTILITY
             /// </summary>
-            [EnumMember(Value = "PERSONAL_FINANCE_UPDATE")]
-            PERSONALFINANCEUPDATE = 3,
-
-            /// <summary>
-            /// Enum SHIPPINGUPDATE for value: SHIPPING_UPDATE
-            /// </summary>
-            [EnumMember(Value = "SHIPPING_UPDATE")]
-            SHIPPINGUPDATE = 4,
-
-            /// <summary>
-            /// Enum RESERVATIONUPDATE for value: RESERVATION_UPDATE
-            /// </summary>
-            [EnumMember(Value = "RESERVATION_UPDATE")]
-            RESERVATIONUPDATE = 5,
-
-            /// <summary>
-            /// Enum ISSUERESOLUTION for value: ISSUE_RESOLUTION
-            /// </summary>
-            [EnumMember(Value = "ISSUE_RESOLUTION")]
-            ISSUERESOLUTION = 6,
-
-            /// <summary>
-            /// Enum APPOINTMENTUPDATE for value: APPOINTMENT_UPDATE
-            /// </summary>
-            [EnumMember(Value = "APPOINTMENT_UPDATE")]
-            APPOINTMENTUPDATE = 7,
-
-            /// <summary>
-            /// Enum TRANSPORTATIONUPDATE for value: TRANSPORTATION_UPDATE
-            /// </summary>
-            [EnumMember(Value = "TRANSPORTATION_UPDATE")]
-            TRANSPORTATIONUPDATE = 8,
-
-            /// <summary>
-            /// Enum TICKETUPDATE for value: TICKET_UPDATE
-            /// </summary>
-            [EnumMember(Value = "TICKET_UPDATE")]
-            TICKETUPDATE = 9,
-
-            /// <summary>
-            /// Enum ALERTUPDATE for value: ALERT_UPDATE
-            /// </summary>
-            [EnumMember(Value = "ALERT_UPDATE")]
-            ALERTUPDATE = 10,
-
-            /// <summary>
-            /// Enum AUTOREPLY for value: AUTO_REPLY
-            /// </summary>
-            [EnumMember(Value = "AUTO_REPLY")]
-            AUTOREPLY = 11
+            [EnumMember(Value = "UTILITY")]
+            UTILITY = 3,
 
         }
 
@@ -536,12 +488,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <param name="language">The language code or locale to use. Multiple templates with different language codes can be registered under the same template name. (required).</param>
         /// <param name="category">Category of the template. (required).</param>
         /// <param name="structure">structure (required).</param>
-        public WhatsAppTemplateManagementTemplateRequest(string name = default, LanguageEnum language = default, CategoryEnum category = default, WhatsAppTemplateTemplateStructureApiData structure = default)
+        /// <param name="allowCategoryChange">Allow changing of category.</param>
+        public WhatsAppTemplateManagementTemplateRequest(string name = default, LanguageEnum language = default, CategoryEnum category = default, WhatsAppTemplateTemplateStructureApiData structure = default, bool allowCategoryChange = default)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Language = language;
             Category = category;
             Structure = structure ?? throw new ArgumentNullException(nameof(structure));
+            AllowCategoryChange = allowCategoryChange;
         }
 
         /// <summary>
@@ -559,6 +513,13 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         [JsonProperty("structure")]
         [Required(ErrorMessage = "Structure is required")]
         public WhatsAppTemplateTemplateStructureApiData Structure { get; set; }
+
+        /// <summary>
+        /// Allow category change.
+        /// </summary>
+        /// <value>If set to true, Meta will be able to assign category based on their template guidelines. If omitted, template will not be auto-assigned a category and may get rejected if determined to be miscategorized</value>
+        [JsonProperty("allowCategoryChange")]
+        public bool AllowCategoryChange { get; set; }
 
         /// <summary>
         /// To validate all properties of the instance

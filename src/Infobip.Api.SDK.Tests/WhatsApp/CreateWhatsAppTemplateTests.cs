@@ -119,7 +119,7 @@ namespace Infobip.Api.SDK.Tests.WhatsApp
         private WhatsAppTemplateManagementTemplateRequest GetRequest()
         {
             var request = new WhatsAppTemplateManagementTemplateRequest("name", WhatsAppTemplateManagementTemplateRequest.LanguageEnum.En,
-                WhatsAppTemplateManagementTemplateRequest.CategoryEnum.ACCOUNTUPDATE,
+                WhatsAppTemplateManagementTemplateRequest.CategoryEnum.UTILITY,
                 new WhatsAppTemplateTemplateStructureApiData(new WhatsAppTemplateHeaderApiData(WhatsAppTemplateHeaderApiData.FormatEnum.Text),"My Message", "Footer text"));
             return request;
         }

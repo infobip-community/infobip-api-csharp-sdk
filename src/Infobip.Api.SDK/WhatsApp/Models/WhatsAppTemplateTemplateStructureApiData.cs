@@ -58,7 +58,7 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <param name="body">Template body. Can be registered as plain text or text with placeholders. Placeholders have to be correctly formatted and in the correct order, regardless of other sections. Example: {{1}}, {{2}}, {{3}}... (required).</param>
         /// <param name="footer">Template footer. Plain text, up to 60 characters..</param>
         /// <param name="buttons">Template buttons. Can be either up to 3 &#x60;quick reply&#x60; buttons or up to 2 &#x60;call to action&#x60; buttons. Call to action buttons must be unique in type..</param>
-        public WhatsAppTemplateTemplateStructureApiData(WhatsAppTemplateHeaderApiData header = default, string body = default, string footer = default, List<WhatsAppTemplateButtonApiData> buttons = default)
+        public WhatsAppTemplateTemplateStructureApiData(WhatsAppTemplateHeaderApiData header = default, WhatsAppTemplateBodyApiData body = default, WhatsAppTemplateFooterApiData footer = default, List<WhatsAppTemplateButtonApiData> buttons = default)
         {
             Body = body ?? throw new ArgumentNullException(nameof(body));
             Header = header;
@@ -78,15 +78,14 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>Template body. Can be registered as plain text or text with placeholders. Placeholders have to be correctly formatted and in the correct order, regardless of other sections. Example: {{1}}, {{2}}, {{3}}...</value>
         [JsonProperty("body")]
         [Required(ErrorMessage = "Body is required")]
-        public string Body { get; set; }
+        public WhatsAppTemplateBodyApiData Body { get; set; }
 
         /// <summary>
-        /// Template footer. Plain text, up to 60 characters.
+        /// Template footer.
         /// </summary>
-        /// <value>Template footer. Plain text, up to 60 characters.</value>
+        /// <value>Template footer.</value>
         [JsonProperty("footer")]
-        [MaxLength(60)]
-        public string Footer { get; set; }
+        public WhatsAppTemplateFooterApiData Footer { get; set; }
 
         /// <summary>
         /// Template buttons. Can be either up to 3 &#x60;quick reply&#x60; buttons or up to 2 &#x60;call to action&#x60; buttons. Call to action buttons must be unique in type.

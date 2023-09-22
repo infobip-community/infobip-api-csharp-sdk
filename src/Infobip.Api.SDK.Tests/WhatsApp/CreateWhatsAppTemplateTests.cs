@@ -120,7 +120,9 @@ namespace Infobip.Api.SDK.Tests.WhatsApp
         {
             var request = new WhatsAppTemplateManagementTemplateRequest("name", WhatsAppTemplateManagementTemplateRequest.LanguageEnum.En,
                 WhatsAppTemplateManagementTemplateRequest.CategoryEnum.UTILITY,
-                new WhatsAppTemplateTemplateStructureApiData(new WhatsAppTemplateHeaderApiData(WhatsAppTemplateHeaderApiData.FormatEnum.Text),"My Message", "Footer text"));
+                new WhatsAppTemplateTemplateStructureApiData(new WhatsAppTemplateHeaderApiData(WhatsAppTemplateHeaderApiData.FormatEnum.Text),
+                    new WhatsAppTemplateBodyApiData("My Message"), new WhatsAppTemplateFooterApiData("Footer text"))
+                );
             return request;
         }
 

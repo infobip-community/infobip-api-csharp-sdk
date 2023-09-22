@@ -11,10 +11,11 @@
         "header": {
           "format": "IMAGE"
         },
-        "body": "example {{1}} body",
-        "footer": "exampleFooter",
+        "body": { "text": "example {{1}} body" },
+        "footer": { "text": "exampleFooter" },
         "type": "MEDIA"
-      }
+      },
+      "quality": "UNKNOWN"
     }
   ]
 }

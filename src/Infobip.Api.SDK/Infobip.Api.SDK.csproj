@@ -15,7 +15,6 @@
 		<PackageProjectUrl>https://github.com/infobip-community/infobip-api-csharp-sdk/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/infobip-community/infobip-api-csharp-sdk/</RepositoryUrl>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<Version>1.0.3</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -27,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>

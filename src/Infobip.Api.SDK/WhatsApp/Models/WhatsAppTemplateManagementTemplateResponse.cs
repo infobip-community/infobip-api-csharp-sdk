@@ -479,8 +479,31 @@ namespace Infobip.Api.SDK.WhatsApp.Models
             /// Enum DISABLED for value: DISABLED
             /// </summary>
             [EnumMember(Value = "DISABLED")]
-            DISABLED = 7
+            DISABLED = 7,
 
+            /// <summary>
+            /// Enum REINSTATED for value: REINSTATED
+            /// </summary>
+            [EnumMember(Value = "REINSTATED")]
+            REINSTATED = 8,
+
+            /// <summary>
+            /// Enum FLAGGED for value: FLAGGED
+            /// </summary>
+            [EnumMember(Value = "FLAGGED")]
+            FLAGGED = 9,
+
+            /// <summary>
+            /// Enum FIRSTPAUSED for value: FIRST_PAUSED
+            /// </summary>
+            [EnumMember(Value = "FIRST_PAUSED")]
+            FIRSTPAUSED = 10,
+
+            /// <summary>
+            /// Enum SECONDPAUSED for value: SECOND_PAUSED
+            /// </summary>
+            [EnumMember(Value = "SECOND_PAUSED")]
+            SECONDPAUSED = 11
         }
 
 
@@ -498,71 +521,22 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         public enum CategoryEnum
         {
             /// <summary>
-            /// Enum ACCOUNTUPDATE for value: ACCOUNT_UPDATE
+            /// Enum MARKETING for value: MARKETING
             /// </summary>
-            [EnumMember(Value = "ACCOUNT_UPDATE")]
-            ACCOUNTUPDATE = 1,
+            [EnumMember(Value = "MARKETING")]
+            MARKETING = 1,
 
             /// <summary>
-            /// Enum PAYMENTUPDATE for value: PAYMENT_UPDATE
+            /// Enum AUTHENTICATION for value: AUTHENTICATION
             /// </summary>
-            [EnumMember(Value = "PAYMENT_UPDATE")]
-            PAYMENTUPDATE = 2,
+            [EnumMember(Value = "AUTHENTICATION")]
+            AUTHENTICATION = 2,
 
             /// <summary>
-            /// Enum PERSONALFINANCEUPDATE for value: PERSONAL_FINANCE_UPDATE
+            /// Enum UTILITY for value: UTILITY
             /// </summary>
-            [EnumMember(Value = "PERSONAL_FINANCE_UPDATE")]
-            PERSONALFINANCEUPDATE = 3,
-
-            /// <summary>
-            /// Enum SHIPPINGUPDATE for value: SHIPPING_UPDATE
-            /// </summary>
-            [EnumMember(Value = "SHIPPING_UPDATE")]
-            SHIPPINGUPDATE = 4,
-
-            /// <summary>
-            /// Enum RESERVATIONUPDATE for value: RESERVATION_UPDATE
-            /// </summary>
-            [EnumMember(Value = "RESERVATION_UPDATE")]
-            RESERVATIONUPDATE = 5,
-
-            /// <summary>
-            /// Enum ISSUERESOLUTION for value: ISSUE_RESOLUTION
-            /// </summary>
-            [EnumMember(Value = "ISSUE_RESOLUTION")]
-            ISSUERESOLUTION = 6,
-
-            /// <summary>
-            /// Enum APPOINTMENTUPDATE for value: APPOINTMENT_UPDATE
-            /// </summary>
-            [EnumMember(Value = "APPOINTMENT_UPDATE")]
-            APPOINTMENTUPDATE = 7,
-
-            /// <summary>
-            /// Enum TRANSPORTATIONUPDATE for value: TRANSPORTATION_UPDATE
-            /// </summary>
-            [EnumMember(Value = "TRANSPORTATION_UPDATE")]
-            TRANSPORTATIONUPDATE = 8,
-
-            /// <summary>
-            /// Enum TICKETUPDATE for value: TICKET_UPDATE
-            /// </summary>
-            [EnumMember(Value = "TICKET_UPDATE")]
-            TICKETUPDATE = 9,
-
-            /// <summary>
-            /// Enum ALERTUPDATE for value: ALERT_UPDATE
-            /// </summary>
-            [EnumMember(Value = "ALERT_UPDATE")]
-            ALERTUPDATE = 10,
-
-            /// <summary>
-            /// Enum AUTOREPLY for value: AUTO_REPLY
-            /// </summary>
-            [EnumMember(Value = "AUTO_REPLY")]
-            AUTOREPLY = 11
-
+            [EnumMember(Value = "UTILITY")]
+            UTILITY = 3,
         }
 
 
@@ -572,6 +546,44 @@ namespace Infobip.Api.SDK.WhatsApp.Models
         /// <value>Category of the template.</value>
         [JsonProperty("category")]
         public CategoryEnum? Category { get; set; }
+        /// <summary>
+        /// Quality of the template.
+        /// </summary>
+        /// <value>Quality of the template.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum QualityEnum
+        {
+            /// <summary>
+            /// Enum HIGH for value: HIGH
+            /// </summary>
+            [EnumMember(Value = "HIGH")]
+            HIGH = 1,
+
+            /// <summary>
+            /// Enum MEDIUM for value: MEDIUM
+            /// </summary>
+            [EnumMember(Value = "MEDIUM")]
+            MEDIUM = 2,
+
+            /// <summary>
+            /// Enum LOW for value: LOW
+            /// </summary>
+            [EnumMember(Value = "LOW")]
+            LOW = 3,
+
+            /// <summary>
+            /// Enum UNKNOWN for value: UNKNOWN
+            /// </summary>
+            [EnumMember(Value = "UNKNOWN")]
+            UNKNOWN = 4
+        }
+
+        /// <summary>
+        /// Quality of the template.
+        /// </summary>
+        /// <value>Quality of the template.</value>
+        [JsonProperty("quality")]
+        public QualityEnum? Quality { get; set; }
 
         /// <summary>
         /// Template ID.

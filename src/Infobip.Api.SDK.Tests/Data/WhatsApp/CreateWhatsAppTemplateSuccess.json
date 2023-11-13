@@ -4,13 +4,14 @@
   "name": "exampleName",
   "language": "en",
   "status": "APPROVED",
-  "category": "ACCOUNT_UPDATE",
+  "category": "UTILITY",
+  "allowCategoryChange": false,
   "structure": {
     "header": {
       "format": "IMAGE"
     },
-    "body": "example {{1}} body",
-    "footer": "exampleFooter",
+    "body": { "text": "example {{1}} body" },
+    "footer": { "text": "exampleFooter" },
     "type": "MEDIA"
   }
 }

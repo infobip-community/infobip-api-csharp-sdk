@@ -419,7 +419,7 @@ namespace Infobip.Api.SDK.WhatsApp
                 throw new InfobipRequestNotValidException($"Missing required parameter '{nameof(sender)}'.", new List<ValidationResult>());
             }
 
-            using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/1/senders/{sender}/templates"))
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"whatsapp/2/senders/{sender}/templates"))
             {
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -446,7 +446,7 @@ namespace Infobip.Api.SDK.WhatsApp
 
             var serializedPayload = JsonConvert.SerializeObject(requestPayload);
 
-            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/1/senders/{sender}/templates"))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, "whatsapp/2/senders/{sender}/templates"))
             {
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 request.Content = new StringContent(serializedPayload);
